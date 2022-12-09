@@ -1,24 +1,31 @@
 
-
 from pygame.surface import Surface
 from abc import ABC
 from abc import abstractmethod
 from pygame.rect import Rect
+from enum import Enum
+
+
+class MouseState(Enum):
+    FREE = 1
+    HOVER = 2
+    FOCUS = 3
 
 
 class UIObject(ABC):
-    def __init__(self, x: int, y: int, width: int, height: int, caption: str, icon, color: Any):
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
-        self.caption = caption
-        self.icon = icon
-        self.color = color
+    def __init__(self, x: int, y: int, width: int, height: int, caption: str, icon, color):
+        self._x = x
+        self._y = y
+        self._width = width
+        self._height = height
+        self._caption = caption
+        self._icon = icon
+        self._color = color
+        self._state = MouseState.FREE
 
     @property
     def rect(self):
-        return Rect(self.x, self.y, self.width, self.height)
+        return Rect(self._x, self._y, self._width, self._height)
 
     @abstractmethod
     def on_mouse_hover(self):
@@ -43,3 +50,4 @@ class UIObject(ABC):
     @abstractmethod
     def draw(self, surface: Surface):
         pass
+
