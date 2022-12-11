@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="249ffa20-d290-4c6a-8753-0e808db02d70" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/UI/ToolBar.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UI/UIsystem.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI/Button.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/Button.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI/UI_object.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/UIObject.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI/ToolBar.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/ToolBar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI/UIObject.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/UIObject.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI/UIsystem.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/UIsystem.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

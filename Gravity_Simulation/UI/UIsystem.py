@@ -9,9 +9,9 @@ class UISystem(UIObject):
         super().__init__(0, 0, width, height, "", None, (0, 0, 0, 0))
         self.__elements = {'ToolBar': ToolBar(0, 0, width, height // 10, "ToolBar", None, (128, 128, 128))}
 
-    def update(self):
+    def event_handler(self, event):
         for key, el in self.__elements.items():
-            el.update()
+            el.event_handler(event)
 
     def draw(self, surface):
         for key, el in self.__elements.items():
