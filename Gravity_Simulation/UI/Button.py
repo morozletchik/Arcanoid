@@ -11,22 +11,30 @@ from typing import Callable
 
 
 class Button(UIObject):
-    def __init__(self, x: int, y: int, width: int, height: int, caption: str, icon, action: Callable[[], None]):
+    def __init__(
+            self,
+            x: int,
+            y: int,
+            width: int,
+            height: int,
+            caption: str,
+            icon: Surface,
+            action: Callable[[], None] = lambda: None
+    ):
         super().__init__(x, y, width, height, caption, icon, (200, 200, 200))
 
         new_size = min(self._width, self._height)
         self._icon = pygame.transform.scale(self._icon, (new_size, )*2)
 
-        # FIXME: сделать так, чтобы иконка была по центру
-
         self._action = action
 
     def event_handler(self, event):
         if event.type == pygame.MOUSEMOTION:
-            self.change_hover_or_focus_state()
+            self.change_hover_or_free_state()
 
         if event.type == pygame.MOUSEBUTTONDOWN:
-            self.on_mouse_down()
+            if self._mouse_state == MouseState.HOVER:
+                self.on_mouse_down()
 
         if event.type == pygame.MOUSEBUTTONUP:
             self.on_mouse_up()
@@ -34,9 +42,9 @@ class Button(UIObject):
         self.state_handler()
 
     def state_handler(self):
-        if self._state == MouseState.HOVER:
+        if self._mouse_state == MouseState.HOVER:
             self.on_mouse_hover()
-        elif self._state == MouseState.FREE:
+        elif self._mouse_state == MouseState.FREE:
             self.on_mouse_free()
 
     def draw(self, surface: Surface):
@@ -52,20 +60,25 @@ class Button(UIObject):
         self._color = (200, 200, 200)
 
     def on_mouse_down(self):
-        if self._state == MouseState.HOVER:
-            self._state = MouseState.FOCUS
-            self._action()
+        self._mouse_state = MouseState.FOCUS
+        self._action()
 
     def on_mouse_up(self):
-        self.change_hover_or_focus_state()
+        self.change_hover_or_free_state()
 
     def on_mouse_enter(self):
-        self._state = MouseState.HOVER
+        self._mouse_state = MouseState.HOVER
 
     def on_mouse_leave(self):
-        self._state = MouseState.FREE
+        self._mouse_state = MouseState.FREE
 
     def on_mouse_click(self):
         pass
+
+    def change_hover_or_free_state(self):
+        if self.is_mouse_in_rect():
+            self._mouse_state = MouseState.HOVER
+        else:
+            self._mouse_state = MouseState.FREE
 
 

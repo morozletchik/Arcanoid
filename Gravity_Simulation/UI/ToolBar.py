@@ -11,6 +11,7 @@ import pygame.transform
 from pygame.draw import rect
 from pygame import image
 
+from UI.Radio import Radio
 
 class Tool(object):
     def __init__(self, action: Callable):
@@ -27,6 +28,9 @@ class ToolBar(UIObject):
         button1_icon = image.load(os.path.join("UI", "Assets", "pointer.png"))
         button1_icon.convert()
 
+        empty_icon = pygame.surface.Surface((900, 900), pygame.SRCALPHA, 32)
+        empty_icon = empty_icon.convert_alpha()
+
         self._elements = {
             "Button1": Button(
                 x + width // 100 + 5,
@@ -36,7 +40,16 @@ class ToolBar(UIObject):
                 "Button1",
                 button1_icon,
                 lambda: print("Hello, world")
-            )
+            ),
+            "ToolButtons": Radio(
+                x + width // 100 + 40 + 20,
+                y + height // 2 - 5,
+                40,
+                20,
+                "ToolButtons",
+                empty_icon,
+                (128, 128, 128)
+           )
         }
 
     def event_handler(self, event):

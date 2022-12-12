@@ -24,7 +24,7 @@ class UIObject(ABC):
         self._caption = caption
         self._icon = icon
         self._color = color
-        self._state = MouseState.FREE
+        self._mouse_state = MouseState.FREE
 
     @property
     def rect(self):
@@ -59,12 +59,6 @@ class UIObject(ABC):
     def is_mouse_in_rect(self):
         mouse_pos = pygame.mouse.get_pos()
         return self.rect.collidepoint(*mouse_pos)
-
-    def change_hover_or_focus_state(self):
-        if self.is_mouse_in_rect():
-            self._state = MouseState.HOVER
-        else:
-            self._state = MouseState.FREE
 
     @abstractmethod
     def on_mouse_click(self):

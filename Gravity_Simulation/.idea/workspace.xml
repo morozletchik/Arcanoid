@@ -7,7 +7,9 @@
     <list default="true" id="249ffa20-d290-4c6a-8753-0e808db02d70" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI/Button.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/Button.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI/ToolBar.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/ToolBar.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI/UIObject.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/UIObject.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI/UIsystem.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/UIsystem.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,24 +91,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/UI/Button.py</url>
-          <line>43</line>
+          <url>file://$PROJECT_DIR$/UI/ToolBar.py</url>
+          <line>1</line>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/UI/Button.py</url>
-          <line>44</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/UI/Button.py</url>
-          <line>42</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/UI/Button.py</url>
-          <line>41</line>
-          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
