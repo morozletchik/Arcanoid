@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="249ffa20-d290-4c6a-8753-0e808db02d70" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/UI/ToolBar/Tool.py" afterDir="false" />
+    <list default="true" id="249ffa20-d290-4c6a-8753-0e808db02d70" name="Changes" comment="- add Tool Class&#10;- add Canvas Class. Need the visualisator for work&#10;- make simple refactoring">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI/Radio.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/Radio.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI/ToolBar.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/ToolBar/ToolBar.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI/UICanvas.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/UICanvas.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI/UIObject.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/UIObject.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI/UIsystem.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/UIsystem.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,6 +75,14 @@
       <option name="presentableId" value="Default" />
       <updated>1670225220589</updated>
     </task>
+    <task id="LOCAL-00001" summary="- add Tool Class&#10;- add Canvas Class. Need the visualisator for work&#10;- make simple refactoring">
+      <created>1671097542246</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1671097542246</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -93,5 +95,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="- add Tool Class&#10;- add Canvas Class. Need the visualisator for work&#10;- make simple refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="- add Tool Class&#10;- add Canvas Class. Need the visualisator for work&#10;- make simple refactoring" />
   </component>
 </project>
