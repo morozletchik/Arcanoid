@@ -1,7 +1,7 @@
 
 
 from UI.UIObject import UIObject
-from UI.ToolBar import ToolBar
+from UI.ToolBar.ToolBar import ToolBar
 
 
 class UISystem(UIObject):
@@ -35,6 +35,7 @@ class UISystem(UIObject):
         for key, el in self.__elements.items():
             el.on_mouse_leave()
 
-    def on_mouse_click(self):
+    def on_mouse_up(self):
         for key, el in self.__elements.items():
-            el.on_mouse_click()
+            el.on_mouse_up()
+

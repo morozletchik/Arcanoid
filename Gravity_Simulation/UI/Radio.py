@@ -60,8 +60,8 @@ class Radio(UIObject):
         button_width = 40
         button_height = 20
         button_color = (200, 200, 200)
-        indent_x = 0
-        indent_y = 5
+        indent_x = 10
+        indent_y = 0
         icon = pygame.surface.Surface((width, height), pygame.SRCALPHA, 32)
         icon = icon.convert_alpha()
         self._buttons = [
@@ -73,7 +73,7 @@ class Radio(UIObject):
                 "button1",
                 icon,
                 self
-            ) for i in range(2)
+            ) for i in range(4)
         ]
         self._index_active_button = -1
 
@@ -96,7 +96,7 @@ class Radio(UIObject):
         for el in self._buttons:
             el.draw(surface)
 
-    def on_mouse_click(self):
+    def on_mouse_up(self):
         pass
 
     def on_mouse_down(self):

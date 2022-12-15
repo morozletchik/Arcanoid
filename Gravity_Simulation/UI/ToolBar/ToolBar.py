@@ -13,10 +13,6 @@ from pygame import image
 
 from UI.Radio import Radio
 
-class Tool(object):
-    def __init__(self, action: Callable):
-        self._action = action
-
 
 class ToolBar(UIObject):
     def __init__(self, x: int, y: int, width: int, height: int, caption: str, icon, color):
@@ -31,30 +27,24 @@ class ToolBar(UIObject):
         empty_icon = pygame.surface.Surface((900, 900), pygame.SRCALPHA, 32)
         empty_icon = empty_icon.convert_alpha()
 
-        self._elements = {
-            "Button1": Button(
-                x + width // 100 + 5,
-                y + height//2 - 5,
-                40,
-                20,
-                "Button1",
-                button1_icon,
-                lambda: print("Hello, world")
-            ),
-            "ToolButtons": Radio(
-                x + width // 100 + 40 + 20,
-                y + height // 2 - 5,
-                40,
-                20,
-                "ToolButtons",
-                empty_icon,
-                (128, 128, 128)
-           )
+        self._radio = Radio(
+            x + width // 100 + 40 + 20,
+            y + height // 2 - 5,
+            width // 5,
+            height // 2,
+            "ToolButtons",
+            empty_icon,
+            (128, 128, 128)
+        )
+
+        self._tools = {
+
         }
 
     def event_handler(self, event):
-        for key, el in self._elements.items():
-            el.event_handler(event)
+        for key, tool in self._tools:
+            tool.event_handler(event)
+        self._radio.event_handler(event)
 
     def on_mouse_hover(self):
         pass
@@ -68,12 +58,11 @@ class ToolBar(UIObject):
     def on_mouse_leave(self):
         pass
 
-    def on_mouse_click(self):
+    def on_mouse_up(self):
         pass
 
     def draw(self, surface: Surface):
         rect(surface, self._color, self.rect)
-        for key, el in self._elements.items():
-            el.draw(surface)
+        self._radio.draw(surface)
 
 

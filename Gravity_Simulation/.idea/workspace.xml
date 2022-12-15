@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="249ffa20-d290-4c6a-8753-0e808db02d70" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/UI/ToolBar/Tool.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI/Button.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/Button.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI/ToolBar.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/ToolBar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI/Radio.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/Radio.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI/ToolBar.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/ToolBar/ToolBar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI/UICanvas.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/UICanvas.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI/UIObject.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/UIObject.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI/UIsystem.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/UIsystem.py" afterDir="false" />
     </list>
@@ -42,6 +44,11 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;shared-indexes&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Dmitr\OneDrive\Образование\Физтех\Программирование\morozov-klimko-skripka-lunev\Gravity_Simulation\UI\ToolBar" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Gravity_Simulation" />
@@ -86,16 +93,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/UI/ToolBar.py</url>
-          <line>1</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

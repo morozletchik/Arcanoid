@@ -61,7 +61,7 @@ class UIObject(ABC):
         return self.rect.collidepoint(*mouse_pos)
 
     @abstractmethod
-    def on_mouse_click(self):
+    def on_mouse_up(self):
         pass
 
     @abstractmethod
