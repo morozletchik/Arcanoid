@@ -5,7 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="249ffa20-d290-4c6a-8753-0e808db02d70" name="Changes" comment="- add Tool Class&#10;- add Canvas Class. Need the visualisator for work&#10;- make simple refactoring">
+      <change afterPath="$PROJECT_DIR$/Controller/Controller.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Simulation/Simulation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI/Button.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/UIElements/Button.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI/Radio.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/UIElements/Radio.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI/ToolBar/Tool.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/ToolBar/Tool.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI/ToolBar/ToolBar.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/ToolBar/ToolBar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI/UICanvas.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/UIElements/UICanvas.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI/UIsystem.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/UIsystem.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_input.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/objects.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/objects_data" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simulation.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +32,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="Simulation" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -40,6 +57,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Dmitr\OneDrive\Образование\Физтех\Программирование\morozov-klimko-skripka-lunev\Gravity_Simulation\UI\UIElements" />
       <recent name="C:\Users\Dmitr\OneDrive\Образование\Физтех\Программирование\morozov-klimko-skripka-lunev\Gravity_Simulation\UI\ToolBar" />
     </key>
   </component>

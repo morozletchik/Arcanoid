@@ -2,14 +2,9 @@
 
 from UI.UIObject import UIObject
 from pygame.surface import Surface
-from UI.Button import Button
-from typing import Callable
+from UI.UIElements.Button import Button
 from enum import Enum
 import pygame
-import os
-
-
-from UI.UIObject import MouseState
 
 
 class RadioState(Enum):
@@ -55,7 +50,7 @@ class RadioButton(Button):
 
 
 class Radio(UIObject):
-    def __init__(self, x: int, y: int, width: int, height: int, caption: str, icon: Surface, color):
+    def __init__(self, x: int, y: int, width: int, height: int, caption: str, icon: Surface, color, button_count):
         super().__init__(x, y, width, height, caption, icon, color)
         button_width = 40
         button_height = 20
@@ -73,7 +68,7 @@ class Radio(UIObject):
                 "button1",
                 icon,
                 self
-            ) for i in range(4)
+            ) for i in range(button_count)
         ]
         self._index_active_button = -1
 
@@ -87,6 +82,10 @@ class Radio(UIObject):
     @property
     def get_active_button(self):
         return self._buttons[self._index_active_button]
+
+    @property
+    def get_active_button_index(self):
+        return self._index_active_button
 
     def event_handler(self, event):
         for b in self._buttons:
