@@ -1,6 +1,6 @@
 
 
-from Gravity_Simulation.Simulation.simulation import Simulation
+from Gravity_Simulation.Simulation.Simulation import Simulation
 from Gravity_Simulation.Visualisator.Visualitor import Visualisator
 
 

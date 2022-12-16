@@ -1,6 +1,6 @@
 
 
-from Gravity_Simulation.Simulation.simulation import Simulation
+from Gravity_Simulation.Simulation.Simulation import Simulation
 from pygame.surface import Surface
 
 

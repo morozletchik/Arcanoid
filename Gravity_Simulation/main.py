@@ -3,7 +3,7 @@
 import sys
 import pygame
 from UI.UIsystem import UISystem
-from Simulation.simulation import Simulation
+from Simulation.Simulation import Simulation
 
 WIDTH = 1000
 HEIGHT = 700
