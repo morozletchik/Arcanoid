@@ -3,6 +3,7 @@
 import sys
 import pygame
 from UI.UIsystem import UISystem
+from Simulation.simulation import Simulation
 
 WIDTH = 1000
 HEIGHT = 700
@@ -14,6 +15,9 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
 ui_system = UISystem(WIDTH, HEIGHT)
+
+simulation = Simulation()
+
 
 running = True
 while running:
