@@ -8,6 +8,10 @@
       <change afterPath="$PROJECT_DIR$/Controller/Controller.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Simulation/Simulation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_input.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_input.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/objects.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulation/objects.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simulation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simulation/simulation.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/UI/Button.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/UIElements/Button.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI/Radio.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/UIElements/Radio.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI/ToolBar/Tool.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/ToolBar/Tool.py" afterDir="false" />
@@ -52,11 +56,14 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+
     &quot;settings.editor.selected.configurable&quot;: &quot;shared-indexes&quot;
+
   }
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Dmitr\OneDrive\Образование\Физтех\Программирование\morozov-klimko-skripka-lunev\Gravity_Simulation\simulation" />
       <recent name="C:\Users\Dmitr\OneDrive\Образование\Физтех\Программирование\morozov-klimko-skripka-lunev\Gravity_Simulation\UI\UIElements" />
       <recent name="C:\Users\Dmitr\OneDrive\Образование\Физтех\Программирование\morozov-klimko-skripka-lunev\Gravity_Simulation\UI\ToolBar" />
     </key>
