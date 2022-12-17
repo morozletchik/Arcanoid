@@ -1,16 +1,18 @@
 
 import os
 
-from UI.UIObject import UIObject
+from Gravity_Simulation.Controller.Controller import Controller
+
+from Gravity_Simulation.UI.UIObject import UIObject
 
 from pygame.surface import Surface
 import pygame.transform
 from pygame.draw import rect
 from pygame import image
 
-from UI.UIElements.Radio import Radio
-from UI.ToolBar.Tool import *
-from UI.UIElements.UICanvas import Canvas
+from Gravity_Simulation.UI.UIElements.Radio import Radio
+from Gravity_Simulation.UI.ToolBar.Tool import *
+from Gravity_Simulation.UI.UIElements.UICanvas import Canvas
 
 
 class ToolBar(UIObject):
@@ -19,6 +21,7 @@ class ToolBar(UIObject):
             x: int, y: int,
             width: int, height: int,
             canvas: Canvas,
+            controller: Controller,
             caption: str,
             color: (int, int, int)
     ):

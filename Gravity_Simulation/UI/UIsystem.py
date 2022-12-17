@@ -1,22 +1,23 @@
 
 
-from UI.UIObject import UIObject
-from UI.ToolBar.ToolBar import ToolBar
-from UI.UIElements.UICanvas import Canvas
+from Gravity_Simulation.UI.UIObject import UIObject
+from Gravity_Simulation.UI.ToolBar.ToolBar import ToolBar
+from Gravity_Simulation.UI.UIElements.UICanvas import Canvas
 
 
 class UISystem(UIObject):
-    def __init__(self, width, height):
+    def __init__(self, width, height, controller, visualisator):
         super().__init__(0, 0, width, height, "", None, (0, 0, 0, 0))
 
         self.__elements = {
-            'Canvas': Canvas(0, height // 10, width, height - height // 10, "Canvas"),
+            'Canvas': Canvas(0, height // 10, width, height - height // 10, "Canvas", visualisator),
         }
 
         self.__elements['ToolBar'] = ToolBar(
             0, 0,
             width, height // 10,
             self.__elements['Canvas'],
+            controller,
             "ToolBar",
             (128, 128, 128)
         )

@@ -1,7 +1,7 @@
 
 
 from Gravity_Simulation.Simulation.Simulation import Simulation
-from Gravity_Simulation.Visualisator.Visualitor import Visualisator
+from Gravity_Simulation.Visualisator.Visualisator import Visualisator
 
 
 class Controller(object):
