@@ -6,8 +6,18 @@ from abc import ABC
 from abc import abstractmethod
 from pygame.rect import Rect
 from enum import Enum
+from pygame.font import Font
+from pygame.font import SysFont
 import pygame.mouse
 
+
+def create_empty_icon():
+    empty_icon = pygame.surface.Surface((900, 900), pygame.SRCALPHA, 32)
+    empty_icon = empty_icon.convert_alpha()
+    return empty_icon
+
+def create_standard_font():
+    return SysFont('arial', 12)
 
 class MouseState(Enum):
     FREE = 1
@@ -16,11 +26,17 @@ class MouseState(Enum):
 
 
 class UIObject(ABC):
-    def __init__(self, x: int, y: int, width: int, height: int, caption: str, icon: Surface, color):
+    def __init__(
+            self,
+            x: int, y: int,
+            width: int, height: int,
+            font: Font, caption: str,
+            icon: Surface, color):
         self._x = x
         self._y = y
         self._width = width
         self._height = height
+        self._font = font
         self._caption = caption
         self._icon = icon
         self._color = color

@@ -5,6 +5,7 @@ from pygame.surface import Surface
 from UI.UIElements.Button import Button
 from enum import Enum
 import pygame
+from pygame.font import Font
 
 
 class RadioState(Enum):
@@ -19,11 +20,12 @@ class RadioButton(Button):
             y: int,
             width: int,
             height: int,
+            font: Font,
             caption: str,
             icon: Surface,
             radio
     ):
-        super().__init__(x, y, width, height, caption, icon)
+        super().__init__(x, y, width, height, font, caption, icon)
         self._radio_state = RadioState.INACTIVE
         self._radio = radio
 
@@ -50,8 +52,16 @@ class RadioButton(Button):
 
 
 class Radio(UIObject):
-    def __init__(self, x: int, y: int, width: int, height: int, caption: str, icon: Surface, color, button_count):
-        super().__init__(x, y, width, height, caption, icon, color)
+    def __init__(
+            self,
+            x: int, y: int,
+            width: int, height: int,
+            font: Font, caption: str,
+            icon: Surface,
+            color: (int, int, int),
+            button_count: int
+    ):
+        super().__init__(x, y, width, height, font, caption, icon, color)
         button_width = 40
         button_height = 20
         button_color = (200, 200, 200)
@@ -65,7 +75,8 @@ class Radio(UIObject):
                 self._y + self._height // 2 - button_height // 2,
                 button_width,
                 button_height,
-                "button1",
+                font,
+                "",
                 icon,
                 self
             ) for i in range(button_count)

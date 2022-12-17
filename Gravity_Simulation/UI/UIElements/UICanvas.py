@@ -11,7 +11,7 @@ from Gravity_Simulation.Visualisator.Visualisator import Visualisator
 class Canvas(UIObject):
 
     def __init__(self, x: int, y: int, width: int, height: int, caption: str, visualisator: Visualisator):
-        super().__init__(x, y, width, height, caption, None, (0, 0, 0))
+        super().__init__(x, y, width, height, None, "canvas", None, (0, 0, 0))
         self._surface = Surface((width, height))
         self._visualisator = visualisator
 

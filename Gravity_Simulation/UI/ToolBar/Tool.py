@@ -10,7 +10,7 @@ from pygame.rect import Rect
 
 class BaseTool(UIObject, ABC):
     def __init__(self, action_rect: Rect, caption: str):
-        super().__init__(action_rect.x, action_rect.y, action_rect.width, action_rect.height, caption, None, (0, 0, 0, 0))
+        super().__init__(action_rect.x, action_rect.y, action_rect.width, action_rect.height, None, caption, None, (0, 0, 0, 0))
         self._mouse_is_pressed = False
 
     def event_handler(self, event):
