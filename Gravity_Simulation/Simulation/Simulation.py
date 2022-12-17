@@ -14,6 +14,8 @@ class Simulation:
     def update(self, dt):
         for obj in self.space_objects:
             self.collision_handle(obj)
+        #for obj in self.space_objects:
+        #    self.change_acceleration(obj)
         self.move_bodies(dt)
 
     @staticmethod
@@ -42,7 +44,6 @@ class Simulation:
         """Пересчитывает координаты объектов."""
 
         for obj in self.space_objects:
-            self.change_acceleration(obj)
             obj.move_space_object(dt)
 
     def add_body(self, mass, x, y, Vx, Vy, radius, color):

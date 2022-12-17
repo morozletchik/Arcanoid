@@ -1,4 +1,4 @@
-
+import pygame
 
 from Gravity_Simulation.Simulation.Simulation import Simulation
 from pygame.surface import Surface
@@ -13,7 +13,7 @@ class Visualisator(object):
         self._scale = 1
 
     def visualize(self, width, height) -> Surface:
-        surface = Surface((width, height))
+        surface = Surface((width, height), flags=pygame.SRCALPHA)
         for obj in self.simulation.space_objects:
             x = (obj.x - self._view_point[0]) * self._scale + width // 2
             y = (obj.y - self._view_point[1]) * self._scale + height // 2

@@ -1,6 +1,6 @@
 
 
-stiffness_koef = 10**3
+stiffness_koef = 10**15
 
 class Body(object):
 

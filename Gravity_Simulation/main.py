@@ -18,11 +18,11 @@ clock = pygame.time.Clock()
 
 
 simulation = Simulation()
-simulation.add_body(10**15, 0, 0, 0, 80, 10, (255, 255, 255))
-simulation.add_body(10**15, 100, 0, 0, -80, 10, (255, 255, 255))
+simulation.add_body(10**15, 0, 5, 5, 0, 10, (200, 0, 0))
+simulation.add_body(10**15, 100, 0, -5, 0, 10, (0, 0, 0))
 
 visualisator = Visualisator(simulation)
-visualisator.change_view_point((20, 0))
+visualisator.change_view_point((50, 0))
 visualisator.change_scale(1)
 
 
@@ -34,7 +34,8 @@ running = True
 while running:
     dt = clock.tick(FPS) / 1000
 
-    simulation.update(dt)
+    for i in range(10):
+        simulation.update(dt)
 
     screen.fill((0, 0, 0))
     ui_system.draw(screen)

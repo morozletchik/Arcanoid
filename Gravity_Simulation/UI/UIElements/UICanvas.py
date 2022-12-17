@@ -16,7 +16,7 @@ class Canvas(UIObject):
         self._visualisator = visualisator
 
         # for test
-        self._color = (0, 0, 255)
+        self._color = (0, 128, 0)
 
     def draw(self, surface: Surface):
 
