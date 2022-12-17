@@ -1,8 +1,8 @@
 
 
 from pygame.rect import Rect
-from Gravity_Simulation.Controller.Controller import Controller
-from Gravity_Simulation.UI.ToolBar.Tool import DragTool
+from Billiard.Controller.Controller import Controller
+from Billiard.UI.ToolBar.Tool import DragTool
 
 
 class StrikeTool(DragTool):

@@ -1,6 +1,6 @@
 import pygame
 
-from Gravity_Simulation.Simulation.Simulation import Simulation
+from Billiard.Simulation.Simulation import Simulation
 from pygame.surface import Surface
 from pygame.draw import circle
 from pygame.rect import Rect

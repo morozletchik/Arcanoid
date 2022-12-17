@@ -3,9 +3,9 @@
 import pygame
 from pygame.surface import Surface
 
-from Gravity_Simulation.UI.UIObject import UIObject
+from Billiard.UI.UIObject import UIObject
 
-from Gravity_Simulation.Visualisator.Visualisator import Visualisator
+from Billiard.Visualisator.Visualisator import Visualisator
 
 
 class Canvas(UIObject):

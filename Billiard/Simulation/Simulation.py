@@ -1,6 +1,6 @@
 
 
-from Gravity_Simulation.Simulation.objects import Body
+from Billiard.Simulation.objects import Body
 
 gravitational_constant = 6.67408E-11
 """Гравитационная постоянная Ньютона G"""

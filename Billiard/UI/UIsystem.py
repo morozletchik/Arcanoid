@@ -1,8 +1,8 @@
 
 
-from Gravity_Simulation.UI.UIObject import UIObject
-from Gravity_Simulation.UI.ToolBar.ToolBar import ToolBar
-from Gravity_Simulation.UI.UIElements.UICanvas import Canvas
+from Billiard.UI.UIObject import UIObject
+from Billiard.UI.ToolBar.ToolBar import ToolBar
+from Billiard.UI.UIElements.UICanvas import Canvas
 
 
 class UISystem(UIObject):

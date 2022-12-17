@@ -1,20 +1,20 @@
 
 import os
 
-from Gravity_Simulation.Controller.Controller import Controller
+from Billiard.Controller.Controller import Controller
 
-from Gravity_Simulation.UI.UIObject import *
+from Billiard.UI.UIObject import *
 
 from pygame.surface import Surface
 import pygame.transform
 from pygame.draw import rect
 from pygame import image
 
-from Gravity_Simulation.UI.UIElements.Radio import Radio
-from Gravity_Simulation.UI.ToolBar.Tool import *
-from Gravity_Simulation.UI.UIElements.UICanvas import Canvas
+from Billiard.UI.UIElements.Radio import Radio
+from Billiard.UI.ToolBar.Tool import *
+from Billiard.UI.UIElements.UICanvas import Canvas
 
-from Gravity_Simulation.UI.ToolBar.StrikeTool import StrikeTool
+from Billiard.UI.ToolBar.StrikeTool import StrikeTool
 
 class ToolBar(UIObject):
 

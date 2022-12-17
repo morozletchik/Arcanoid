@@ -1,7 +1,7 @@
 
 
-from Gravity_Simulation.Simulation.Simulation import Simulation
-from Gravity_Simulation.Visualisator.Visualisator import Visualisator
+from Billiard.Simulation.Simulation import Simulation
+from Billiard.Visualisator.Visualisator import Visualisator
 
 from pygame.rect import Rect
 
