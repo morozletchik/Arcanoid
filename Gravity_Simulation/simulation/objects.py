@@ -1,6 +1,7 @@
 
 
-stiffness_koef = 10**15
+stiffness_koef = 10
+
 
 class Body(object):
 
@@ -30,5 +31,9 @@ class Body(object):
             impulse_x = stiffness_koef * delta * (self.x - obj.x) / length
             impulse_y = stiffness_koef * delta *(self.y - obj.y) / length
 
-            self.Vx += impulse_x / self.mass
-            self.Vy += impulse_y / self.mass
+            self.apply_impulse((impulse_x, impulse_y))
+
+    def apply_impulse(self, impulse):
+        self.Vx += impulse[0] / self.mass
+        self.Vy += impulse[1] / self.mass
+

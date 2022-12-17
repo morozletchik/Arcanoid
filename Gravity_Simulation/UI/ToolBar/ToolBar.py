@@ -14,8 +14,10 @@ from Gravity_Simulation.UI.UIElements.Radio import Radio
 from Gravity_Simulation.UI.ToolBar.Tool import *
 from Gravity_Simulation.UI.UIElements.UICanvas import Canvas
 
+from Gravity_Simulation.UI.ToolBar.StrikeTool import StrikeTool
 
 class ToolBar(UIObject):
+
     def __init__(
             self,
             x: int, y: int,
@@ -34,20 +36,17 @@ class ToolBar(UIObject):
         empty_icon = empty_icon.convert_alpha()
 
         self._tools = [
-            ClickTool(canvas.rect, "change_color", lambda mouse_pos: canvas.change_color()),
-            DragTool(
-                canvas.rect,
-                "change_color_with_mouse",
-                lambda mouse_pos_start, mouse_pos:
-                    canvas.change_color_with_mouse(
-                        (
-                            min(int(((mouse_pos[0] - mouse_pos_start[0]) / canvas.rect.width) * 256), 255),
-                            min(int(((mouse_pos[1] - mouse_pos_start[1]) / canvas.rect.height) * 256), 255)
-                        )
-                    ),
-                lambda a, b: None
+            ClickTool(
+                canvas.rect, "change_color",
+                lambda mouse_pos: controller.add_body(
+                    (mouse_pos[0], mouse_pos[1]),
+                    (mouse_pos[0], mouse_pos[1])
+                )
             ),
-            None
+            StrikeTool(
+                controller,
+                canvas.rect
+            )
         ]
 
         self._radio = Radio(

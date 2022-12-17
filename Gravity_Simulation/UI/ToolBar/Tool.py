@@ -50,7 +50,12 @@ class ClickTool(BaseTool):
         self._action = action
 
     def on_mouse_down(self):
-        self._action(pygame.mouse.get_pos())
+        self._action(
+            (
+                pygame.mouse.get_pos()[0] - self.rect.x,
+                pygame.mouse.get_pos()[1] - self.rect.y
+            )
+        )
 
     def on_mouse_up(self):
         pass

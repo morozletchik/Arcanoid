@@ -22,6 +22,9 @@ class UISystem(UIObject):
             (128, 128, 128)
         )
 
+    def get_canvas(self):
+        return self.__elements['Canvas']
+
     def event_handler(self, event):
         for key, el in self.__elements.items():
             el.event_handler(event)

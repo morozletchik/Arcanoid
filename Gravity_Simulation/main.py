@@ -6,6 +6,7 @@ from UI.UIsystem import UISystem
 from Simulation.Simulation import Simulation
 from Controller.Controller import Controller
 from Visualisator.Visualisator import Visualisator
+from pygame.rect import Rect
 
 WIDTH = 1000
 HEIGHT = 700
@@ -18,17 +19,17 @@ clock = pygame.time.Clock()
 
 
 simulation = Simulation()
-simulation.add_body(10**15, 0, 5, 5, 0, 10, (200, 0, 0))
-simulation.add_body(10**15, 100, 0, -5, 0, 10, (0, 0, 0))
 
 visualisator = Visualisator(simulation)
-visualisator.change_view_point((50, 0))
+visualisator.change_view_point((0, 0))
 visualisator.change_scale(1)
 
 
-controller = Controller(simulation, visualisator)
+controller = Controller(Rect(0, 0, 0, 0), simulation, visualisator)
 
 ui_system = UISystem(WIDTH, HEIGHT, controller, visualisator)
+
+controller.change_rect(ui_system.get_canvas().rect)
 
 running = True
 while running:

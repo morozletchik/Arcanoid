@@ -55,6 +55,12 @@ class Simulation:
             if obj1.is_collide(obj2):
                 obj1.on_collide(obj2)
 
+    def strike_in_point(self, point, impulse):
+        for obj in self.space_objects:
+            if (point[0] - obj.x) ** 2 + (point[1] - obj.y) ** 2 <= obj.radius ** 2:
+                obj.apply_impulse(impulse)
+
+
 
 
 
