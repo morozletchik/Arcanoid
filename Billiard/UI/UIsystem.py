@@ -6,7 +6,7 @@ from Billiard.UI.UIElements.UICanvas import Canvas
 
 
 class UISystem(UIObject):
-    def __init__(self, width, height, controller, visualisator):
+    def __init__(self, width, height):
         super().__init__(0, 0, width, height, None, "", None, (0, 0, 0, 0))
         self.elements = []
 

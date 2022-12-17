@@ -16,8 +16,10 @@ def create_empty_icon():
     empty_icon = empty_icon.convert_alpha()
     return empty_icon
 
+
 def create_standard_font():
     return SysFont('arial', 12)
+
 
 class MouseState(Enum):
     FREE = 1
@@ -31,7 +33,8 @@ class UIObject(ABC):
             x: int, y: int,
             width: int, height: int,
             font: Font, caption: str,
-            icon: Surface, color):
+            icon: Surface, color
+    ):
         self._x = x
         self._y = y
         self._width = width
