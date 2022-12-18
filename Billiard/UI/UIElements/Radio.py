@@ -62,8 +62,8 @@ class Radio(UIObject):
             button_count: int
     ):
         super().__init__(x, y, width, height, font, caption, icon, color)
-        button_width = 40
-        button_height = 20
+        button_width = 100
+        button_height = 60
         button_color = (200, 200, 200)
         indent_x = 10
         indent_y = 0

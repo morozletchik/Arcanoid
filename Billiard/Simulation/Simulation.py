@@ -5,17 +5,19 @@ from Billiard.Simulation.objects import Body
 gravitational_constant = 6.67408E-11
 """Гравитационная постоянная Ньютона G"""
 
+friction_koef = 0.3
+
 
 class Simulation:
 
     def __init__(self):
-        self.space_objects = []
+        self.objects = []
 
     def update(self, dt):
-        for obj in self.space_objects:
+        for obj in self.objects:
             self.collision_handle(obj)
-        #for obj in self.space_objects:
-        #    self.change_acceleration(obj)
+        for obj in self.objects:
+            self.change_acceleration(obj)
         self.move_bodies(dt)
 
     @staticmethod
@@ -26,11 +28,11 @@ class Simulation:
         Fy = gravitational_constant * obj1.mass * obj2.mass / (r ** 2) * ((obj1.y - obj2.y) / r)
         return Fx, Fy
 
-    def change_acceleration(self, obj):
+    def apply_gravity(self, obj):
         Fx = 0
         Fy = 0
 
-        for obj_iter in self.space_objects:
+        for obj_iter in self.objects:
             if obj == obj_iter:
                 continue
             F = Simulation.calculate_force_between_two_bodies(obj_iter, obj)
@@ -40,23 +42,42 @@ class Simulation:
         obj.ax += Fx / obj.mass
         obj.ay += Fy / obj.mass
 
+    @staticmethod
+    def apply_friction(obj: Body):
+        if obj.Vx != 0:
+            obj.ax = -obj.Vx / abs(obj.Vx) * friction_koef
+        else:
+            obj.ax = 0
+
+        if obj.Vy != 0:
+            obj.ay = -obj.Vy / abs(obj.Vy) * friction_koef
+        else:
+            obj.ay = 0
+
+    def change_acceleration(self, obj):
+        obj.ax = 0
+        # self.apply_gravity(obj)
+        self.apply_friction(obj)
+
     def move_bodies(self, dt):
         """Пересчитывает координаты объектов."""
 
-        for obj in self.space_objects:
-            obj.move_space_object(dt)
+        for obj in self.objects:
+            obj.move_object(dt)
 
     def add_body(self, mass, x, y, Vx, Vy, radius, color):
-        """Создаёт новое тело"""
-        self.space_objects.append(Body(mass, x, y, Vx, Vy, radius, color))
+        self.objects.append(Body(mass, x, y, Vx, Vy, radius, color))
+
+    def append_body(self, obj: Body):
+        self.objects.append(obj)
 
     def collision_handle(self, obj1):
-        for obj2 in self.space_objects:
-            if obj1.is_collide(obj2):
+        for obj2 in self.objects:
+            if obj1 is not obj2 and obj1.is_collide(obj2):
                 obj1.on_collide(obj2)
 
     def strike_in_point(self, point, impulse):
-        for obj in self.space_objects:
+        for obj in self.objects:
             if (point[0] - obj.x) ** 2 + (point[1] - obj.y) ** 2 <= obj.radius ** 2:
                 obj.apply_impulse(impulse)
 

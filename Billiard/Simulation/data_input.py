@@ -1,13 +1,9 @@
 
 
+from objects import Body
+from Simulation import Simulation
+
 def read_space_objects_data_from_file(input_filename):
-    """Cчитывает данные о космических объектах из файла, создаёт сами объекты
-    и вызывает создание их графических образов
-
-    Параметры:
-
-    **input_filename** — имя входного файла
-    """
 
     objects = []
     with open(input_filename) as input_file:
@@ -20,9 +16,12 @@ def read_space_objects_data_from_file(input_filename):
                 parse_star_parameters(line, body)
                 objects.append(body)
             else:
-                print("Unknown space object")
+                print("Unknown object")
+    simulation = Simulation()
+    for obj in objects:
+        simulation.add_body(obj)
 
-    return objects
+    return simulation
 
 
 def parse_star_parameters(line, body):

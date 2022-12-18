@@ -40,7 +40,7 @@ class MainMenuModule(Module):
         self.ui_system.add_element(
             Button(
                 WIDTH // 2 - 30, HEIGHT // 3,
-                200, 80,
+                200, 100,
                 base_font, "Начать игру",
                 create_empty_icon(),
                 change_module
@@ -48,8 +48,8 @@ class MainMenuModule(Module):
         )
         self.ui_system.add_element(
             Button(
-                WIDTH // 2 - 30, HEIGHT // 3 + 100,
-                200, 80,
+                WIDTH // 2 - 30, HEIGHT // 3 + 150,
+                200, 100,
                 base_font, "Выход",
                 create_empty_icon(),
                 close
@@ -57,6 +57,7 @@ class MainMenuModule(Module):
         )
 
     def draw(self, surface: Surface):
+        surface.fill((255, 255, 255))
         self.ui_system.draw(surface)
 
     def update(self, delta_time: float):
@@ -97,21 +98,24 @@ class MainGameModule(Module):
 
         base_font = pygame.font.SysFont('arial', 14)
 
-        self.ui_system.add_element(canvas)
-        self.ui_system.add_element(
-            ToolBar(
-                0, 0,
-                WIDTH, HEIGHT // 10,
-                canvas, tools, create_empty_icon(), (128, 128, 128)
-            )
+        toolbar = ToolBar(
+            0, 0,
+            WIDTH, HEIGHT // 10,
+            canvas, tools, create_empty_icon(), (128, 128, 128)
         )
-        self.ui_system.add_element(
+
+        toolbar.add_element(
             Button(
-                width // 100 + 40 + 20, height // 20 - 5,
-                80, 40,
+                width - 100 - 20, height // 10 // 2 - 30,
+                100, 60,
                 base_font, "Главное меню",
                 create_empty_icon(), change_module
             )
+        )
+
+        self.ui_system.add_element(canvas)
+        self.ui_system.add_element(
+            toolbar
         )
 
     def update(self, delta_time: float):

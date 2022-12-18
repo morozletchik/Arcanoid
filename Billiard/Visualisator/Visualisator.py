@@ -27,7 +27,7 @@ class Visualisator(object):
 
     def visualize(self, width, height) -> Surface:
         surface = Surface((width, height), flags=pygame.SRCALPHA)
-        for obj in self.simulation.space_objects:
+        for obj in self.simulation.objects:
             (x, y) = self.from_worl_to_screen_coordinates((obj.x, obj.y), Rect(0, 0, width, height))
             radius = obj.radius * self._scale
             circle(surface, obj.color, (x, y), radius)

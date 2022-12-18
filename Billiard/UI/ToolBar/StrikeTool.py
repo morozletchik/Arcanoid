@@ -23,6 +23,7 @@ class StrikeTool(DragTool):
                 (cur_mouse_pos[0] - action_rect.x, cur_mouse_pos[1] - action_rect.y)
             )
             ui_system.del_element(self._mark)
+            self._mark = None
 
         super().__init__(
             action_rect,

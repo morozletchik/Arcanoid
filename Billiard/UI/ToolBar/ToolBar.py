@@ -31,14 +31,18 @@ class ToolBar(UIObject):
 
         self._tools = tools
 
-        self._radio = Radio(
-            x + width // 100 + 40 + 20, y + height // 2 - 5,
-            width // 5, height // 2,
+        self._elements = [Radio(
+            x + width // 100 + 40 + 20, y + height // 2 - 30,
+            100, 60,
             create_standard_font(), "ToolButtons",
             icon,
             (128, 128, 128),
             len(tools)
-        )
+        )]
+
+    @property
+    def _radio(self):
+        return [i for i in self._elements if type(i) == Radio][0]
 
     @property
     def active_tool(self) -> BaseTool:
@@ -48,7 +52,8 @@ class ToolBar(UIObject):
         return self._tools[index]
 
     def event_handler(self, event):
-        self._radio.event_handler(event)
+        for el in self._elements:
+            el.event_handler(event)
         if self.active_tool:
             self.active_tool.event_handler(event)
 
@@ -69,6 +74,10 @@ class ToolBar(UIObject):
 
     def draw(self, surface: Surface):
         rect(surface, self._color, self.rect)
-        self._radio.draw(surface)
+        for el in self._elements:
+            el.draw(surface)
+
+    def add_element(self, obj: UIObject):
+        self._elements.append(obj)
 
 
