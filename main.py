@@ -77,6 +77,7 @@ class MainGameModule(Module):
         self.simulation.add_wall(0, HEIGHT / 2, WIDTH, 20)
         self.simulation.add_wall(0, -HEIGHT / 2, WIDTH, 20)
 
+        self.
 
         self.ui_system = UISystem(WIDTH, HEIGHT)
 
