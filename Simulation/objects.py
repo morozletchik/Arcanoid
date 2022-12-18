@@ -8,17 +8,38 @@ wall_stiffness_koef = 1000
 friction_koef = 0.3
 
 
-class Body(object):
+class GameObject(object):
 
-    def __init__(self, mass, x, y, velx, vely, radius, color):
+    def __init__(self, mass, x, y, velx, vely, color):
         self.mass = mass
         self.x = x
         self.y = y
         self.Vx = velx
         self.Vy = vely
         self.ax = self.ay = 0
-        self.radius = radius
         self.color = color
+
+    def move_object(self, dt):
+        pass
+
+    def is_collide(self, obj):
+        pass
+
+    def on_collide(self, other):
+        pass
+
+    def apply_impulse(self, impulse):
+        pass
+
+    def apply_friction(self):
+        pass
+
+
+class Ball(GameObject):
+
+    def __init__(self, mass, x, y, velx, vely, radius, color):
+        super().__init__(mass, x, y, velx, vely, color)
+        self.radius = radius
 
     def move_object(self, dt):
         self.Vx += self.ax * dt
@@ -27,13 +48,13 @@ class Body(object):
         self.y += self.Vy * dt
 
     def is_collide(self, obj2):
-        if type(obj2) == Body:
+        if type(obj2) == Ball:
             return (self.x - obj2.x)**2 + (self.y - obj2.y)**2 < (self.radius + obj2.radius)**2
         if type(obj2) == Wall:
             return obj2.intersect_with_circle(self) is not []
 
     def on_collide(self, obj):
-        if type(obj) == Body:
+        if type(obj) == Ball:
             length = ((self.x - obj.x)**2 + (self.y - obj.y)**2)**0.5
             if length != 0:
                 delta = ((self.radius + obj.radius) - length) / 2
@@ -91,7 +112,7 @@ class Body(object):
             self.ay = 0
 
 
-class Wall(object):
+class Wall(GameObject):
 
     def __init__(self, x, y, width, height):
         self.rect = Rect(x - width / 2, y - height / 2, width, height)
@@ -115,7 +136,7 @@ class Wall(object):
     def apply_friction(self):
         pass
 
-    def intersect_with_circle(self, obj: Body):
+    def intersect_with_circle(self, obj: Ball):
         intersect_point = []
 
         if abs(obj.x - self.rect.x) < obj.radius:
@@ -179,14 +200,3 @@ class Wall(object):
         return intersect_point
 
 
-    def move_object(self, dt):
-        pass
-
-    def is_collide(self, obj: Body):
-        pass
-
-    def on_collide(self, obj):
-        pass
-
-    def apply_impulse(self, impulse):
-        pass

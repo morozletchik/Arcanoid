@@ -52,9 +52,9 @@ class Simulation:
             obj.move_object(dt)
 
     def add_body(self, mass, x, y, Vx, Vy, radius, color):
-        self.objects.append(Body(mass, x, y, Vx, Vy, radius, color))
+        self.objects.append(Ball(mass, x, y, Vx, Vy, radius, color))
 
-    def append_body(self, obj: Body):
+    def append_body(self, obj: Ball):
         self.objects.append(obj)
 
     def collision_handle(self, obj1):
@@ -64,7 +64,7 @@ class Simulation:
 
     def strike_in_point(self, point, impulse):
         for obj in self.objects:
-            if type(obj) is Body and (point[0] - obj.x) ** 2 + (point[1] - obj.y) ** 2 <= obj.radius ** 2:
+            if type(obj) is Ball and (point[0] - obj.x) ** 2 + (point[1] - obj.y) ** 2 <= obj.radius ** 2:
                 obj.apply_impulse(impulse)
 
     def add_wall(self, x, y, width, height):

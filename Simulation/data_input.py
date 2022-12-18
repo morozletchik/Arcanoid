@@ -1,6 +1,6 @@
 
 
-from objects import Body
+from objects import Ball
 from Simulation import Simulation
 
 def read_space_objects_data_from_file(input_filename):
@@ -12,7 +12,7 @@ def read_space_objects_data_from_file(input_filename):
                 continue  # пустые строки и строки-комментарии пропускаем
             object_type = line.split()[0].lower()
             if object_type == "body":
-                body = Body()
+                body = Ball()
                 parse_star_parameters(line, body)
                 objects.append(body)
             else:
