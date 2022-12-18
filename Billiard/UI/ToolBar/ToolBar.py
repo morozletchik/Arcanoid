@@ -1,20 +1,20 @@
 
 import os
 
-from Billiard.Controller.Controller import Controller
+from ...Controller.Controller import Controller
 
-from Billiard.UI.UIObject import *
+from ..UIObject import *
 
 from pygame.surface import Surface
 import pygame.transform
 from pygame.draw import rect
 from pygame import image
 
-from Billiard.UI.UIElements.Radio import Radio
-from Billiard.UI.ToolBar.Tool import *
-from Billiard.UI.UIElements.UICanvas import Canvas
+from ..UIElements.Radio import Radio
+from .Tool import *
+from ..UIElements.UICanvas import Canvas
 
-from Billiard.UI.ToolBar.StrikeTool import StrikeTool
+from StrikeTool import StrikeTool
 
 class ToolBar(UIObject):
 

@@ -2,8 +2,8 @@ import pygame.draw
 
 import pygame
 from pygame.surface import Surface
-from UI.UIObject import UIObject
-from UI.UIObject import MouseState
+from ..UIObject import UIObject
+from ..UIObject import MouseState
 import pygame.mouse as mouse
 import pygame.image
 from pygame.font import Font

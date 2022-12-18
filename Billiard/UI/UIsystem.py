@@ -1,6 +1,6 @@
 
 
-from Billiard.UI.UIObject import UIObject
+from .UIObject import UIObject
 
 
 class UISystem(UIObject):

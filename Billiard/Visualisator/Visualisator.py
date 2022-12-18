@@ -1,10 +1,10 @@
 import pygame
 
-from Billiard.Simulation.Simulation import Simulation
+from ..Simulation.Simulation import Simulation
 from pygame.surface import Surface
 from pygame.draw import circle, rect
 from pygame.rect import Rect
-from Billiard.Simulation.objects import *
+from ..Simulation.objects import *
 
 
 class Visualisator(object):

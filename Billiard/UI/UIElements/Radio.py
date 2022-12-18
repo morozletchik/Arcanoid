@@ -1,8 +1,8 @@
 
 
-from UI.UIObject import UIObject
+from ..UIObject import UIObject
 from pygame.surface import Surface
-from UI.UIElements.Button import Button
+from ..UIElements.Button import Button
 from enum import Enum
 import pygame
 from pygame.font import Font

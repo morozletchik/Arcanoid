@@ -1,6 +1,6 @@
 from abc import ABC
 
-from UI.UIObject import UIObject
+from ..UIObject import UIObject
 from typing import Callable
 
 from pygame.surface import Surface

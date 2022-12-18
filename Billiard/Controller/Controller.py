@@ -1,10 +1,9 @@
 
 
-from Billiard.Simulation.Simulation import Simulation
-from Billiard.Visualisator.Visualisator import Visualisator
+from ..Simulation.Simulation import Simulation
+from ..Visualisator.Visualisator import Visualisator
 
 from pygame.rect import Rect
-
 
 class Controller(object):
 

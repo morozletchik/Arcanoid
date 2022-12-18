@@ -3,9 +3,9 @@
 import pygame
 from pygame.surface import Surface
 
-from Billiard.UI.UIObject import UIObject
+from ..UIObject import UIObject
 
-from Billiard.Visualisator.Visualisator import Visualisator
+from ...Visualisator.Visualisator import Visualisator
 
 
 class Canvas(UIObject):

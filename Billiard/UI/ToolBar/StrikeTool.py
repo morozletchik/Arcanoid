@@ -1,10 +1,10 @@
 
 
 from pygame.rect import Rect
-from Billiard.Controller.Controller import Controller
-from Billiard.UI.ToolBar.Tool import DragTool
-from Billiard.UI.UIsystem import UISystem
-from Billiard.UI.UIElements.Mark import Mark
+from ...Controller.Controller import Controller
+from .Tool import DragTool
+from ..UIsystem import UISystem
+from ..UIElements.Mark import Mark
 
 
 class StrikeTool(DragTool):

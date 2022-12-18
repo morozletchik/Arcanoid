@@ -1,6 +1,6 @@
 from pygame.surface import Surface
 
-from Billiard.UI.UIObject import *
+from ..UIObject import *
 
 
 class Mark(UIObject):
