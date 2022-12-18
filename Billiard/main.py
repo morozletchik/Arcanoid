@@ -14,6 +14,8 @@ from UI.UIElements.Button import *
 
 from pygame.event import Event
 
+from screeninfo import get_monitors
+
 
 class Module(ABC):
     def __init__(self, width, height):
@@ -69,6 +71,7 @@ class MainGameModule(Module):
         super().__init__(width, height)
 
         self.simulation = Simulation()
+        self.ui_system = UISystem(WIDTH, HEIGHT)
 
         self.visualisator = Visualisator(self.simulation)
         self.visualisator.change_view_point((0, 0))
@@ -87,17 +90,29 @@ class MainGameModule(Module):
             ),
             StrikeTool(
                 self.controller,
+                self.ui_system,
                 canvas.rect
             )
         ]
 
-        self.ui_system = UISystem(WIDTH, HEIGHT)
-
         base_font = pygame.font.SysFont('arial', 14)
 
         self.ui_system.add_element(canvas)
-        self.ui_system.add_element(ToolBar(0, 0, WIDTH, HEIGHT // 10, canvas, tools, create_empty_icon(), (128, 128, 128)))
-        self.ui_system.add_element(Button(WIDTH // 100, HEIGHT // 20, 40, 20, base_font, "Quit", create_empty_icon(), change_module))
+        self.ui_system.add_element(
+            ToolBar(
+                0, 0,
+                WIDTH, HEIGHT // 10,
+                canvas, tools, create_empty_icon(), (128, 128, 128)
+            )
+        )
+        self.ui_system.add_element(
+            Button(
+                width // 100 + 40 + 20, height // 20 - 5,
+                80, 40,
+                base_font, "Главное меню",
+                create_empty_icon(), change_module
+            )
+        )
 
     def update(self, delta_time: float):
         for i in range(10):
@@ -126,13 +141,13 @@ def change_module():
 
 running = True
 
-WIDTH = 1000
-HEIGHT = 700
+WIDTH = get_monitors()[0].width
+HEIGHT = get_monitors()[0].height
 
 FPS = 30
 
 pygame.init()
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
 clock = pygame.time.Clock()
 
 module = MainMenuModule(WIDTH, HEIGHT)

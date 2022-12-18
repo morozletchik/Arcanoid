@@ -1,8 +1,6 @@
 
 
 from Billiard.UI.UIObject import UIObject
-from Billiard.UI.ToolBar.ToolBar import ToolBar
-from Billiard.UI.UIElements.UICanvas import Canvas
 
 
 class UISystem(UIObject):
@@ -40,3 +38,7 @@ class UISystem(UIObject):
 
     def add_element(self, obj: UIObject):
         self.elements.append(obj)
+
+    def del_element(self, obj: UIObject):
+        self.elements.remove(obj)
+
