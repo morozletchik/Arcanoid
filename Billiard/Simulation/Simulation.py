@@ -1,11 +1,9 @@
 
 
-from Billiard.Simulation.objects import Body
+from Billiard.Simulation.objects import *
 
 gravitational_constant = 6.67408E-11
 """Гравитационная постоянная Ньютона G"""
-
-friction_koef = 0.3
 
 
 class Simulation:
@@ -42,22 +40,10 @@ class Simulation:
         obj.ax += Fx / obj.mass
         obj.ay += Fy / obj.mass
 
-    @staticmethod
-    def apply_friction(obj: Body):
-        if obj.Vx != 0:
-            obj.ax = -obj.Vx / abs(obj.Vx) * friction_koef
-        else:
-            obj.ax = 0
-
-        if obj.Vy != 0:
-            obj.ay = -obj.Vy / abs(obj.Vy) * friction_koef
-        else:
-            obj.ay = 0
-
     def change_acceleration(self, obj):
         obj.ax = 0
         # self.apply_gravity(obj)
-        self.apply_friction(obj)
+        obj.apply_friction()
 
     def move_bodies(self, dt):
         """Пересчитывает координаты объектов."""
@@ -78,9 +64,12 @@ class Simulation:
 
     def strike_in_point(self, point, impulse):
         for obj in self.objects:
-            if (point[0] - obj.x) ** 2 + (point[1] - obj.y) ** 2 <= obj.radius ** 2:
+            if type(obj) is Body and (point[0] - obj.x) ** 2 + (point[1] - obj.y) ** 2 <= obj.radius ** 2:
                 obj.apply_impulse(impulse)
 
+    def add_wall(self, x, y, width, height):
+        wall = Wall(x, y, width, height)
+        self.objects.append(wall)
 
 
 

@@ -72,11 +72,17 @@ class MainGameModule(Module):
         super().__init__(width, height)
 
         self.simulation = Simulation()
+        self.simulation.add_wall(-WIDTH / 2, 0, 20, HEIGHT)
+        self.simulation.add_wall(WIDTH / 2, 0, 20, HEIGHT)
+        self.simulation.add_wall(0, HEIGHT / 2, WIDTH, 20)
+        self.simulation.add_wall(0, -HEIGHT / 2, WIDTH, 20)
+
+
         self.ui_system = UISystem(WIDTH, HEIGHT)
 
         self.visualisator = Visualisator(self.simulation)
         self.visualisator.change_view_point((0, 0))
-        self.visualisator.change_scale(1)
+        self.visualisator.change_scale(0.75)
 
         canvas = Canvas(0, HEIGHT // 10, WIDTH, HEIGHT - HEIGHT // 10, "Canvas", self.visualisator)
         self.controller = Controller(canvas.rect, self.simulation, self.visualisator)
@@ -145,13 +151,15 @@ def change_module():
 
 running = True
 
-WIDTH = get_monitors()[0].width
-HEIGHT = get_monitors()[0].height
+WIDTH = get_monitors()[0].width - 50
+HEIGHT = get_monitors()[0].height - 50
 
 FPS = 30
 
 pygame.init()
-screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
+screen = pygame.display.set_mode(
+    (WIDTH, HEIGHT)
+)
 clock = pygame.time.Clock()
 
 module = MainMenuModule(WIDTH, HEIGHT)
