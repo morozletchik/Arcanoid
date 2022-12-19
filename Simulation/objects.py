@@ -206,9 +206,8 @@ class Brick(Rectangle):
 
     def on_collide(self, obj):
         if self.intersect(obj):
-            self.delete_body()
+            self.simulation.delete_body()
             return True
-
 
 
 class Racket(Rectangle):
