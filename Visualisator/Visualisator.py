@@ -1,11 +1,9 @@
 import pygame
 
-from Simulation.Simulation import Simulation
+from Simulation.Simulation import *
 from pygame.surface import Surface
 from pygame.draw import circle, rect
 from pygame.rect import Rect
-from Simulation.objects import *
-
 
 class Visualisator(object):
 

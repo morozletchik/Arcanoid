@@ -88,10 +88,10 @@ class MainGameModule(Module):
         super().__init__(width, height)
 
         self.simulation = Simulation()
-        self.simulation.add_wall(-WIDTH / 2, 0, 20, HEIGHT)
-        self.simulation.add_wall(WIDTH / 2, 0, 20, HEIGHT)
-        self.simulation.add_wall(0, HEIGHT / 2, WIDTH, 20)
-        self.simulation.add_wall(0, -HEIGHT / 2, WIDTH, 20)
+        self.simulation.add_wall(-WIDTH / 2, 0, 20, HEIGHT, (0, 0, 0))
+        self.simulation.add_wall(WIDTH / 2, 0, 20, HEIGHT, (0, 0, 0))
+        self.simulation.add_wall(0, HEIGHT / 2, WIDTH, 20, (0, 0, 0))
+        self.simulation.add_wall(0, -HEIGHT / 2, WIDTH, 20, (0,0,0))
 
         self.ui_system = UISystem(WIDTH, HEIGHT)
 
