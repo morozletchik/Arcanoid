@@ -1,4 +1,3 @@
-
 from pygame.rect import Rect
 import random
 
@@ -12,8 +11,7 @@ friction_koef = 0.3
 
 class GameObject(object):
 
-    def __init__(self, mass, x, y, velx, vely, color, simulation : Simulation):
-
+    def __init__(self, mass, x, y, velx, vely, color, simulation: Simulation):
         self.mass = mass
         self.x = x
         self.y = y
@@ -53,31 +51,31 @@ class Ball(GameObject):
 
     def is_collide(self, obj2):
         if type(obj2) == Ball:
-            return (self.x - obj2.x)**2 + (self.y - obj2.y)**2 < (self.radius + obj2.radius)**2
+            return (self.x - obj2.x) ** 2 + (self.y - obj2.y) ** 2 < (self.radius + obj2.radius) ** 2
         if type(obj2) == Rectangle:
-            return obj2.intersect_with_circle(self) is not []
+            return obj2.intersect(self) is not []
 
     def on_collide(self, obj):
         if type(obj) == Ball:
-            length = ((self.x - obj.x)**2 + (self.y - obj.y)**2)**0.5
+            length = ((self.x - obj.x) ** 2 + (self.y - obj.y) ** 2) ** 0.5
             if length != 0:
                 delta = ((self.radius + obj.radius) - length) / 2
                 impulse_x = stiffness_koef * delta * (self.x - obj.x) / length
-                impulse_y = stiffness_koef * delta *(self.y - obj.y) / length
+                impulse_y = stiffness_koef * delta * (self.y - obj.y) / length
 
                 self.apply_impulse((impulse_x, impulse_y))
             else:
-                self.Vx += (random.random() - 0.5) / 10**4
-                self.Vy += (random.random() - 0.5) / 10**4
+                self.Vx += (random.random() - 0.5) / 10 ** 4
+                self.Vy += (random.random() - 0.5) / 10 ** 4
 
         if type(obj) == Rectangle:
-            intersects = obj.intersect_with_circle(self)
+            intersects = obj.intersect(self)
             if len(intersects) >= 2:
                 line_vector = (
                     intersects[1][0] - intersects[0][0],
                     intersects[1][1] - intersects[0][1]
                 )
-                line_vector_length = (line_vector[0]**2 + line_vector[1]**2)**0.5
+                line_vector_length = (line_vector[0] ** 2 + line_vector[1] ** 2) ** 0.5
                 delta_r = (self.x - intersects[0][0], self.y - intersects[0][1])
                 multi = delta_r[0] * line_vector[0] + delta_r[1] * line_vector[1]
 
@@ -88,14 +86,14 @@ class Ball(GameObject):
 
                 print(normal_vector)
 
-                length = (normal_vector[0]**2 + normal_vector[1]**2)**0.5
+                length = (normal_vector[0] ** 2 + normal_vector[1] ** 2) ** 0.5
                 delta = self.radius - (
-                        self.radius**2
-                        - (intersects[1][0] - intersects[0][0])**2 / 4
-                        - (intersects[1][1] - intersects[0][1])**2 / 4
+                        self.radius ** 2
+                        - (intersects[1][0] - intersects[0][0]) ** 2 / 4
+                        - (intersects[1][1] - intersects[0][1]) ** 2 / 4
                 ) ** 0.5
 
-                impulse_x = wall_stiffness_koef * delta**(1.5) * normal_vector[0] / length
+                impulse_x = wall_stiffness_koef * delta ** (1.5) * normal_vector[0] / length
                 impulse_y = wall_stiffness_koef * delta * normal_vector[1] / length
 
                 self.apply_impulse((impulse_x, impulse_y))
@@ -133,12 +131,12 @@ class Rectangle(GameObject):
     def apply_friction(self):
         pass
 
-    def intersect_with_circle(self, obj: Ball):
+    def intersect(self, obj: Ball):
         intersect_point = []
 
         if abs(obj.x - self.rect.x) < obj.radius:
-            point1 = (self.rect.x, obj.y + (obj.radius**2 - (obj.x - self.rect.x)**2)**0.5)
-            point2 = (self.rect.x, obj.y - (obj.radius**2 - (obj.x - self.rect.x)**2)**0.5)
+            point1 = (self.rect.x, obj.y + (obj.radius ** 2 - (obj.x - self.rect.x) ** 2) ** 0.5)
+            point2 = (self.rect.x, obj.y - (obj.radius ** 2 - (obj.x - self.rect.x) ** 2) ** 0.5)
 
             if (self.rect.y <= point1[1]) and (point1[1] <= self.rect.y + self.rect.height):
                 intersect_point.append(point1)
@@ -149,11 +147,11 @@ class Rectangle(GameObject):
         if abs(obj.x - self.rect.x - self.rect.width) < obj.radius:
             point1 = (
                 self.rect.x + self.rect.width,
-                obj.y + (obj.radius**2 - (obj.x - self.rect.x - self.rect.width)**2)**0.5
+                obj.y + (obj.radius ** 2 - (obj.x - self.rect.x - self.rect.width) ** 2) ** 0.5
             )
             point2 = (
                 self.rect.x + self.rect.width,
-                obj.y - (obj.radius**2 - (obj.x - self.rect.x - self.rect.width)**2)**0.5
+                obj.y - (obj.radius ** 2 - (obj.x - self.rect.x - self.rect.width) ** 2) ** 0.5
             )
 
             if (self.rect.y <= point1[1]) and (point1[1] <= self.rect.y + self.rect.height):
@@ -164,7 +162,7 @@ class Rectangle(GameObject):
 
         if abs(obj.y - self.rect.y) < obj.radius:
             point1 = (
-                obj.x + (obj.radius**2 - (obj.y - self.rect.y)**2)**0.5,
+                obj.x + (obj.radius ** 2 - (obj.y - self.rect.y) ** 2) ** 0.5,
                 self.rect.y
             )
             point2 = (
@@ -180,7 +178,7 @@ class Rectangle(GameObject):
 
         if abs(obj.y - self.rect.y - self.rect.height) < obj.radius:
             point1 = (
-                obj.x + (obj.radius**2 - (obj.y - self.rect.y - self.rect.height)**2)**0.5,
+                obj.x + (obj.radius ** 2 - (obj.y - self.rect.y - self.rect.height) ** 2) ** 0.5,
                 self.rect.y + self.rect.height
             )
             point2 = (
@@ -197,3 +195,22 @@ class Rectangle(GameObject):
         return intersect_point
 
 
+class Wall(Rectangle):
+    def __init__(self, x, y, width, height):
+        super().__init__(self, x, y, width, height)
+
+
+class Brick(Rectangle):
+    def __init__(self, x, y, width, height):
+        super().__init__(self, x, y, width, height)
+
+    def on_collide(self, obj):
+        if self.intersect(obj):
+            self.delete_body()
+            return True
+
+
+
+class Racket(Rectangle):
+    def __init__(self, x, y, width, height):
+        super().__init__(self, x, y, width, height)
