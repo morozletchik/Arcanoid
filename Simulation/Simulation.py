@@ -51,8 +51,8 @@ class Simulation:
         for obj in self.objects:
             obj.move_object(dt)
 
-    def add_body(self, mass, x, y, Vx, Vy, radius, color):
-        self.objects.append(Ball(mass, x, y, Vx, Vy, radius, color))
+    def add_ball(self, mass, x, y, Vx, Vy, radius, color):
+        self.objects.append(Ball(mass, x, y, Vx, Vy, radius, color, self))
 
     def append_body(self, obj: Ball):
         self.objects.append(obj)
@@ -71,7 +71,7 @@ class Simulation:
                 obj.apply_impulse(impulse)
 
     def add_wall(self, x, y, width, height):
-        wall = Wall(x, y, width, height)
+        wall = Wall(x, y, width, height, self)
         self.objects.append(wall)
 
 

@@ -27,7 +27,7 @@ class Controller(object):
             (mouse_cur_pos[0] - mouse_start_pos[0]) / self._visualisator.scale,
             (mouse_start_pos[0] - mouse_start_pos[0]) / self._visualisator.scale
         )
-        self._simulation.add_body(
+        self._simulation.add_ball(
             mass,
             position[0],
             position[1],

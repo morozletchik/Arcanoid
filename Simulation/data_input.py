@@ -19,7 +19,7 @@ def read_space_objects_data_from_file(input_filename):
                 print("Unknown object")
     simulation = Simulation()
     for obj in objects:
-        simulation.add_body(obj)
+        simulation.add_ball(obj)
 
     return simulation
 

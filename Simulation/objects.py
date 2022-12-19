@@ -2,6 +2,8 @@
 from pygame.rect import Rect
 import random
 
+from Simulation import Simulation
+
 stiffness_koef = 100
 wall_stiffness_koef = 1000
 
@@ -10,7 +12,8 @@ friction_koef = 0.3
 
 class GameObject(object):
 
-    def __init__(self, mass, x, y, velx, vely, color):
+    def __init__(self, mass, x, y, velx, vely, color, simulation : Simulation):
+
         self.mass = mass
         self.x = x
         self.y = y
@@ -18,6 +21,7 @@ class GameObject(object):
         self.Vy = vely
         self.ax = self.ay = 0
         self.color = color
+        self.simulation = simulation
 
     def move_object(self, dt):
         pass
@@ -37,8 +41,8 @@ class GameObject(object):
 
 class Ball(GameObject):
 
-    def __init__(self, mass, x, y, velx, vely, radius, color):
-        super().__init__(mass, x, y, velx, vely, color)
+    def __init__(self, mass, x, y, velx, vely, radius, color, simulation):
+        super().__init__(mass, x, y, velx, vely, color, simulation)
         self.radius = radius
 
     def move_object(self, dt):
@@ -114,16 +118,9 @@ class Ball(GameObject):
 
 class Wall(GameObject):
 
-    def __init__(self, x, y, width, height):
+    def __init__(self, x, y, width, height, simulation):
+        super().__init__(10, x, y, 0, 0, (0, 0, 0), simulation)
         self.rect = Rect(x - width / 2, y - height / 2, width, height)
-
-    @property
-    def x(self):
-        return self.rect.centerx
-
-    @property
-    def y(self):
-        return self.rect.centery
 
     @property
     def width(self):
