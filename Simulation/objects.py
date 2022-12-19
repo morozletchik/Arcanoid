@@ -197,3 +197,16 @@ class Rectangle(GameObject):
         return intersect_point
 
 
+class Wall(Rectangle):
+    def __init__(self, x, y, width, height):
+        super().__init__(self, x, y, width, height)
+
+
+class Brick(Rectangle):
+    def __init__(self, x, y, width, height):
+        super().__init__(self, x, y, width, height)
+
+
+class Racket(Rectangle):
+    def __init__(self, x, y, width, height):
+        super().__init__(self, x, y, width, height)
