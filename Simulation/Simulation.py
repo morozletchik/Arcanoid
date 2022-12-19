@@ -50,5 +50,5 @@ class Simulation:
                 obj.apply_impulse(impulse)
 
     def add_wall(self, x, y, width, height):
-        wall = Wall(x, y, width, height, self)
+        wall = Rectangle(x, y, width, height, self)
         self.objects.append(wall)

@@ -38,7 +38,7 @@ class MainMenuModule(Module):
         self.ui_system = UISystem(WIDTH, HEIGHT)
         base_font = pygame.font.SysFont('arial', 48)
 
-        header_font = pygame.font.SysFont('arial', 256)
+        header_font = pygame.font.Font('arial', 256)
 
         self.ui_system.add_element(
             TextBox(

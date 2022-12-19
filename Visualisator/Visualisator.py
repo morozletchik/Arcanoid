@@ -33,7 +33,7 @@ class Visualisator(object):
                 (x, y) = self.from_world_to_screen_coordinates((obj.x, obj.y), Rect(0, 0, width, height))
                 radius = obj.radius * self._scale
                 circle(surface, obj.color, (x, y), radius)
-            if type(obj) == Wall:
+            if type(obj) == Rectangle:
                 (x, y) = self.from_world_to_screen_coordinates((obj.x, obj.y), Rect(0, 0, width, height))
                 scaled_width = int(obj.width * self._scale)
                 scaled_height = int(obj.height * self._scale)

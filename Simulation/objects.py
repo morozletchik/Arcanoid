@@ -54,7 +54,7 @@ class Ball(GameObject):
     def is_collide(self, obj2):
         if type(obj2) == Ball:
             return (self.x - obj2.x)**2 + (self.y - obj2.y)**2 < (self.radius + obj2.radius)**2
-        if type(obj2) == Wall:
+        if type(obj2) == Rectangle:
             return obj2.intersect_with_circle(self) is not []
 
     def on_collide(self, obj):
@@ -70,7 +70,7 @@ class Ball(GameObject):
                 self.Vx += (random.random() - 0.5) / 10**4
                 self.Vy += (random.random() - 0.5) / 10**4
 
-        if type(obj) == Wall:
+        if type(obj) == Rectangle:
             intersects = obj.intersect_with_circle(self)
             if len(intersects) >= 2:
                 line_vector = (
@@ -116,7 +116,7 @@ class Ball(GameObject):
             self.ay = 0
 
 
-class Wall(GameObject):
+class Rectangle(GameObject):
 
     def __init__(self, x, y, width, height, simulation):
         super().__init__(10, x, y, 0, 0, (0, 0, 0), simulation)
