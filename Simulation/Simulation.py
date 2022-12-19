@@ -1,15 +1,15 @@
-
-
 from .objects import *
-
-gravitational_constant = 6.67408E-11
-"""Гравитационная постоянная Ньютона G"""
 
 
 class Simulation:
 
     def __init__(self):
         self.objects = []
+        self.life = 1
+        self.points = 0
+
+    def score(self, obj):
+        self.points += 1
 
     def update(self, dt):
         for obj in self.objects:
@@ -73,10 +73,3 @@ class Simulation:
     def add_wall(self, x, y, width, height):
         wall = Wall(x, y, width, height, self)
         self.objects.append(wall)
-
-
-
-
-
-
-
