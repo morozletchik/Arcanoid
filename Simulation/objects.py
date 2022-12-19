@@ -93,7 +93,7 @@ class Ball(GameObject):
                         - (intersects[1][1] - intersects[0][1]) ** 2 / 4
                 ) ** 0.5
 
-                impulse_x = wall_stiffness_koef * delta ** (1.5) * normal_vector[0] / length
+                impulse_x = wall_stiffness_koef * delta ** 1.5 * normal_vector[0] / length
                 impulse_y = wall_stiffness_koef * delta * normal_vector[1] / length
 
                 self.apply_impulse((impulse_x, impulse_y))
@@ -196,20 +196,20 @@ class Rectangle(GameObject):
 
 
 class Wall(Rectangle):
-    def __init__(self, x, y, width, height):
-        super().__init__(self, x, y, width, height)
+    def __init__(self, x, y, width, height, simulation):
+        super().__init__(x, y, width, height, simulation)
 
 
 class Brick(Rectangle):
-    def __init__(self, x, y, width, height):
-        super().__init__(self, x, y, width, height)
+    def __init__(self, x, y, width, height, simulation):
+        super().__init__(x, y, width, height, simulation)
 
     def on_collide(self, obj):
         if self.intersect(obj):
-            self.simulation.delete_body()
+            self.simulation.delete_body(obj)
             return True
 
 
 class Racket(Rectangle):
-    def __init__(self, x, y, width, height):
-        super().__init__(self, x, y, width, height)
+    def __init__(self, x, y, width, height, simulation):
+        super().__init__(x, y, width, height, simulation)
