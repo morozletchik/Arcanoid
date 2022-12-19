@@ -38,12 +38,9 @@ class Ball(GameObject):
 
     def on_collide(self, obj):
         pass
-
-
 class Rectangle(GameObject):
-
-    def __init__(self, x, y, width, height, simulation):
-        super().__init__(10, x, y, 0, 0, (0, 0, 0), simulation)
+    def __init__(self, x, y, width, height, color, simulation):
+        super().__init__(x, y, width, height, color, simulation)
         self.rect = Rect(x - width / 2, y - height / 2, width, height)
 
     @property
@@ -58,84 +55,25 @@ class Rectangle(GameObject):
         pass
 
     def intersect(self, obj: Ball):
-        intersect_point = []
-
-        if abs(obj.x - self.rect.x) < obj.radius:
-            point1 = (self.rect.x, obj.y + (obj.radius ** 2 - (obj.x - self.rect.x) ** 2) ** 0.5)
-            point2 = (self.rect.x, obj.y - (obj.radius ** 2 - (obj.x - self.rect.x) ** 2) ** 0.5)
-
-            if (self.rect.y <= point1[1]) and (point1[1] <= self.rect.y + self.rect.height):
-                intersect_point.append(point1)
-
-            if (self.rect.y <= point2[1]) and (point2[1] <= self.rect.y + self.rect.height):
-                intersect_point.append(point2)
-
-        if abs(obj.x - self.rect.x - self.rect.width) < obj.radius:
-            point1 = (
-                self.rect.x + self.rect.width,
-                obj.y + (obj.radius ** 2 - (obj.x - self.rect.x - self.rect.width) ** 2) ** 0.5
-            )
-            point2 = (
-                self.rect.x + self.rect.width,
-                obj.y - (obj.radius ** 2 - (obj.x - self.rect.x - self.rect.width) ** 2) ** 0.5
-            )
-
-            if (self.rect.y <= point1[1]) and (point1[1] <= self.rect.y + self.rect.height):
-                intersect_point.append(point1)
-
-            if (self.rect.y <= point2[1]) and (point2[1] <= self.rect.y + self.rect.height):
-                intersect_point.append(point2)
-
-        if abs(obj.y - self.rect.y) < obj.radius:
-            point1 = (
-                obj.x + (obj.radius ** 2 - (obj.y - self.rect.y) ** 2) ** 0.5,
-                self.rect.y
-            )
-            point2 = (
-                obj.x - (obj.radius ** 2 - (obj.y - self.rect.y) ** 2) ** 0.5,
-                self.rect.y
-            )
-
-            if (self.rect.x <= point1[0]) and (point1[0] <= self.rect.x + self.rect.width):
-                intersect_point.append(point1)
-
-            if (self.rect.x <= point2[0]) and (point2[0] <= self.rect.x + self.rect.width):
-                intersect_point.append(point2)
-
-        if abs(obj.y - self.rect.y - self.rect.height) < obj.radius:
-            point1 = (
-                obj.x + (obj.radius ** 2 - (obj.y - self.rect.y - self.rect.height) ** 2) ** 0.5,
-                self.rect.y + self.rect.height
-            )
-            point2 = (
-                obj.x - (obj.radius ** 2 - (obj.y - self.rect.y - self.rect.height) ** 2) ** 0.5,
-                self.rect.y + self.rect.height
-            )
-
-            if (self.rect.x <= point1[0]) and (point1[0] <= self.rect.x + self.rect.width):
-                intersect_point.append(point1)
-
-            if (self.rect.x <= point2[0]) and (point2[0] <= self.rect.x + self.rect.width):
-                intersect_point.append(point2)
-
-        return intersect_point
-
+        pass
 
 class Wall(Rectangle):
-    def __init__(self, x, y, width, height):
-        super().__init__(self, x, y, width, height)
+    def __init__(self, x, y, width, height, color, simulation):
+        super().__init__(x, y, width, height, color, simulation)
+        pass
 
 
 class Brick(Rectangle):
-    def __init__(self, x, y, width, height):
-        super().__init__(self, x, y, width, height)
+    def __init__(self, x, y, width, height, color, simulation):
+        super().__init__(x, y, width, height, color, simulation)
+        pass
 
     def on_collide(self, obj):
         if self.intersect(obj):
-            self.simulation.delete_body()
+            self.simulation.delete_body(obj)
             return True
 
-
 class Racket(Rectangle):
-    def __init__(self, x, y, width, height):
-        super().__init__(self, x, y, width, height)
+    def __init__(self, x, y, width, height, color, simulation):
+        super().__init__(x, y, width, height, color, simulation)
+        pass
