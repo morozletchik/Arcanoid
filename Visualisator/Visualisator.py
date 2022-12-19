@@ -28,6 +28,7 @@ class Visualisator(object):
 
     def visualize(self, width, height) -> Surface:
         surface = Surface((width, height), flags=pygame.SRCALPHA)
+        surface.fill((0, 0, 160))
         for obj in self.simulation.objects:
             if type(obj) == Ball:
                 (x, y) = self.from_world_to_screen_coordinates((obj.x, obj.y), Rect(0, 0, width, height))

@@ -38,12 +38,14 @@ class MainMenuModule(Module):
         self.ui_system = UISystem(WIDTH, HEIGHT)
         base_font = pygame.font.SysFont('arial', 48)
 
-        header_font = pygame.font.Font('arial', 256)
+        header_font = pygame.font.Font(os.path.join("UI", "Assets", "Multiround Pro", "MultiroundPro.otf"), 160)
+        if not header_font:
+            header_font = pygame.font.get_default_font()
 
         self.ui_system.add_element(
             TextBox(
                 WIDTH // 2 - 450, HEIGHT // 5,
-                header_font, "Break Out", (255, 0, 0)
+                header_font, "Break Out", (230, 0, 0)
             )
         )
 
@@ -71,7 +73,7 @@ class MainMenuModule(Module):
         )
 
     def draw(self, surface: Surface):
-        surface.fill((255, 255, 255))
+        surface.fill((0, 0, 150))
         self.ui_system.draw(surface)
 
     def update(self, delta_time: float):
@@ -171,6 +173,7 @@ HEIGHT = get_monitors()[0].height - 50
 FPS = 30
 
 pygame.init()
+pygame.font.init()
 screen = pygame.display.set_mode(
     (WIDTH, HEIGHT)
 )
