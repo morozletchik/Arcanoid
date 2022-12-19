@@ -11,6 +11,7 @@ from UI.ToolBar.Tool import *
 from UI.ToolBar.ToolBar import *
 from UI.ToolBar.StrikeTool import *
 from UI.UIElements.Button import *
+from UI.UIElements.TextBox import *
 
 from pygame.event import Event
 
@@ -35,12 +36,25 @@ class MainMenuModule(Module):
     def __init__(self, width, height):
         super().__init__(width, height)
         self.ui_system = UISystem(WIDTH, HEIGHT)
-        base_font = pygame.font.SysFont('arial', 36)
+        base_font = pygame.font.SysFont('arial', 48)
+
+        header_font = pygame.font.SysFont('arial', 256)
+
+        self.ui_system.add_element(
+            TextBox(
+                WIDTH // 2 - 450, HEIGHT // 5,
+                header_font, "Break Out", (255, 0, 0)
+            )
+        )
+
+        button_block_position = 200
+        button_width = 400
+        button_height = 100
 
         self.ui_system.add_element(
             Button(
-                WIDTH // 2 - 30, HEIGHT // 3,
-                200, 100,
+                WIDTH // 2 - button_width // 2, HEIGHT // 3 + button_block_position,
+                button_width, button_height,
                 base_font, "Начать игру",
                 create_empty_icon(),
                 change_module
@@ -48,8 +62,8 @@ class MainMenuModule(Module):
         )
         self.ui_system.add_element(
             Button(
-                WIDTH // 2 - 30, HEIGHT // 3 + 150,
-                200, 100,
+                WIDTH // 2 - button_width // 2, HEIGHT // 3 + button_block_position + button_height + 50,
+                button_width, button_height,
                 base_font, "Выход",
                 create_empty_icon(),
                 close
