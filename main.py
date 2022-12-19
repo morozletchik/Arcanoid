@@ -77,8 +77,6 @@ class MainGameModule(Module):
         self.simulation.add_wall(0, HEIGHT / 2, WIDTH, 20)
         self.simulation.add_wall(0, -HEIGHT / 2, WIDTH, 20)
 
-        self.
-
         self.ui_system = UISystem(WIDTH, HEIGHT)
 
         self.visualisator = Visualisator(self.simulation)
@@ -126,6 +124,7 @@ class MainGameModule(Module):
         )
 
     def update(self, delta_time: float):
+        self.controller.update()
         for i in range(10):
             self.simulation.update(delta_time)
 

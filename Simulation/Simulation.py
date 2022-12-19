@@ -57,6 +57,9 @@ class Simulation:
     def append_body(self, obj: Ball):
         self.objects.append(obj)
 
+    def delete_body(self, obj):
+        self.objects.remove(obj)
+
     def collision_handle(self, obj1):
         for obj2 in self.objects:
             if obj1 is not obj2 and obj1.is_collide(obj2):

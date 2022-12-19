@@ -5,6 +5,7 @@ from Visualisator.Visualisator import Visualisator
 
 from pygame.rect import Rect
 
+
 class Controller(object):
 
     def __init__(self, rect: Rect, simulation: Simulation, visualisator: Visualisator):
@@ -47,3 +48,6 @@ class Controller(object):
             (start_mouse_pos[1] - cur_mouse_pos[1])
         )
         self._simulation.strike_in_point(position, impulse)
+
+    def update(self):
+        pass
