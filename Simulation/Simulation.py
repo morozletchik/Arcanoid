@@ -18,27 +18,6 @@ class Simulation:
             self.change_acceleration(obj)
         self.move_bodies(dt)
 
-    @staticmethod
-    def calculate_force_between_two_bodies(obj1, obj2):
-        """1 действует на 2"""
-        r = ((obj1.x - obj2.x) ** 2 + (obj1.y - obj2.y) ** 2) ** 0.5
-        Fx = gravitational_constant * obj1.mass * obj2.mass / (r ** 2) * ((obj1.x - obj2.x) / r)
-        Fy = gravitational_constant * obj1.mass * obj2.mass / (r ** 2) * ((obj1.y - obj2.y) / r)
-        return Fx, Fy
-
-    def apply_gravity(self, obj):
-        Fx = 0
-        Fy = 0
-
-        for obj_iter in self.objects:
-            if obj == obj_iter:
-                continue
-            F = Simulation.calculate_force_between_two_bodies(obj_iter, obj)
-            Fx += F[0]
-            Fy += F[1]
-
-        obj.ax += Fx / obj.mass
-        obj.ay += Fy / obj.mass
 
     def change_acceleration(self, obj):
         obj.ax = 0
