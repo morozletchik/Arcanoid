@@ -1,4 +1,4 @@
-
+import pygame
 
 from Simulation.Simulation import Simulation
 from Visualisator.Visualisator import Visualisator
@@ -17,10 +17,6 @@ class Controller(object):
         self._rect = rect
 
     def add_body(self, mouse_start_pos, mouse_cur_pos):
-        position = (
-            (mouse_start_pos[0] - self._rect.width / 2) / self._visualisator.scale + self._visualisator.view_point[0],
-            (mouse_start_pos[1] - self._rect.height / 2) / self._visualisator.scale + self._visualisator.view_point[1]
-        )
         mass = 10
         radius = 10
         velocity = (
@@ -37,17 +33,10 @@ class Controller(object):
             (255, 255, 255)
         )
 
-    def strike(self, start_mouse_pos, cur_mouse_pos):
-        position = (
-            (start_mouse_pos[0] - self._rect.width / 2) / self._visualisator.scale + self._visualisator.view_point[0],
-            (start_mouse_pos[1] - self._rect.height / 2) / self._visualisator.scale + self._visualisator.view_point[1]
-        )
+    def event_handler(self, event):
+        if event.type == pygame.MOUSEMOTION:
+            mouse_move = (event.rel[0] / self._visualisator.scale, event.rel[1] / self._visualisator.scale)
+            mouse_move = (mouse_move[0], 0)
+            self._simulation.move_paddle(mouse_move)
 
-        impulse = (
-            (start_mouse_pos[0] - cur_mouse_pos[0]),
-            (start_mouse_pos[1] - cur_mouse_pos[1])
-        )
-        self._simulation.strike_in_point(position, impulse)
 
-    def update(self):
-        pass

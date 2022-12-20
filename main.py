@@ -87,11 +87,8 @@ class MainGameModule(Module):
     def __init__(self, width, height):
         super().__init__(width, height)
 
-        self.simulation = Simulation()
-        self.simulation.add_wall(-WIDTH / 2, 0, 20, HEIGHT, (0, 0, 0))
-        self.simulation.add_wall(WIDTH / 2, 0, 20, HEIGHT, (0, 0, 0))
-        self.simulation.add_wall(0, HEIGHT / 2, WIDTH, 20, (0, 0, 0))
-        self.simulation.add_wall(0, -HEIGHT / 2, WIDTH, 20, (0,0,0))
+        self.simulation = Simulation(WIDTH, HEIGHT)
+        self.simulation.setup()
 
         self.ui_system = UISystem(WIDTH, HEIGHT)
 
@@ -140,7 +137,6 @@ class MainGameModule(Module):
         )
 
     def update(self, delta_time: float):
-        self.controller.update()
         for i in range(10):
             self.simulation.update(delta_time)
 
@@ -149,7 +145,7 @@ class MainGameModule(Module):
 
     def event_handler(self, event: Event):
         self.ui_system.event_handler(event)
-
+        self.controller.event_handler(event)
 
 def close():
     global running

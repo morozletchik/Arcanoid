@@ -26,10 +26,6 @@ class GameObject(object):
 class Ball(GameObject):
 
     def __init__(self, x, y, vx, vy, r, color, simulation):
-        '''
-        constructor
-        :param r: radius
-        '''
         super().__init__(x, y, vx, vy, color, simulation)
         self.r = r
 
@@ -87,22 +83,27 @@ class Ball(GameObject):
 class Rectangle(GameObject):
     def __init__(self, x, y, width, height, color, simulation):
         super().__init__(x, y, width, height, color, simulation)
-        self.rect = Rect(x, y, width, height)
-        self.top = y
-        self.bottom = y + height
-        self.left = x
-        self.right = x + width
+        self.width = width
+        self.height = height
 
     @property
-    def width(self):
-        return self.rect.width
+    def rect(self):
+        return Rect(self.x - self.width / 2, self.y - self.height / 2)
 
     @property
-    def height(self):
-        return self.rect.height
+    def top(self):
+        return self.rect.top
+
+    @property
+    def bottom(self):
+        return self.rect.bottom
 
     def on_collide(self, obj: Ball):
         pass
+
+    def move_on_delta(self, delta_move):
+        self.x += delta_move[0]
+        self.y += delta_move[1]
 
 
 class Wall(Rectangle):
@@ -128,12 +129,36 @@ class Paddle(Rectangle):
         super().__init__(x, y, width, height, color, simulation)
         pass
 
+    def player_move(self, delta_move):
+        self.move_on_delta(delta_move)
+
 
 class Simulation:
-    def __init__(self):
+    def __init__(self, width, height):
         self.objects = []
         self.life = 1
         self.__points = 0
+        self.width = width
+        self.height = height
+
+    def setup(self):
+        self.add_wall(-self.width / 2, 0, 20, self.height, (0, 0, 0))
+        self.add_wall(self.width / 2, 0, 20, self.height, (0, 0, 0))
+        self.add_wall(0, self.height / 2, self.width, 20, (0, 0, 0))
+        self.add_wall(0, -self.height / 2, self.width, 20, (0,0,0))
+        self.objects.append(
+            Paddle(
+                0, self.height / 2 - 40,
+                80, 20, (255, 255, 255), self
+            )
+        )
+
+    @property
+    def paddle(self):
+        paddle = [obj for obj in self.objects if type(obj) == Paddle]
+        if len(paddle) == 0:
+            return None
+        return paddle[0]
 
     @property
     def score(self):
@@ -163,3 +188,13 @@ class Simulation:
     def add_wall(self, x, y, width, height, color):
         wall = Rectangle(x, y, width, height, color, self)
         self.objects.append(wall)
+
+    def move_paddle(self, delta_move):
+        self.paddle.player_move(delta_move)
+        if self.paddle.x > self.width / 2 - 60:
+            self.paddle.x = self.width / 2 - 60
+        if self.paddle.x < -self.width / 2 + 60:
+            self.paddle.x = -self.width / 2 + 60
+
+
+
