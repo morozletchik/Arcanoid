@@ -56,7 +56,7 @@ class MainMenuModule(Module):
         self.ui_system.add_element(
             TextBox(
                 WIDTH // 2 - 450, HEIGHT // 5,
-                header_font, "Break Out", (230, 0, 0)
+                header_font, "Arcanoid", (230, 0, 0)
             )
         )
 
@@ -130,6 +130,12 @@ class MainGameModule(Module):
 
         base_font = pygame.font.SysFont('arial', 28)
         header_font = pygame.font.SysFont('arial', 128)
+        game_over_font = pygame.font.SysFont('arial', 256)
+
+        self.game_over_text = TextBox(
+                    WIDTH // 2 - 500, HEIGHT // 2 - 200,
+                    game_over_font, "Game Over", (255, 0, 0)
+                )
 
         self.dialog_box = DialogBox(
             width // 2 - 300, height // 2 - 300,
@@ -158,6 +164,10 @@ class MainGameModule(Module):
     def update(self, delta_time: float):
         for i in range(10):
             self.simulation.update(delta_time)
+        if self.simulation.is_game_over():
+            self.ui_system.add_element(
+                self.game_over_text
+            )
 
     def draw(self, screen: Surface):
         self.ui_system.draw(screen)

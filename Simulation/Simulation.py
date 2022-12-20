@@ -129,6 +129,7 @@ class Rectangle(GameObject):
         self.x += delta_move[0]
         self.y += delta_move[1]
 
+
 class Brick(Rectangle):
     def __init__(self, x, y, width, height, color, simulation):
         super().__init__(x, y, width, height, color, simulation)
@@ -149,6 +150,7 @@ class Paddle(Rectangle):
     def player_move(self, delta_move):
         self.move_on_delta(delta_move)
 
+
 class Trigger(Rectangle):
 
     def __init__(self, x, y, width, height, color, simulation):
@@ -162,24 +164,27 @@ class Trigger(Rectangle):
         '''
         return
 
+class SimulationState(object):
+    READY_TO_START = 0,
+    PAUSED = 1,
+    GAMEOVER = 2,
+    PLAYING = 3
 
 class Simulation:
     def __init__(self, width, height):
         self.objects = []
-        self.is_paused = True
-        self.is_game_over = False
         self.lives = 3
         self.__points = 0
         self.width = width
         self.height = height
-        self.is_paused = True
+        self.state = SimulationState.READY_TO_START
         self.ball = Ball(
             0, height / 3,
             -20, 20,
             10, (255, 255, 255), self
         )
         self.paddle = Paddle(
-            0, self.height / 2 - 40,
+            0, self.height / 2 - self.height / 80,
             120, 20, (255, 255, 255), self
         )
 
@@ -188,7 +193,7 @@ class Simulation:
 
         self.add_wall(-self.width / 2, 0, thickness, self.height, (0, 0, 0))
         self.add_wall(self.width / 2, 0, thickness, self.height, (0, 0, 0))
-        self.add_wall(0, -self.height / 2, self.width, thickness, (0,0,0))
+        self.add_wall(0, -self.height / 2, self.width, thickness, (0, 0, 0))
 
         count_x = 10
         count_y = 6
@@ -226,7 +231,7 @@ class Simulation:
         "spawns" a new ball (by moving it to the centre of the screen)
         and gives to it randomly directed velocity after pushing SPACE
         '''
-        self.is_paused = True
+        self.state = SimulationState.READY_TO_START
         self.ball.vx = 0
         self.ball.vy = 0
         self.ball.x = 0
@@ -237,9 +242,11 @@ class Simulation:
         starts a new live
         :return:
         '''
+        self.paddle.x = 0
+        self.paddle.y = self.height / 2 - self.height / 80
         self.ball.vx = 20
         self.ball.vy = -20
-        self.is_paused = False
+        self.state = SimulationState.PLAYING
 
     @property
     def score(self):
@@ -250,8 +257,8 @@ class Simulation:
 
     #stick together
     def update(self, dt):
-        if not self.is_paused:
-            self.out_of_screen()
+        self.out_of_screen()
+        if self.state == SimulationState.PLAYING:
             for obj in self.objects:
                 self.collision_handle(obj)
             self.move_bodies(dt)
@@ -276,7 +283,7 @@ class Simulation:
                 self.lives -= 1
                 self.spawn_ball()
         else:
-            self.is_game_over = True
+            self.state = SimulationState.GAMEOVER
 
     def collision_handle(self, obj1):
         for obj2 in self.objects:
@@ -288,7 +295,7 @@ class Simulation:
         self.objects.append(wall)
 
     def move_paddle(self, delta_move):
-        if not self.is_paused:
+        if self.state == SimulationState.PLAYING:
             if self.paddle is not None:
                 self.paddle.player_move(delta_move)
 
@@ -296,3 +303,24 @@ class Simulation:
                     self.paddle.x = self.width / 2 - self.width / 25
                 if self.paddle.x < -self.width / 2 + self.width / 25:
                     self.paddle.x = -self.width / 2 + self.width / 25
+
+    def continue_simulation(self):
+        self.state = SimulationState.PLAYING
+
+    def pause_simulation(self):
+        self.state = SimulationState.PAUSED
+
+    def game_over(self):
+        self.state = SimulationState.GAMEOVER
+
+    def is_game_over(self):
+        return self.state == SimulationState.GAMEOVER
+
+    def is_paused(self):
+        return self.state == SimulationState.PAUSED
+
+    def is_ready(self):
+        return self.state == SimulationState.READY_TO_START
+
+
+

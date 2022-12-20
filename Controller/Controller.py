@@ -27,11 +27,11 @@ class Controller(object):
             self._simulation.move_paddle(mouse_move)
 
         if event.type == pygame.KEYUP:
-            if event.key == pygame.K_SPACE and self._simulation.is_paused:
+            if event.key == pygame.K_SPACE and (self._simulation.is_paused() or self._simulation.is_ready()):
                 self._simulation.start()
 
     def pause_simulation(self):
-        self._simulation.is_paused = True
+        self._simulation.pause_simulation()
 
     def continue_simulation(self):
-        self._simulation.is_paused = False
+        self._simulation.continue_simulation()
