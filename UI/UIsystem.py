@@ -38,6 +38,13 @@ class UISystem(UIObject):
     def add_element(self, obj: UIObject):
         self.elements.append(obj)
 
-    def del_element(self, obj: UIObject):
+    def remove_element(self, obj: UIObject):
         self.elements.remove(obj)
+
+    def have_element(self, obj):
+        try:
+            i = self.elements.index(obj)
+        except ValueError:
+            return False
+        return True
 
