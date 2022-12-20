@@ -128,12 +128,13 @@ class MainGameModule(Module):
             )
         ]
 
-        base_font = pygame.font.SysFont('arial', 14)
+        base_font = pygame.font.SysFont('arial', 28)
+        header_font = pygame.font.SysFont('arial', 128)
 
         self.dialog_box = DialogBox(
             width // 2 - 300, height // 2 - 300,
             600, 600,
-            base_font, "Пауза",
+            header_font, "Пауза",
             GRAY,
             [
                 Button(
