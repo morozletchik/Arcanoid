@@ -86,10 +86,18 @@ class Ball(GameObject):
     def on_collide(self, obj):
         intersect = self.intersect(obj)
         if intersect == "left" or intersect == "right":
-            self.vx = -self.vx
+            self.vx = -self.vx + obj.vx
+            if intersect == "left":
+                self.x = obj.left - self.r
+            if intersect == "right":
+                self.x = obj.right + self.r
 
         if intersect == "top" or intersect == "bottom":
-            self.vy = -self.vy
+            self.vy = -self.vy + obj.vy
+            if intersect == "top":
+                self.y = obj.top - self.r
+            if intersect == "bottom":
+                self.y = obj.bottom + self.r
 
 
 class Rectangle(GameObject):
@@ -149,7 +157,10 @@ class Paddle(Rectangle):
 
     def player_move(self, delta_move):
         self.move_on_delta(delta_move)
+        self.vx = delta_move[0]
 
+    def move_object(self, dt):
+        pass
 
 class Trigger(Rectangle):
 
@@ -265,7 +276,7 @@ class Simulation:
     def update(self, dt):
         self.out_of_screen()
         if self.start_brick_count <= self.score:
-            self.state == SimulationState.WIN
+            self.win()
         if self.state == SimulationState.PLAYING:
             for obj in self.objects:
                 self.collision_handle(obj)
