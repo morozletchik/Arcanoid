@@ -202,7 +202,7 @@ class Simulation:
             thickness
         )
 
-        brick_start = (-self.width / 2 + 100, -self.height / 2 + 100)
+        brick_start = (-self.width / 2 + self.width / 19, -self.height / 2 + self.height / 30)
 
         for i in range(count_x):
             for j in range(count_y):
@@ -293,10 +293,10 @@ class Simulation:
             if self.paddle is not None:
                 self.paddle.player_move(delta_move)
 
-                if self.paddle.x > self.width / 2 - 60:
-                    self.paddle.x = self.width / 2 - 60
-                if self.paddle.x < -self.width / 2 + 60:
-                    self.paddle.x = -self.width / 2 + 60
+                if self.paddle.x > self.width / 2 - self.width / 25:
+                    self.paddle.x = self.width / 2 - self.width / 25
+                if self.paddle.x < -self.width / 2 + self.width / 25:
+                    self.paddle.x = -self.width / 2 + self.width / 25
 
     def game_over(self):
         self.is_game_over = True
