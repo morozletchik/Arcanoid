@@ -129,13 +129,6 @@ class Rectangle(GameObject):
         self.x += delta_move[0]
         self.y += delta_move[1]
 
-
-class Wall(Rectangle):
-    def __init__(self, x, y, width, height, color, simulation):
-        super().__init__(x, y, width, height, color, simulation)
-        pass
-
-
 class Brick(Rectangle):
     def __init__(self, x, y, width, height, color, simulation):
         super().__init__(x, y, width, height, color, simulation)
@@ -167,7 +160,7 @@ class Trigger(Rectangle):
         :param obj: ball
         :return: (True or False) - is the ball out of the screen
         '''
-        return obj.y - self.y > obj.r
+        return
 
 class Simulation:
     def __init__(self, width, height):
@@ -176,13 +169,23 @@ class Simulation:
         self.__points = 0
         self.width = width
         self.height = height
+        self.paused = True
+        self.ball = Ball(
+            0, 300,
+            -20, 20,
+            10, (255, 255, 255), self
+        )
+        self.paddle = Paddle(
+            0, self.height / 2 - 40,
+            120, 20, (255, 255, 255), self
+        )
 
     def setup(self):
         thickness = 20
 
         self.add_wall(-self.width / 2, 0, thickness, self.height, (0, 0, 0))
         self.add_wall(self.width / 2, 0, thickness, self.height, (0, 0, 0))
-        self.add_wall(0, self.height / 2, self.width, thickness, (0, 0, 0))
+        #self.add_wall(0, self.height / 2, self.width, thickness, (0, 0, 0))
         self.add_wall(0, -self.height / 2, self.width, thickness, (0,0,0))
 
         count_x = 10
@@ -210,27 +213,30 @@ class Simulation:
                 )
 
         self.objects.append(
-            Paddle(
-                0, self.height / 2 - 40,
-                120, 20, (255, 255, 255), self
-            )
-        )
-        self.objects.append(
-            Ball(
-                0, 300,
-                -20, 20,
-                10, (255, 255, 255), self
-            )
+            self.paddle
         )
 
-    def spawn(self, ball):
-        pass
-    @property
-    def paddle(self):
-        paddle = [obj for obj in self.objects if type(obj) == Paddle]
-        if len(paddle) == 0:
-            return None
-        return paddle[0]
+        self.objects.append(
+            self.ball
+        )
+    def spawn_ball(self):
+        '''
+        "spawns" a new ball (by moving it to the centre of the screen)
+        and gives to it randomly directed velocity after pushing SPACE
+        '''
+        self.paused = True
+        self.ball.vx = 0
+        self.ball.vy = 0
+        self.ball.x = 0
+        self.ball.y = 0
+
+    def start(self):
+        '''
+        starts a new live
+        :return:
+        '''
+        self.ball.vx = 20
+        self.ball.vy = -20
 
     @property
     def score(self):
@@ -239,7 +245,9 @@ class Simulation:
     def set_score(self):
         self.__points += 1
 
+    #stick together
     def update(self, dt):
+        self.out_of_screen()
         for obj in self.objects:
             self.collision_handle(obj)
         self.move_bodies(dt)
@@ -252,7 +260,7 @@ class Simulation:
     def delete_body(self, obj):
         self.objects.remove(obj)
 
-    def out_of_screen(self, trigger, ball):
+    def out_of_screen(self):
         '''
         reduces the number of the ball's lives if it is positive
         calls game over if it is zero
@@ -260,10 +268,9 @@ class Simulation:
         :param ball: ball
         '''
         if self.lives > 0:
-            if (trigger.is_out_of_screen(ball)):
+            if (self.ball.y - self.ball.r > self.width / 2):
                 self.lives -= 1
-                self.delete_body(ball)
-                self.spawn(ball)
+                self.spawn_ball()
         else:
             self.game_over()
 
