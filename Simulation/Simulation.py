@@ -14,7 +14,8 @@ class GameObject(object):
         self.simulation = simulation
 
     def move_object(self, dt):
-        pass
+        self.x += self.vx * dt
+        self.y += self.vy * dt
 
     def intersect(self, obj):
         pass
@@ -31,11 +32,7 @@ class Ball(GameObject):
 
     @property
     def bounds(self):
-        return Rect(self.x - self.r/2, self.y - self.r/2, self.x + self.r/2, self.y + self.r/2)
-
-    def move_object(self, dt):
-        self.x += self.vx * dt
-        self.y += self.vy * dt
+        return Rect(self.x - self.r/2, self.y - self.r/2, self.r, self.r)
 
     def intersect(self, obj):
         '''
@@ -97,7 +94,7 @@ class Ball(GameObject):
 
 class Rectangle(GameObject):
     def __init__(self, x, y, width, height, color, simulation):
-        super().__init__(x, y, width, height, color, simulation)
+        super().__init__(x, y, 0, 0, color, simulation)
         self.width = width
         self.height = height
 
@@ -164,10 +161,12 @@ class Simulation:
         self.height = height
 
     def setup(self):
-        self.add_wall(-self.width / 2, 0, 20, self.height, (0, 0, 0))
-        self.add_wall(self.width / 2, 0, 20, self.height, (0, 0, 0))
-        self.add_wall(0, self.height / 2, self.width, 20, (0, 0, 0))
-        self.add_wall(0, -self.height / 2, self.width, 20, (0,0,0))
+        thickness = 20
+
+        self.add_wall(-self.width / 2, 0, thickness, self.height, (0, 0, 0))
+        self.add_wall(self.width / 2, 0, thickness, self.height, (0, 0, 0))
+        self.add_wall(0, self.height / 2, self.width, thickness, (0, 0, 0))
+        self.add_wall(0, -self.height / 2, self.width, thickness, (0,0,0))
         self.objects.append(
             Paddle(
                 0, self.height / 2 - 40,
@@ -217,11 +216,13 @@ class Simulation:
         self.objects.append(wall)
 
     def move_paddle(self, delta_move):
-        self.paddle.player_move(delta_move)
-        if self.paddle.x > self.width / 2 - 60:
-            self.paddle.x = self.width / 2 - 60
-        if self.paddle.x < -self.width / 2 + 60:
-            self.paddle.x = -self.width / 2 + 60
+        if self.paddle is not None:
+            self.paddle.player_move(delta_move)
+
+            if self.paddle.x > self.width / 2 - 60:
+                self.paddle.x = self.width / 2 - 60
+            if self.paddle.x < -self.width / 2 + 60:
+                self.paddle.x = -self.width / 2 + 60
 
 
 
