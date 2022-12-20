@@ -172,7 +172,7 @@ class Trigger(Rectangle):
 class Simulation:
     def __init__(self, width, height):
         self.objects = []
-        self.life = 1
+        self.lives = 3
         self.__points = 0
         self.width = width
         self.height = height
@@ -223,6 +223,8 @@ class Simulation:
             )
         )
 
+    def spawn(self, ball):
+        pass
     @property
     def paddle(self):
         paddle = [obj for obj in self.objects if type(obj) == Paddle]
@@ -250,6 +252,21 @@ class Simulation:
     def delete_body(self, obj):
         self.objects.remove(obj)
 
+    def out_of_screen(self, trigger, ball):
+        '''
+        reduces the number of the ball's lives if it is positive
+        calls game over if it is zero
+        :param trigger: bottom of the screen
+        :param ball: ball
+        '''
+        if self.lives > 0:
+            if (trigger.is_out_of_screen(ball)):
+                self.lives -= 1
+                self.delete_body(ball)
+                self.spawn(ball)
+        else:
+            self.game_over()
+
     def collision_handle(self, obj1):
         for obj2 in self.objects:
             if obj1 is not obj2 and obj1.intersect(obj2):
@@ -267,3 +284,6 @@ class Simulation:
                 self.paddle.x = self.width / 2 - 60
             if self.paddle.x < -self.width / 2 + 60:
                 self.paddle.x = -self.width / 2 + 60
+
+    def game_over(self):
+        pass
