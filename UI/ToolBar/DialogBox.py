@@ -5,13 +5,19 @@ from UI.UIObject import UIObject, create_empty_icon
 class DialogBox(UIObject):
 
     def __init__(self, x, y, width, height, font, caption, color, buttons):
-        super().__init__(x, y, width, height, font, caption, create_empty_icon(), color, buttons)
+        super().__init__(x, y, width, height, font, caption, create_empty_icon(), color)
         self.buttons = buttons
 
+        indent_y = 10
 
+        for i, button in enumerate(buttons):
+            button.set_position(
+                (x + width // 2 - button.rect.width // 2, y + height // 2 + (indent_y + button.rect.height) * i)
+            )
 
     def event_handler(self, event):
-        pass
+        for button in self.buttons:
+            button.event_handler(event)
 
     def on_mouse_hover(self):
         pass
@@ -29,4 +35,5 @@ class DialogBox(UIObject):
         pass
 
     def draw(self, surface: Surface):
-        pass
+        for button in self.buttons:
+            button.draw(surface)
