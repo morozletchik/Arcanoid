@@ -174,7 +174,7 @@ class Simulation:
         self.height = height
         self.is_paused = True
         self.ball = Ball(
-            0, 300,
+            0, height / 3,
             -20, 20,
             10, (255, 255, 255), self
         )
@@ -188,7 +188,6 @@ class Simulation:
 
         self.add_wall(-self.width / 2, 0, thickness, self.height, (0, 0, 0))
         self.add_wall(self.width / 2, 0, thickness, self.height, (0, 0, 0))
-        #self.add_wall(0, self.height / 2, self.width, thickness, (0, 0, 0))
         self.add_wall(0, -self.height / 2, self.width, thickness, (0,0,0))
 
         count_x = 10
@@ -277,7 +276,7 @@ class Simulation:
                 self.lives -= 1
                 self.spawn_ball()
         else:
-            self.game_over()
+            self.is_game_over = True
 
     def collision_handle(self, obj1):
         for obj2 in self.objects:
@@ -297,6 +296,3 @@ class Simulation:
                     self.paddle.x = self.width / 2 - self.width / 25
                 if self.paddle.x < -self.width / 2 + self.width / 25:
                     self.paddle.x = -self.width / 2 + self.width / 25
-
-    def game_over(self):
-        self.is_game_over = True
