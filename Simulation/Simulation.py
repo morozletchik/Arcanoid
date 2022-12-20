@@ -1,6 +1,8 @@
+
 from pygame.rect import Rect
 import random
 import numpy as np
+
 
 class GameObject(object):
     def __init__(self, x, y, vx, vy, color, simulation):
@@ -19,6 +21,7 @@ class GameObject(object):
 
     def on_collide(self, other):
         pass
+
 
 class Ball(GameObject):
 
@@ -80,6 +83,7 @@ class Ball(GameObject):
                 else:
                     return "bottom"
 
+
 class Rectangle(GameObject):
     def __init__(self, x, y, width, height, color, simulation):
         super().__init__(x, y, width, height, color, simulation)
@@ -100,6 +104,7 @@ class Rectangle(GameObject):
     def on_collide(self, obj: Ball):
         pass
 
+
 class Wall(Rectangle):
     def __init__(self, x, y, width, height, color, simulation):
         super().__init__(x, y, width, height, color, simulation)
@@ -115,7 +120,7 @@ class Brick(Rectangle):
     def on_collide(self, obj):
         if self.intersect(obj):
             self.simulation.delete_body(obj)
-            return True
+
 
 class Paddle(Rectangle):
 
@@ -123,14 +128,19 @@ class Paddle(Rectangle):
         super().__init__(x, y, width, height, color, simulation)
         pass
 
+
 class Simulation:
     def __init__(self):
         self.objects = []
         self.life = 1
-        self.points = 0
+        self.__points = 0
 
-    def score(self, obj):
-        self.points += 1
+    @property
+    def score(self):
+        return self.__points
+
+    def set_score(self, obj):
+        self.__points += 1
 
     def update(self, dt):
         for obj in self.objects:

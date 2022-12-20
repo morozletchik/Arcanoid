@@ -1,9 +1,13 @@
 import pygame
 
+import os
+
 from Simulation.Simulation import *
 from pygame.surface import Surface
 from pygame.draw import circle, rect
 from pygame.rect import Rect
+from pygame.font import Font
+
 
 class Visualisator(object):
 
@@ -11,6 +15,7 @@ class Visualisator(object):
         self.simulation = simulation
         self._view_point = (0, 0)
         self._scale = 1
+        self._font = Font(os.path.join("Assets", "Multiround Pro", "MultiroundPro.otf"), 50)
 
     def from_screen_to_world_coordinates(self, position, rect: Rect):
         return (
@@ -40,7 +45,8 @@ class Visualisator(object):
                     x - scaled_width // 2, y - scaled_height // 2,
                     scaled_width, scaled_height)
                 )
-
+        text_score = self._font.render(f"{self.simulation.score}", True, (0, 0, 0))
+        surface.blit(text_score, (width//2 - 10, 10))
         return surface
 
     def change_view_point(self, new_view_point):
