@@ -167,9 +167,11 @@ class MainGameModule(Module):
                 if self.ui_system.have_element(self.dialog_box):
                     self.ui_system.remove_element(self.dialog_box)
                     pygame.mouse.set_visible(False)
+                    self.controller.continue_simulation()
                 else:
                     self.ui_system.add_element(self.dialog_box)
                     pygame.mouse.set_visible(True)
+                    self.controller.pause_simulation()
 
         self.ui_system.event_handler(event)
         self.controller.event_handler(event)

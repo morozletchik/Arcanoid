@@ -162,14 +162,17 @@ class Trigger(Rectangle):
         '''
         return
 
+
 class Simulation:
     def __init__(self, width, height):
         self.objects = []
+        self.is_paused = True
+        self.is_game_over = False
         self.lives = 3
         self.__points = 0
         self.width = width
         self.height = height
-        self.paused = True
+        self.is_paused = True
         self.ball = Ball(
             0, 300,
             -20, 20,
@@ -224,7 +227,7 @@ class Simulation:
         "spawns" a new ball (by moving it to the centre of the screen)
         and gives to it randomly directed velocity after pushing SPACE
         '''
-        self.paused = True
+        self.is_paused = True
         self.ball.vx = 0
         self.ball.vy = 0
         self.ball.x = 0
@@ -237,6 +240,7 @@ class Simulation:
         '''
         self.ball.vx = 20
         self.ball.vy = -20
+        self.is_paused = False
 
     @property
     def score(self):
@@ -247,10 +251,11 @@ class Simulation:
 
     #stick together
     def update(self, dt):
-        self.out_of_screen()
-        for obj in self.objects:
-            self.collision_handle(obj)
-        self.move_bodies(dt)
+        if not self.is_paused:
+            self.out_of_screen()
+            for obj in self.objects:
+                self.collision_handle(obj)
+            self.move_bodies(dt)
 
     def move_bodies(self, dt):
         """Пересчитывает координаты объектов."""
@@ -293,4 +298,4 @@ class Simulation:
                 self.paddle.x = -self.width / 2 + 60
 
     def game_over(self):
-        pass
+        self.is_game_over = True
