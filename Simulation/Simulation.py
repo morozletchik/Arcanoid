@@ -100,7 +100,7 @@ class Rectangle(GameObject):
 
     def intersect(self, obj):
         if type(obj) == Ball:
-            obj.intersect(self)
+            return obj.intersect(self) is not None
 
     @property
     def rect(self):
@@ -142,7 +142,8 @@ class Brick(Rectangle):
         pass
 
     def on_collide(self, obj):
-        self.simulation.delete_body(obj)
+        self.simulation.delete_body(self)
+        obj.on_collide(self)
         self.simulation.set_score()
 
 
@@ -172,15 +173,21 @@ class Simulation:
         self.add_wall(0, self.height / 2, self.width, thickness, (0, 0, 0))
         self.add_wall(0, -self.height / 2, self.width, thickness, (0,0,0))
 
-        brick_width = 100
-        brick_height = 20
+        count_x = 10
+        count_y = 6
 
-        brick_indent = (20, 20)
+        brick_width = 0.9 * (self.width - 20) / count_x
+        brick_height = 40
 
-        brick_start = (-self.width / 2 + 100, -self.height / 2 + 40)
+        brick_indent = (
+            0.1 * (self.width - 20) / count_x,
+            20
+        )
 
-        for i in range(0, 10):
-            for j in range(0, 10):
+        brick_start = (-self.width / 2 + 100, -self.height / 2 + 100)
+
+        for i in range(count_x):
+            for j in range(count_y):
                 self.objects.append(
                     Brick(
                         brick_start[0] + i * (brick_width + brick_indent[0]),
@@ -198,7 +205,7 @@ class Simulation:
         )
         self.objects.append(
             Ball(
-                0, 300, -10, 10, 10, (255, 255, 255), self
+                0, 300, -20, 20, 10, (255, 255, 255), self
             )
         )
 
@@ -213,7 +220,7 @@ class Simulation:
     def score(self):
         return self.__points
 
-    def set_score(self, obj):
+    def set_score(self):
         self.__points += 1
 
     def update(self, dt):
