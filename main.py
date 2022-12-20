@@ -1,5 +1,3 @@
-
-
 import sys
 import os
 from abc import ABC
@@ -24,6 +22,9 @@ from pygame.event import Event
 from screeninfo import get_monitors
 
 GRAY = (128, 128, 128)
+
+pygame.init()
+pygame.font.init()
 
 
 class Module(ABC):
@@ -85,7 +86,7 @@ class MainMenuModule(Module):
         self.ui_system.draw(surface)
 
     def update(self, delta_time: float):
-        pass
+        pygame.mouse.set_visible(True)
 
     def event_handler(self, event: Event):
         self.ui_system.event_handler(event)
@@ -144,6 +145,7 @@ class MainGameModule(Module):
         )
 
         self.ui_system.add_element(canvas)
+        pygame.mouse.set_visible(False)
 
     def update(self, delta_time: float):
         for i in range(10):
@@ -178,6 +180,7 @@ def change_module():
     else:
         module = MainGameModule(WIDTH, HEIGHT)
 
+
 running = True
 
 WIDTH = get_monitors()[0].width - 50
@@ -185,8 +188,7 @@ HEIGHT = get_monitors()[0].height - 50
 
 FPS = 30
 
-pygame.init()
-pygame.font.init()
+
 screen = pygame.display.set_mode(
     (WIDTH, HEIGHT), pygame.FULLSCREEN
 )
