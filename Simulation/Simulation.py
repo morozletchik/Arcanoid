@@ -88,7 +88,7 @@ class Rectangle(GameObject):
 
     @property
     def rect(self):
-        return Rect(self.x - self.width / 2, self.y - self.height / 2)
+        return Rect(self.x - self.width / 2, self.y - self.height / 2, self.width, self.height)
 
     @property
     def top(self):
@@ -97,6 +97,14 @@ class Rectangle(GameObject):
     @property
     def bottom(self):
         return self.rect.bottom
+
+    @property
+    def left(self):
+        return self.rect.left
+
+    @property
+    def right(self):
+        return self.rect.right
 
     def on_collide(self, obj: Ball):
         pass
@@ -150,6 +158,11 @@ class Simulation:
             Paddle(
                 0, self.height / 2 - 40,
                 80, 20, (255, 255, 255), self
+            )
+        )
+        self.objects.append(
+            Ball(
+                0, 0, 10, 10, 10, (255, 255, 255), self
             )
         )
 
