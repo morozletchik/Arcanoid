@@ -17,10 +17,13 @@ from UI.ToolBar.ToolBar import ToolBar
 from UI.ToolBar.StrikeTool import StrikeTool
 from UI.UIElements.Button import Button
 from UI.UIElements.TextBox import TextBox
+from UI.UIElements.DialogBox import DialogBox
 
 from pygame.event import Event
 
 from screeninfo import get_monitors
+
+GRAY = (128, 128, 128)
 
 
 class Module(ABC):
@@ -121,25 +124,26 @@ class MainGameModule(Module):
 
         base_font = pygame.font.SysFont('arial', 14)
 
-        toolbar = ToolBar(
-            0, 0,
-            WIDTH, HEIGHT // 10,
-            canvas, list(zip(tools, [create_empty_icon() for i in tools])), (128, 128, 128)
-        )
-
-        toolbar.add_element(
-            Button(
-                width - 100 - 20, height // 10 // 2 - 30,
-                100, 60,
-                base_font, "Главное меню",
-                create_empty_icon(), change_module
-            )
+        self.dialog_box = DialogBox(
+            width // 2 - 300, height // 2 - 300,
+            600, 600,
+            base_font, "Пауза",
+            GRAY,
+            [
+                Button(
+                    0, 0, 200, 100,
+                    base_font, "Продолжить",
+                    create_empty_icon(), lambda: self.ui_system.remove_element(self.dialog_box)
+                ),
+                Button(
+                    0, 0, 200, 100,
+                    base_font, "В главное меню",
+                    create_empty_icon(), change_module
+                )
+            ], 20
         )
 
         self.ui_system.add_element(canvas)
-        self.ui_system.add_element(
-            toolbar
-        )
 
     def update(self, delta_time: float):
         for i in range(10):
@@ -149,6 +153,13 @@ class MainGameModule(Module):
         self.ui_system.draw(screen)
 
     def event_handler(self, event: Event):
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                if self.ui_system.have_element(self.dialog_box):
+                    self.ui_system.remove_element(self.dialog_box)
+                else:
+                    self.ui_system.add_element(self.dialog_box)
+
         self.ui_system.event_handler(event)
         self.controller.event_handler(event)
 

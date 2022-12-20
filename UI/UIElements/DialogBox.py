@@ -1,6 +1,8 @@
 from pygame.surface import Surface
 
 from UI.UIObject import UIObject, create_empty_icon
+from pygame.draw import rect
+
 
 class DialogBox(UIObject):
 
@@ -33,5 +35,9 @@ class DialogBox(UIObject):
         pass
 
     def draw(self, surface: Surface):
+        rect(surface, self._color, self.rect, border_radius=4)
+        caption = self._font.render(self._caption, True, (0, 0, 0))
+        surface.blit(caption, (self._x + caption.get_width()//2, self._y))
         for button in self.buttons:
             button.draw(surface)
+
