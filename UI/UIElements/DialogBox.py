@@ -4,11 +4,9 @@ from UI.UIObject import UIObject, create_empty_icon
 
 class DialogBox(UIObject):
 
-    def __init__(self, x, y, width, height, font, caption, color, buttons):
+    def __init__(self, x, y, width, height, font, caption, color, buttons, indent_y):
         super().__init__(x, y, width, height, font, caption, create_empty_icon(), color)
         self.buttons = buttons
-
-        indent_y = 10
 
         for i, button in enumerate(buttons):
             button.set_position(
