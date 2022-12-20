@@ -44,6 +44,10 @@ class Button(UIObject):
 
         self.state_handler()
 
+    def set_position(self, position):
+        self._x = position[0]
+        self._y = position[1]
+
     def state_handler(self):
         if self._mouse_state == MouseState.HOVER:
             self.on_mouse_hover()
