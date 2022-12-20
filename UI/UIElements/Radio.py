@@ -1,8 +1,8 @@
 
 
-from ..UIObject import UIObject
+from UI.UIObject import UIObject, create_empty_icon
 from pygame.surface import Surface
-from ..UIElements.Button import Button
+from UI.UIElements.Button import Button
 from enum import Enum
 import pygame
 from pygame.font import Font
@@ -57,18 +57,16 @@ class Radio(UIObject):
             x: int, y: int,
             width: int, height: int,
             font: Font, caption: str,
-            icon: Surface,
+            icons: list[Surface],
             color: (int, int, int),
             button_count: int
     ):
-        super().__init__(x, y, width, height, font, caption, icon, color)
+        super().__init__(x, y, width, height, font, caption, create_empty_icon(), color)
         button_width = 100
         button_height = 60
         button_color = (200, 200, 200)
         indent_x = 10
         indent_y = 0
-        icon = pygame.surface.Surface((width, height), pygame.SRCALPHA, 32)
-        icon = icon.convert_alpha()
         self._buttons = [
             RadioButton(
                 self._x + self._width // 2 - button_width // 2 + i * (button_width + indent_x),
@@ -77,7 +75,7 @@ class Radio(UIObject):
                 button_height,
                 font,
                 "",
-                icon,
+                icons[i],
                 self
             ) for i in range(button_count)
         ]

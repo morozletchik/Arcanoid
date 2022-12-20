@@ -119,7 +119,7 @@ class MainGameModule(Module):
         toolbar = ToolBar(
             0, 0,
             WIDTH, HEIGHT // 10,
-            canvas, tools, create_empty_icon(), (128, 128, 128)
+            canvas, list(zip(tools, [create_empty_icon() for i in tools])), (128, 128, 128)
         )
 
         toolbar.add_element(
@@ -146,6 +146,7 @@ class MainGameModule(Module):
     def event_handler(self, event: Event):
         self.ui_system.event_handler(event)
         self.controller.event_handler(event)
+
 
 def close():
     global running

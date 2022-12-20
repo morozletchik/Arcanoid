@@ -23,19 +23,18 @@ class ToolBar(UIObject):
             x: int, y: int,
             width: int, height: int,
             canvas: Canvas,
-            tools: list[BaseTool],
-            icon: Surface,
+            tools: list[(BaseTool, Surface)],
             color: (int, int, int)
     ):
-        super().__init__(x, y, width, height, None, "", icon, color)
+        super().__init__(x, y, width, height, create_empty_icon(), "", create_empty_icon(), color)
 
-        self._tools = tools
+        self._tools = [el[0] for el in tools]
 
         self._elements = [Radio(
             x + width // 100 + 40 + 20, y + height // 2 - 30,
             100, 60,
             create_standard_font(), "ToolButtons",
-            icon,
+            [el[1] for el in tools],
             (128, 128, 128),
             len(tools)
         )]
