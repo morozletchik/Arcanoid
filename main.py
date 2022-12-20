@@ -40,6 +40,8 @@ class Module(ABC):
     def event_handler(self, event: Event):
         pass
 
+    def on_setup(self):
+        pass
 
 class MainMenuModule(Module):
     def __init__(self, width, height):
@@ -86,6 +88,9 @@ class MainMenuModule(Module):
         self.ui_system.draw(surface)
 
     def update(self, delta_time: float):
+        pass
+
+    def on_setup(self):
         pygame.mouse.set_visible(True)
 
     def event_handler(self, event: Event):
@@ -145,6 +150,8 @@ class MainGameModule(Module):
         )
 
         self.ui_system.add_element(canvas)
+
+    def on_setup(self):
         pygame.mouse.set_visible(False)
 
     def update(self, delta_time: float):
@@ -159,8 +166,10 @@ class MainGameModule(Module):
             if event.key == pygame.K_ESCAPE:
                 if self.ui_system.have_element(self.dialog_box):
                     self.ui_system.remove_element(self.dialog_box)
+                    pygame.mouse.set_visible(False)
                 else:
                     self.ui_system.add_element(self.dialog_box)
+                    pygame.mouse.set_visible(True)
 
         self.ui_system.event_handler(event)
         self.controller.event_handler(event)
@@ -179,6 +188,7 @@ def change_module():
 
     else:
         module = MainGameModule(WIDTH, HEIGHT)
+    module.on_setup()
 
 
 running = True
