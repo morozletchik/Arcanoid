@@ -130,12 +130,17 @@ class MainGameModule(Module):
 
         base_font = pygame.font.SysFont('arial', 28)
         header_font = pygame.font.SysFont('arial', 128)
-        game_over_font = pygame.font.SysFont('arial', 256)
+        final_font = pygame.font.SysFont('arial', 256)
 
         self.game_over_text = TextBox(
-                    WIDTH // 2 - 500, HEIGHT // 2 - 200,
-                    game_over_font, "Game Over", (255, 0, 0)
-                )
+            WIDTH // 2 - 500, HEIGHT // 2 - 200,
+            final_font, "Game Over", (255, 0, 0)
+        )
+
+        self.win_text = TextBox(
+            WIDTH // 2 - 700, HEIGHT // 2 - 200,
+            final_font, "Вы победили!", (0, 255, 0)
+        )
 
         self.dialog_box = DialogBox(
             width // 2 - 300, height // 2 - 300,
@@ -167,6 +172,10 @@ class MainGameModule(Module):
         if self.simulation.is_game_over():
             self.ui_system.add_element(
                 self.game_over_text
+            )
+        if self.simulation.is_win():
+            self.ui_system.add_element(
+                self.win_text
             )
 
     def draw(self, screen: Surface):

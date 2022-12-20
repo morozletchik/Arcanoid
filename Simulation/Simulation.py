@@ -168,7 +168,8 @@ class SimulationState(object):
     READY_TO_START = 0,
     PAUSED = 1,
     GAMEOVER = 2,
-    PLAYING = 3
+    PLAYING = 3,
+    WIN = 4
 
 class Simulation:
     def __init__(self, width, height):
@@ -178,6 +179,7 @@ class Simulation:
         self.width = width
         self.height = height
         self.state = SimulationState.READY_TO_START
+        self.start_brick_count = 0
         self.ball = Ball(
             0, height / 3,
             -20, 20,
@@ -197,6 +199,8 @@ class Simulation:
 
         count_x = 10
         count_y = 6
+
+        self.start_brick_count = count_x * count_y
 
         brick_width = 0.9 * (self.width - thickness) / count_x
         brick_height = 2 * thickness
@@ -226,6 +230,8 @@ class Simulation:
         self.objects.append(
             self.ball
         )
+        self.spawn_ball()
+
     def spawn_ball(self):
         '''
         "spawns" a new ball (by moving it to the centre of the screen)
@@ -235,7 +241,7 @@ class Simulation:
         self.ball.vx = 0
         self.ball.vy = 0
         self.ball.x = 0
-        self.ball.y = 0
+        self.ball.y = self.height / 3
 
     def start(self):
         '''
@@ -258,6 +264,8 @@ class Simulation:
     #stick together
     def update(self, dt):
         self.out_of_screen()
+        if self.start_brick_count <= self.score:
+            self.state == SimulationState.WIN
         if self.state == SimulationState.PLAYING:
             for obj in self.objects:
                 self.collision_handle(obj)
@@ -321,6 +329,12 @@ class Simulation:
 
     def is_ready(self):
         return self.state == SimulationState.READY_TO_START
+
+    def win(self):
+        self.state = SimulationState.WIN
+
+    def is_win(self):
+        return self.state == SimulationState.WIN
 
 
 
