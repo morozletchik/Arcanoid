@@ -171,7 +171,7 @@ FPS = 30
 pygame.init()
 pygame.font.init()
 screen = pygame.display.set_mode(
-    (WIDTH, HEIGHT)
+    (WIDTH, HEIGHT), pygame.FULLSCREEN
 )
 clock = pygame.time.Clock()
 
