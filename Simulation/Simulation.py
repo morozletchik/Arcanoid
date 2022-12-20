@@ -29,6 +29,10 @@ class Ball(GameObject):
         super().__init__(x, y, vx, vy, color, simulation)
         self.r = r
 
+    @property
+    def bounds(self):
+        return Rect(self.x - self.r/2, self.y - self.r/2, self.x + self.r/2, self.y + self.r/2)
+
     def move_object(self, dt):
         self.x += self.vx * dt
         self.y += self.vy * dt
@@ -45,7 +49,7 @@ class Ball(GameObject):
                  "top": Rect(obj.left, obj.top, obj.width, 1),
                  "bottom": Rect(obj.left, obj.bottom - 1, obj.width, 1)}
 
-        collisions = set(edge for (edge, rect) in edges.items() if obj.collideobjects(self))
+        collisions = set(edge for (edge, rect) in edges.items() if self.bounds.colliderect(rect))
 
         if len(collisions) == 0:
             return None
@@ -78,6 +82,17 @@ class Ball(GameObject):
                     return "left"
                 else:
                     return "bottom"
+
+    def is_collide(self, obj):
+        return self.intersect(obj) is not None
+
+    def on_collide(self, obj):
+        intersect = self.intersect(obj)
+        if intersect == "left" or intersect == "right":
+            self.vx = -self.vx
+
+        if intersect == "top" or intersect == "bottom":
+            self.vy = -self.vy
 
 
 class Rectangle(GameObject):
@@ -125,7 +140,6 @@ class Brick(Rectangle):
         super().__init__(x, y, width, height, color, simulation)
         pass
 
-
     def on_collide(self, obj):
         if self.intersect(obj):
             self.simulation.delete_body(obj)
@@ -162,7 +176,7 @@ class Simulation:
         )
         self.objects.append(
             Ball(
-                0, 0, 10, 10, 10, (255, 255, 255), self
+                0, 0, -10, 10, 10, (255, 255, 255), self
             )
         )
 

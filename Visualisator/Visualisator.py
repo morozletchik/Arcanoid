@@ -35,7 +35,7 @@ class Visualisator(object):
         for obj in self.simulation.objects:
             if type(obj) == Ball:
                 (x, y) = self.from_world_to_screen_coordinates((obj.x, obj.y), Rect(0, 0, width, height))
-                radius = obj.radius * self._scale
+                radius = obj.r * self._scale
                 circle(surface, obj.color, (x, y), radius)
             if type(obj) == Rectangle:
                 (x, y) = self.from_world_to_screen_coordinates((obj.x, obj.y), Rect(0, 0, width, height))
