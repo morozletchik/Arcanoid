@@ -98,6 +98,10 @@ class Rectangle(GameObject):
         self.width = width
         self.height = height
 
+    def intersect(self, obj):
+        if type(obj) == Ball:
+            obj.intersect(self)
+
     @property
     def rect(self):
         return Rect(self.x - self.width / 2, self.y - self.height / 2, self.width, self.height)
@@ -138,8 +142,8 @@ class Brick(Rectangle):
         pass
 
     def on_collide(self, obj):
-        if self.intersect(obj):
-            self.simulation.delete_body(obj)
+        self.simulation.delete_body(obj)
+        self.simulation.set_score()
 
 
 class Paddle(Rectangle):
@@ -167,15 +171,34 @@ class Simulation:
         self.add_wall(self.width / 2, 0, thickness, self.height, (0, 0, 0))
         self.add_wall(0, self.height / 2, self.width, thickness, (0, 0, 0))
         self.add_wall(0, -self.height / 2, self.width, thickness, (0,0,0))
+
+        brick_width = 100
+        brick_height = 20
+
+        brick_indent = (20, 20)
+
+        brick_start = (-self.width / 2 + 100, -self.height / 2 + 40)
+
+        for i in range(0, 10):
+            for j in range(0, 10):
+                self.objects.append(
+                    Brick(
+                        brick_start[0] + i * (brick_width + brick_indent[0]),
+                        brick_start[1] + j * (brick_height + brick_indent[1]),
+                        brick_width, brick_height,
+                        (255, 255, 255), self
+                    )
+                )
+
         self.objects.append(
             Paddle(
                 0, self.height / 2 - 40,
-                80, 20, (255, 255, 255), self
+                120, 20, (255, 255, 255), self
             )
         )
         self.objects.append(
             Ball(
-                0, 0, -10, 10, 10, (255, 255, 255), self
+                0, 300, -10, 10, 10, (255, 255, 255), self
             )
         )
 

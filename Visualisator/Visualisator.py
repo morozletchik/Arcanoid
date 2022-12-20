@@ -53,6 +53,14 @@ class Visualisator(object):
                     x - scaled_width // 2, y - scaled_height // 2,
                     scaled_width, scaled_height)
                 )
+            if type(obj) == Brick:
+                (x, y) = self.from_world_to_screen_coordinates((obj.x, obj.y), Rect(0, 0, width, height))
+                scaled_width = int(obj.width * self._scale)
+                scaled_height = int(obj.height * self._scale)
+                rect(surface, obj.color, Rect(
+                    x - scaled_width // 2, y - scaled_height // 2,
+                    scaled_width, scaled_height)
+                )
 
         text_score = self._font.render(f"{self.simulation.score}", True, (0, 0, 0))
         surface.blit(text_score, (width//2 - 10, 10))
