@@ -184,7 +184,7 @@ class Simulation:
         )
 
     def setup(self):
-        thickness = 20
+        thickness = self.width / 100
 
         self.add_wall(-self.width / 2, 0, thickness, self.height, (0, 0, 0))
         self.add_wall(self.width / 2, 0, thickness, self.height, (0, 0, 0))
@@ -194,12 +194,12 @@ class Simulation:
         count_x = 10
         count_y = 6
 
-        brick_width = 0.9 * (self.width - 20) / count_x
-        brick_height = 40
+        brick_width = 0.9 * (self.width - thickness) / count_x
+        brick_height = 2 * thickness
 
         brick_indent = (
-            0.1 * (self.width - 20) / count_x,
-            20
+            0.1 * (self.width - thickness) / count_x,
+            thickness
         )
 
         brick_start = (-self.width / 2 + 100, -self.height / 2 + 100)
@@ -289,13 +289,14 @@ class Simulation:
         self.objects.append(wall)
 
     def move_paddle(self, delta_move):
-        if self.paddle is not None:
-            self.paddle.player_move(delta_move)
+        if not self.is_paused:
+            if self.paddle is not None:
+                self.paddle.player_move(delta_move)
 
-            if self.paddle.x > self.width / 2 - 60:
-                self.paddle.x = self.width / 2 - 60
-            if self.paddle.x < -self.width / 2 + 60:
-                self.paddle.x = -self.width / 2 + 60
+                if self.paddle.x > self.width / 2 - 60:
+                    self.paddle.x = self.width / 2 - 60
+                if self.paddle.x < -self.width / 2 + 60:
+                    self.paddle.x = -self.width / 2 + 60
 
     def game_over(self):
         self.is_game_over = True
