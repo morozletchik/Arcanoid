@@ -8,6 +8,7 @@ from pygame.draw import circle, rect
 from pygame.rect import Rect
 from pygame.font import Font
 
+
 def stretch(surface, width, height):
     '''
     stretches an image
@@ -15,6 +16,7 @@ def stretch(surface, width, height):
     :param height: height of the screen
     '''
     surface = pygame.transform.scale(surface, (width, height))
+
 
 class Visualisator(object):
 
@@ -24,6 +26,7 @@ class Visualisator(object):
         self._scale = 1
         self._font = Font(os.path.join("Assets", "Multiround Pro", "MultiroundPro.otf"), 50)
         self.background_image = pygame.image.load(os.path.join("Assets", "background.jpg"))
+        self.heart_image = pygame.image.load(os.path.join("Assets", "heart.png"))
 
     def from_screen_to_world_coordinates(self, position, rect: Rect):
         return (

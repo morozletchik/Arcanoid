@@ -44,6 +44,7 @@ class Module(ABC):
     def on_setup(self):
         pass
 
+
 class MainMenuModule(Module):
     def __init__(self, width, height):
         super().__init__(width, height)
