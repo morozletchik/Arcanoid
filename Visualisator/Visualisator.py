@@ -29,19 +29,36 @@ class Visualisator(object):
         self.heart_image = pygame.image.load(os.path.join("Assets", "heart.png"))
 
     def from_screen_to_world_coordinates(self, position, rect: Rect):
-
+        '''
+        converts screen usual coord into coord with (0,0) in the centre
+        :param position: pos in usual screen coord
+        :param rect: rect which coord are converted
+        :return: position x, position y
+        '''
         return (
             (position[0] - rect.width / 2) / self.scale + self.view_point[0],
             (position[1] - rect.height / 2) / self.scale + self.view_point[1]
         )
 
     def from_world_to_screen_coordinates(self, position, rect: Rect):
+        '''
+        converts coord with (0,0) in the centre into screen usual coord
+        :param position: pos in coord with (0,0) in the centre
+        :param rect: rect which coord are converted
+        :return: x, y - screen coord
+        '''
         x = (position[0] - self._view_point[0]) * self._scale + rect.width // 2
         y = (position[1] - self._view_point[1]) * self._scale + rect.height // 2
 
         return x, y
 
     def visualize(self, width, height) -> Surface:
+        '''
+        visualises the game: background, lives and all the game objects
+        :param width: game window width
+        :param height: game window height
+        :return: surface with images and objects on it
+        '''
         self.background_image = stretch(self.background_image, width, height)
         self.heart_image = stretch(self.heart_image, height // 20, height // 20)
         surface = Surface((width, height), flags=pygame.SRCALPHA)
@@ -81,5 +98,3 @@ class Visualisator(object):
     @property
     def scale(self):
         return self._scale
-
-
