@@ -31,7 +31,13 @@ class Controller(object):
                 self._simulation.start()
 
     def pause_simulation(self):
+        '''
+        pauses simulation
+        '''
         self._simulation.pause_simulation()
 
     def continue_simulation(self):
+        '''
+        continues the game
+        '''
         self._simulation.continue_simulation()
