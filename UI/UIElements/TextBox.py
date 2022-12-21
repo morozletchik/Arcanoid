@@ -27,7 +27,9 @@ class TextBox(UIObject):
         pass
 
     def draw(self, surface: Surface):
-        text = self._font.render(self._caption, True, self._color)
-        surface.blit(text, (self._x, self._y))
+        texts = self._caption.split('\n')
+        for i, t in enumerate(texts):
+            text = self._font.render(t, True, self._color)
+            surface.blit(text, (self._x, self._y + i * self._font.get_height()))
 
 

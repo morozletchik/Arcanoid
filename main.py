@@ -135,17 +135,17 @@ class MainGameModule(Module):
         hint_font = pygame.font.SysFont('arial', 128)
 
         self.hint_text1 = TextBox(
-            WIDTH // 2 - 800, HEIGHT // 2,
+            WIDTH // 2 - 400, 2 * HEIGHT // 3,
             hint_font, "Нажмите Esc, чтобы\nперейти в главное меню", (255, 255, 255)
         )
 
         self.hint_text2 = TextBox(
-            WIDTH // 2 - 800, HEIGHT // 2,
+            WIDTH // 2 - 400, HEIGHT // 2,
             hint_font, "Нажмите Space,\nчтобы начать", (255, 255, 255)
         )
 
         self.game_over_text = TextBox(
-            WIDTH // 2 - 500, HEIGHT // 2 - 200,
+            WIDTH // 2 - 500, HEIGHT // 3,
             final_font, "Game Over", (255, 0, 0)
         )
 
