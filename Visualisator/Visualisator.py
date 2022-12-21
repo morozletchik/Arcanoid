@@ -16,6 +16,7 @@ class Visualisator(object):
         self._view_point = (0, 0)
         self._scale = 1
         self._font = Font(os.path.join("Assets", "Multiround Pro", "MultiroundPro.otf"), 50)
+        self.background_image = pygame.image.load(os.path.join("Assets", "background.jpg"))
 
     def from_screen_to_world_coordinates(self, position, rect: Rect):
         return (
@@ -28,10 +29,13 @@ class Visualisator(object):
         y = (position[1] - self._view_point[1]) * self._scale + rect.height // 2
 
         return x, y
+    def stretch(self):
+        self.background_image = pygame.transform.scale(
+            self.background_image, (self.simulation.width, self.simulation.height))
 
     def visualize(self, width, height) -> Surface:
         surface = Surface((width, height), flags=pygame.SRCALPHA)
-        surface.fill((0, 0, 160))
+        surface.blit(self.background_image, (0, 0), Rect(0, 0, width, height))
         for obj in self.simulation.objects:
             if type(obj) == Ball:
                 (x, y) = self.from_world_to_screen_coordinates((obj.x, obj.y), Rect(0, 0, width, height))
