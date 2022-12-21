@@ -8,6 +8,7 @@ from pygame.draw import circle, rect
 from pygame.rect import Rect
 from pygame.font import Font
 
+
 def stretch(surface, width, height):
     '''
     stretches an image
@@ -15,6 +16,7 @@ def stretch(surface, width, height):
     :param height: height of the screen
     '''
     surface = pygame.transform.scale(surface, (width, height))
+
 
 class Visualisator(object):
 
@@ -37,13 +39,6 @@ class Visualisator(object):
         y = (position[1] - self._view_point[1]) * self._scale + rect.height // 2
 
         return x, y
-<<<<<<< HEAD
-
-    def stretch(self, width, height):
-        self.background_image = pygame.transform.scale(
-            self.background_image, (width, height))
-=======
->>>>>>> 1ca1bc112f7e4952f397f70ba6677057c66b3acc
 
     def visualize(self, width, height) -> Surface:
         stretch(self.background_image, width, height)
