@@ -177,20 +177,6 @@ class Paddle(Rectangle):
         pass
 
 
-class Trigger(Rectangle):
-
-    def __init__(self, x, y, width, height, color, simulation):
-        super().__init__(x, y, width, height, color, simulation)
-
-    def is_out_of_screen(self, obj: Ball):
-        '''
-        checks if the ball fell under the bottom
-        :param obj: ball
-        :return: (True or False) - is the ball out of the screen
-        '''
-        return
-
-
 class SimulationState(object):
     READY_TO_START = 0,
     PAUSED = 1,
