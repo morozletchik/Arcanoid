@@ -269,7 +269,6 @@ HEIGHT = get_monitors()[0].height
 
 FPS = 30
 
-
 screen = pygame.display.set_mode(
     (WIDTH, HEIGHT), pygame.FULLSCREEN
 )

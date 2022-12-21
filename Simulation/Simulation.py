@@ -1,4 +1,3 @@
-
 from pygame.rect import Rect
 import random
 import numpy as np
@@ -6,6 +5,7 @@ from typing import Callable
 
 BRICK_COLORS = [(95, 9, 243), (111, 140, 253), (0, 239, 144)]
 VALUES = [100, 50, 10]
+
 
 class GameObject(object):
     def __init__(self, x, y, vx, vy, color, simulation):
@@ -35,7 +35,11 @@ class Ball(GameObject):
 
     @property
     def bounds(self):
-        return Rect(self.x - self.r/2, self.y - self.r/2, self.r, self.r)
+        '''
+        creates describing the ball rect - Rect
+        :return: Rect
+        '''
+        return Rect(self.x - self.r / 2, self.y - self.r / 2, self.r, self.r)
 
     def intersect(self, obj):
         '''
@@ -84,9 +88,18 @@ class Ball(GameObject):
                     return "bottom"
 
     def is_collide(self, obj):
+        '''
+        responds whether the collision happened
+        :param obj: shot object(wall, brick or paddle)
+        :return: (True or False) - did the collision happen
+        '''
         return self.intersect(obj) is not None
 
     def on_collide(self, obj):
+        '''
+        changes ball's coordinates and velocity components when collision happens
+        :param obj: wall, brick or paddle
+        '''
         intersect = self.intersect(obj)
         if intersect == "left" or intersect == "right":
             self.vx = -self.vx + obj.vx
@@ -115,28 +128,50 @@ class Rectangle(GameObject):
 
     @property
     def rect(self):
+        '''
+        creates rect function
+        rect  (x_centre, y_centre, width, height)
+        :return: Rect
+        '''
         return Rect(self.x - self.width / 2, self.y - self.height / 2, self.width, self.height)
 
     @property
     def top(self):
+        '''
+        :return: y of top side of the rect
+        '''
         return self.rect.top
 
     @property
     def bottom(self):
+        '''
+        :return: y of bottom side of the rect
+        '''
         return self.rect.bottom
 
     @property
     def left(self):
+        '''
+        :return: x of left side of the rect
+        '''
         return self.rect.left
 
     @property
     def right(self):
+        '''
+        :return: x of right side of the rect
+        '''
         return self.rect.right
 
     def on_collide(self, obj: Ball):
         pass
 
     def move_on_delta(self, delta_move):
+        '''
+        changes object position by small movement
+        :param delta_move: this small movement
+        :return:
+        '''
         self.x += delta_move[0]
         self.y += delta_move[1]
 
@@ -148,6 +183,11 @@ class AcceleratingWall(Rectangle):
         self.acceleration_scale = 5
 
     def on_collide(self, obj: Ball):
+        '''
+        accelerates the ball when collision happens
+        :param obj: ball
+        :return:
+        '''
         obj.vx *= 1 + self.acceleration_scale / 100
         obj.vy *= 1 + self.acceleration_scale / 100
 
@@ -158,6 +198,12 @@ class Brick(Rectangle):
         self.value = value
 
     def on_collide(self, obj):
+        '''
+        calls method that deletes shot brick
+        and calls function for incr score
+        :param obj: ball
+        :return:
+        '''
         self.simulation.delete_body(self)
         obj.on_collide(self)
         self.simulation.increase_score(self.value)
@@ -170,13 +216,18 @@ class Paddle(Rectangle):
         pass
 
     def player_move(self, delta_move):
+        '''
+        changes paddle position
+        :param delta_move: paddle's movement
+        :return:
+        '''
         self.move_on_delta(delta_move)
         self.vx = delta_move[0]
 
     def move_object(self, dt):
         pass
 
-
+#Class of Simulation stages
 class SimulationState(object):
     READY_TO_START = 0,
     PAUSED = 1,
@@ -197,17 +248,18 @@ class Simulation:
         self.ball = Ball(
             0, height / 3,
             -20, 20,
-            self.width / 200, (255, 255, 255), self
+               self.width / 200, (255, 255, 255), self
         )
         self.paddle = Paddle(
             0, self.height / 2 - self.height / 80,
-            self.width / 12, 1.1 * height / 50, (255, 158, 161), self
+               self.width / 12, 1.1 * height / 50, (255, 158, 161), self
         )
         self.on_change_state = []
 
     def setup(self):
         '''
         creates walls and bricks and their properties
+        spawns ball
         '''
         thickness = self.width / 100
         self.add_wall(
@@ -234,11 +286,11 @@ class Simulation:
         brick_height = 2 * thickness
 
         brick_indent = (
-            0.1 * (self.width - thickness) / count_x,
+            0.05 * (self.width - thickness) / count_x,
             thickness
         )
 
-        brick_start = (-self.width / 2 + self.width / 19, -self.height / 3 + self.height / 30)
+        brick_start = (-self.width / 2 + self.width / 18, -self.height / 3 + self.height / 30)
 
         for i in range(count_x):
             for j in range(count_y):
@@ -275,6 +327,7 @@ class Simulation:
     def start(self):
         '''
         starts a new live
+        randomly chooses initial vel direction
         :return:
         '''
         self.paddle.x = 0
@@ -288,9 +341,14 @@ class Simulation:
         return self.__points
 
     def increase_score(self, value):
+        '''
+        adds brick's val to the score
+        :param value: brick's value
+        :return:
+        '''
         self.__points += value
 
-    #stick together
+    # stick together
     def update(self, dt):
         '''
         updates positions of objects
@@ -317,13 +375,17 @@ class Simulation:
             obj.move_object(dt)
 
     def delete_body(self, obj):
+        '''
+        deletes object
+        :param obj: object which has to be deleted
+        :return:
+        '''
         self.objects.remove(obj)
 
     def out_of_screen(self):
         '''
         reduces the number of the ball's lives if it is positive
         calls game over if it is zero
-        :param trigger: bottom of the screen
         :param ball: ball
         '''
         if self.lives > 0:
@@ -339,6 +401,15 @@ class Simulation:
                 obj1.on_collide(obj2)
 
     def add_wall(self, x, y, width, height, color):
+        '''
+        creates a wall
+        :param x: x of the left top corner
+        :param y: y of the left top corner
+        :param width:
+        :param height:
+        :param color:
+        :return:
+        '''
         wall = Rectangle(x, y, width, height, color, self)
         self.objects.append(wall)
 
@@ -385,6 +456,3 @@ class Simulation:
 
     def is_win(self):
         return self.state == SimulationState.WIN
-
-
-
