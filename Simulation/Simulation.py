@@ -141,6 +141,17 @@ class Rectangle(GameObject):
         self.y += delta_move[1]
 
 
+class AcceleratingWall(Rectangle):
+
+    def __init__(self, x, y, width, height, color, simulation):
+        super().__init__(x, y, width, height, color, simulation)
+        self.acceleration_scale = 5
+
+    def on_collide(self, obj: Ball):
+        obj.vx *= 1 + self.acceleration_scale / 100
+        obj.vy *= 1 + self.acceleration_scale / 100
+
+
 class Brick(Rectangle):
     def __init__(self, x, y, width, height, color, value, simulation):
         super().__init__(x, y, width, height, color, simulation)
@@ -165,6 +176,7 @@ class Paddle(Rectangle):
     def move_object(self, dt):
         pass
 
+
 class Trigger(Rectangle):
 
     def __init__(self, x, y, width, height, color, simulation):
@@ -178,12 +190,14 @@ class Trigger(Rectangle):
         '''
         return
 
+
 class SimulationState(object):
     READY_TO_START = 0,
     PAUSED = 1,
     GAMEOVER = 2,
     PLAYING = 3,
     WIN = 4
+
 
 class Simulation:
     def __init__(self, width, height):
@@ -217,7 +231,10 @@ class Simulation:
             thickness, 2 * self.height + 2 * thickness,
             (70, 70, 70)
         )
-        self.add_wall(0, -self.height / 2, self.width + 2 * thickness, thickness, (70, 70, 70))
+
+        self.objects.append(
+            AcceleratingWall(0, -self.height / 2, self.width + 2 * thickness, thickness, (70, 70, 70), self)
+        )
 
         count_x = 10
         count_y = 6
