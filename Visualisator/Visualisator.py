@@ -16,7 +16,7 @@ def stretch(surface, width, height):
     :param height: height of the screen
     '''
     surface = pygame.transform.scale(surface, (width, height))
-
+    return surface
 
 class Visualisator(object):
 
@@ -41,7 +41,7 @@ class Visualisator(object):
         return x, y
 
     def visualize(self, width, height) -> Surface:
-        stretch(self.background_image, width, height)
+        self.background_image = stretch(self.background_image, width, height)
         surface = Surface((width, height), flags=pygame.SRCALPHA)
         surface.blit(self.background_image, (0, 0), Rect(0, 0, width, height))
         for obj in self.simulation.objects:
