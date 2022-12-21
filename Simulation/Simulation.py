@@ -195,20 +195,34 @@ class Simulation:
         self.ball = Ball(
             0, height / 3,
             -20, 20,
-            10, (255, 255, 255), self
+            self.width / 200, (255, 255, 255), self
         )
         self.paddle = Paddle(
             0, self.height / 2 - self.height / 80,
-            120, 20, (255, 255, 255), self
+            self.width / 12, height / 50, (100, 100, 100), self
         )
         self.on_change_state = []
 
     def setup(self):
         thickness = self.width / 100
 
+<<<<<<< HEAD
         self.add_wall(-self.width / 2, 0, thickness, self.height, (255, 0, 0))
         self.add_wall(self.width / 2, 0, thickness, self.height, (255, 0, 0))
         self.add_wall(0, -self.height / 2, self.width, thickness, (255, 0, 0))
+=======
+        self.add_wall(
+            -self.width / 2 - thickness, thickness / 2 + self.height / 2,
+            thickness, 2 * self.height + 2 * thickness,
+            (70, 70, 70)
+        )
+        self.add_wall(
+            self.width / 2 + thickness, thickness / 2 + self.height / 2,
+            thickness, 2 * self.height + 2 * thickness,
+            (70, 70, 70)
+        )
+        self.add_wall(0, -self.height / 2, self.width + 2 * thickness, thickness, (70, 70, 70))
+>>>>>>> ced7977a28364ff3845cbf036ad03d7c4657f846
 
         count_x = 10
         count_y = 6
@@ -232,7 +246,7 @@ class Simulation:
                         brick_start[0] + i * (brick_width + brick_indent[0]),
                         brick_start[1] + j * (brick_height + brick_indent[1]),
                         brick_width, brick_height,
-                        (255, 255, 255), self
+                        (200, 50, 0), self
                     )
                 )
 

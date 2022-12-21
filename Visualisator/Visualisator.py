@@ -71,7 +71,7 @@ class Visualisator(object):
                     scaled_width, scaled_height)
                 )
 
-        text_score = self._font.render(f"{self.simulation.score}", True, (0, 0, 0))
+        text_score = self._font.render(f"{self.simulation.score}", True, (255, 255, 255))
         surface.blit(text_score, (width//2 - 10, 10))
         return surface
 
