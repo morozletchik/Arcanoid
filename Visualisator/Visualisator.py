@@ -42,6 +42,7 @@ class Visualisator(object):
 
     def visualize(self, width, height) -> Surface:
         self.background_image = stretch(self.background_image, width, height)
+        self.heart_image = stretch(self.heart_image, height // 20, height // 20)
         surface = Surface((width, height), flags=pygame.SRCALPHA)
         surface.blit(self.background_image, (0, 0), Rect(0, 0, width, height))
         for obj in self.simulation.objects:
@@ -76,6 +77,10 @@ class Visualisator(object):
 
         text_score = self._font.render(f"{self.simulation.score}", True, (255, 255, 255))
         surface.blit(text_score, (width//2 - 10, 10))
+
+        for i in range(self.simulation.lives):
+            surface.blit(self.heart_image, (width // 200 + i * self.heart_image.get_width(), height // 200))
+
         return surface
 
     def change_view_point(self, new_view_point):
