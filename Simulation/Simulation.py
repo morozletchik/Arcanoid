@@ -220,6 +220,9 @@ class Simulation:
         self.on_change_state = []
 
     def setup(self):
+        '''
+        creates walls and bricks and their properties
+        '''
         thickness = self.width / 100
         self.add_wall(
             -self.width / 2 - thickness, thickness / 2 + self.height / 2,
@@ -303,6 +306,10 @@ class Simulation:
 
     #stick together
     def update(self, dt):
+        '''
+        updates positions of objects
+        :param dt: period of updating positions of the objects
+        '''
         self.out_of_screen()
         if self.all_brick_score == self.score:
             self.win()
@@ -315,7 +322,11 @@ class Simulation:
             event()
 
     def move_bodies(self, dt):
-        """Пересчитывает координаты объектов."""
+        """
+        changes objects' positions
+        :param dt: period of updating positions of the objects
+        :return:
+        """
         for obj in self.objects:
             obj.move_object(dt)
 
@@ -346,6 +357,10 @@ class Simulation:
         self.objects.append(wall)
 
     def move_paddle(self, delta_move):
+        '''
+        processes paddle movement
+        :param delta_move: movement of the mouse
+        '''
         if self.state == SimulationState.PLAYING:
             if self.paddle is not None:
                 self.paddle.player_move(delta_move)
