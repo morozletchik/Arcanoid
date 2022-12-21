@@ -29,6 +29,7 @@ class Visualisator(object):
         self.heart_image = pygame.image.load(os.path.join("Assets", "heart.png"))
 
     def from_screen_to_world_coordinates(self, position, rect: Rect):
+
         return (
             (position[0] - rect.width / 2) / self.scale + self.view_point[0],
             (position[1] - rect.height / 2) / self.scale + self.view_point[1]

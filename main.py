@@ -166,14 +166,27 @@ class MainGameModule(Module):
         self.ui_system.add_element(canvas)
 
     def on_continue(self):
+        '''
+        removes dial box and makes mouse invis
+        when pause is finished
+        :return:
+        '''
         self.ui_system.remove_element(self.dialog_box)
         pygame.mouse.set_visible(False)
         self.simulation.continue_simulation()
 
     def on_setup(self):
+        '''
+        makes mouse invisible
+        :return:
+        '''
         pygame.mouse.set_visible(False)
 
     def on_change_simulation_state(self):
+        '''
+        changes windows: main menu, game, pause, go or victory
+        :return:
+        '''
         if self.ui_system.have_element(self.game_over_text):
             self.ui_system.remove_element(self.game_over_text)
         if self.ui_system.have_element(self.win_text):
@@ -202,12 +215,26 @@ class MainGameModule(Module):
             )
 
     def update(self, delta_time: float):
+        '''
+        updates screen after small period of time
+        :param delta_time: small period of time
+        :return:
+        '''
         self.simulation.update(delta_time)
 
     def draw(self, screen: Surface):
+        '''
+        draws screen
+        :param screen:
+        '''
         self.ui_system.draw(screen)
 
     def event_handler(self, event: Event):
+        '''
+        processes events such as mouse movement and pressing keys
+        :param event:
+        :return:
+        '''
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 if not (self.simulation.is_win() or self.simulation.is_game_over()):
@@ -227,11 +254,19 @@ class MainGameModule(Module):
 
 
 def close():
+    '''
+    closes the game window
+    :return:
+    '''
     global running
     running = False
 
 
 def change_module():
+    '''
+    changes game module
+    :return:
+    '''
     global module
 
     if type(module) == MainGameModule:
