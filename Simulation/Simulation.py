@@ -81,7 +81,7 @@ class Ball(GameObject):
 
         elif "bottom" in collisions:
             if "right" in collisions:
-                if np.abs((self.y - obj.bottom) / (self.x - obj.right)) < 1:
+                if abs((self.y - obj.bottom) / (self.x - obj.right)) < 1:
                     return "right"
                 else:
                     return "bottom"
@@ -252,22 +252,17 @@ class Simulation:
         self.all_brick_score = 0
         self.ball = Ball(
             0, height / 3,
-<<<<<<< HEAD
-            -20, 20,
-               self.width / 200, (255, 255, 255), self
-        )
-        self.paddle = Paddle(
-            0, self.height / 2 - self.height / 80,
-               self.width / 12, 1.1 * height / 50, (255, 158, 161), self
-=======
             START_BALL_SPEED * random.choice([-1, 1]),
             START_BALL_SPEED * random.choice([-1, 1]),
             self.width / 200, BALL_COLOR, self
         )
         self.paddle = Paddle(
             0, self.height / 2 - self.height / 80,
+            self.width / 12, 1.1 * height / 50, (255, 158, 161), self,
+        )
+        self.paddle = Paddle(
+            0, self.height / 2 - self.height / 80,
             self.width / 12, 1.1 * height / 50, PADDLE_COLOR, self
->>>>>>> 7c54e233924610608df3954ce21e2cef9da867fa
         )
         self.on_change_state = []
 
@@ -278,18 +273,18 @@ class Simulation:
         '''
         thickness = self.width / 100
         self.add_wall(
-            -self.width / 2 - thickness, thickness / 2 + self.height / 2,
+            -self.width / 2 + self.width / 29 - thickness, thickness / 2 + self.height / 2,
             thickness, 2 * self.height + 2 * thickness,
             WALL_COLOR
         )
         self.add_wall(
-            self.width / 2 + thickness, thickness / 2 + self.height / 2,
+            self.width / 2 - self.width / 29 + thickness, thickness / 2 + self.height / 2,
             thickness, 2 * self.height + 2 * thickness,
             WALL_COLOR
         )
 
         self.objects.append(
-            AcceleratingWall(0, -self.height / 2, self.width + 2 * thickness, thickness, WALL_COLOR, self)
+            AcceleratingWall(0, -self.height / 2, self.width * 16/17 + 2 * thickness, thickness, WALL_COLOR, self)
         )
 
         count_x = 10
@@ -302,10 +297,10 @@ class Simulation:
 
         brick_indent = (
             0.05 * (self.width - thickness) / count_x,
-            thickness
+            thickness / 2
         )
 
-        brick_start = (-self.width / 2 + self.width / 18, -self.height / 3 + self.height / 30)
+        brick_start = (-self.width / 2  + self.width / 13, -self.height / 3 + self.height / 30)
 
         for i in range(count_x):
             for j in range(count_y):
@@ -359,10 +354,6 @@ class Simulation:
         '''
         self.__points += value
 
-<<<<<<< HEAD
-    # stick together
-=======
->>>>>>> 7c54e233924610608df3954ce21e2cef9da867fa
     def update(self, dt):
         '''
         updates positions of objects
