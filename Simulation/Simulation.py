@@ -205,7 +205,10 @@ class Simulation:
 
     def setup(self):
         thickness = self.width / 100
+<<<<<<< HEAD
+=======
 
+>>>>>>> 4d02d41a5b3b03f593239e2973aa210d0a9cb162
         self.add_wall(
             -self.width / 2 - thickness, thickness / 2 + self.height / 2,
             thickness, 2 * self.height + 2 * thickness,
