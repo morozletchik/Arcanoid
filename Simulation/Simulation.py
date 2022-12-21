@@ -5,6 +5,7 @@ import numpy as np
 from typing import Callable
 
 BRICK_COLORS = [(95, 9, 243), (111, 140, 253), (0, 239, 144)]
+VALUES = [100, 50, 10]
 
 class GameObject(object):
     def __init__(self, x, y, vx, vy, color, simulation):
@@ -152,14 +153,14 @@ class AcceleratingWall(Rectangle):
 
 
 class Brick(Rectangle):
-    def __init__(self, x, y, width, height, color, simulation):
+    def __init__(self, x, y, width, height, color, value, simulation):
         super().__init__(x, y, width, height, color, simulation)
-        pass
+        self.value = value
 
     def on_collide(self, obj):
         self.simulation.delete_body(self)
         obj.on_collide(self)
-        self.simulation.set_score()
+        self.simulation.increase_score(self.value)
 
 
 class Paddle(Rectangle):
@@ -206,7 +207,7 @@ class Simulation:
         self.width = width
         self.height = height
         self.state = SimulationState.READY_TO_START
-        self.start_brick_count = 0
+        self.all_brick_score = 0
         self.ball = Ball(
             0, height / 3,
             -20, 20,
@@ -219,6 +220,9 @@ class Simulation:
         self.on_change_state = []
 
     def setup(self):
+        '''
+        creates walls and bricks and their properties
+        '''
         thickness = self.width / 100
         self.add_wall(
             -self.width / 2 - thickness, thickness / 2 + self.height / 2,
@@ -238,7 +242,7 @@ class Simulation:
         count_x = 10
         count_y = 6
 
-        self.start_brick_count = count_x * count_y
+        self.all_brick_score = count_x * count_y
 
         brick_width = 0.9 * (self.width - thickness) / count_x
         brick_height = 2 * thickness
@@ -257,9 +261,10 @@ class Simulation:
                         brick_start[0] + i * (brick_width + brick_indent[0]),
                         brick_start[1] + j * (brick_height + brick_indent[1]),
                         brick_width, brick_height,
-                        BRICK_COLORS[int(j / 2)], self
+                        BRICK_COLORS[j // 2], VALUES[j // 2], self
                     )
                 )
+                self.all_brick_score += VALUES[j // 2]
 
         self.objects.append(
             self.paddle
@@ -296,13 +301,17 @@ class Simulation:
     def score(self):
         return self.__points
 
-    def set_score(self):
-        self.__points += 1
+    def increase_score(self, value):
+        self.__points += value
 
     #stick together
     def update(self, dt):
+        '''
+        updates positions of objects
+        :param dt: period of updating positions of the objects
+        '''
         self.out_of_screen()
-        if self.start_brick_count <= self.score:
+        if self.all_brick_score == self.score:
             self.win()
         if self.state == SimulationState.PLAYING:
             for obj in self.objects:
@@ -313,7 +322,11 @@ class Simulation:
             event()
 
     def move_bodies(self, dt):
-        """Пересчитывает координаты объектов."""
+        """
+        changes objects' positions
+        :param dt: period of updating positions of the objects
+        :return:
+        """
         for obj in self.objects:
             obj.move_object(dt)
 
@@ -344,6 +357,10 @@ class Simulation:
         self.objects.append(wall)
 
     def move_paddle(self, delta_move):
+        '''
+        processes paddle movement
+        :param delta_move: movement of the mouse
+        '''
         if self.state == SimulationState.PLAYING:
             if self.paddle is not None:
                 self.paddle.player_move(delta_move)
