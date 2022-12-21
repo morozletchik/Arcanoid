@@ -8,6 +8,13 @@ from pygame.draw import circle, rect
 from pygame.rect import Rect
 from pygame.font import Font
 
+def stretch(surface, width, height):
+    '''
+    stretches an image
+    :param width: width of the screen
+    :param height: height of the screen
+    '''
+    surface = pygame.transform.scale(surface, (width, height))
 
 class Visualisator(object):
 
@@ -29,12 +36,9 @@ class Visualisator(object):
         y = (position[1] - self._view_point[1]) * self._scale + rect.height // 2
 
         return x, y
-    def stretch(self, width, height):
-        self.background_image = pygame.transform.scale(
-            self.background_image, (width, height))
 
     def visualize(self, width, height) -> Surface:
-        self.stretch(width, height)
+        stretch(self.background_image, width, height)
         surface = Surface((width, height), flags=pygame.SRCALPHA)
         surface.blit(self.background_image, (0, 0), Rect(0, 0, width, height))
         for obj in self.simulation.objects:

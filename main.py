@@ -16,6 +16,7 @@ from UI.ToolBar.StrikeTool import StrikeTool
 from UI.UIElements.Button import Button
 from UI.UIElements.TextBox import TextBox
 from UI.UIElements.DialogBox import DialogBox
+from Visualisator.Visualisator import stretch
 
 from pygame.event import Event
 
@@ -47,6 +48,7 @@ class MainMenuModule(Module):
     def __init__(self, width, height):
         super().__init__(width, height)
         self.ui_system = UISystem(WIDTH, HEIGHT)
+
         base_font = pygame.font.SysFont('arial', 48)
 
         header_font = pygame.font.Font(os.path.join("UI", "Assets", "Multiround Pro", "MultiroundPro.otf"), 160)
@@ -84,7 +86,9 @@ class MainMenuModule(Module):
         )
 
     def draw(self, surface: Surface):
-        surface.fill((0, 0, 150))
+        menu_back = pygame.image.load(os.path.join("Assets", "menyu.png"))
+        stretch(menu_back, WIDTH, HEIGHT)
+        surface.blit(menu_back, (0, 0), Rect(0, 0, WIDTH, HEIGHT))
         self.ui_system.draw(surface)
 
     def update(self, delta_time: float):

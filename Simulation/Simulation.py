@@ -206,9 +206,9 @@ class Simulation:
     def setup(self):
         thickness = self.width / 100
 
-        self.add_wall(-self.width / 2, 0, thickness, self.height, (0, 0, 0))
-        self.add_wall(self.width / 2, 0, thickness, self.height, (0, 0, 0))
-        self.add_wall(0, -self.height / 2, self.width, thickness, (0, 0, 0))
+        self.add_wall(-self.width / 2, 0, thickness, self.height, (255, 0, 0))
+        self.add_wall(self.width / 2, 0, thickness, self.height, (255, 0, 0))
+        self.add_wall(0, -self.height / 2, self.width, thickness, (255, 0, 0))
 
         count_x = 10
         count_y = 6
