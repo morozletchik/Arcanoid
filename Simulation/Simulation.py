@@ -6,6 +6,11 @@ from typing import Callable
 
 BRICK_COLORS = [(95, 9, 243), (111, 140, 253), (0, 239, 144)]
 VALUES = [100, 50, 10]
+WALL_COLOR = (70, 70, 70)
+BALL_COLOR = (255, 0, 0)
+PADDLE_COLOR = (255, 158, 161)
+
+
 
 class GameObject(object):
     def __init__(self, x, y, vx, vy, color, simulation):
@@ -197,11 +202,11 @@ class Simulation:
         self.ball = Ball(
             0, height / 3,
             0, 0,
-            self.width / 200, (255, 0, 0), self
+            self.width / 200, BALL_COLOR, self
         )
         self.paddle = Paddle(
             0, self.height / 2 - self.height / 80,
-            self.width / 12, 1.1 * height / 50, (255, 158, 161), self
+            self.width / 12, 1.1 * height / 50, PADDLE_COLOR, self
         )
         self.on_change_state = []
 
@@ -213,16 +218,16 @@ class Simulation:
         self.add_wall(
             -self.width / 2 - thickness, thickness / 2 + self.height / 2,
             thickness, 2 * self.height + 2 * thickness,
-            (70, 70, 70)
+            WALL_COLOR
         )
         self.add_wall(
             self.width / 2 + thickness, thickness / 2 + self.height / 2,
             thickness, 2 * self.height + 2 * thickness,
-            (70, 70, 70)
+            WALL_COLOR
         )
 
         self.objects.append(
-            AcceleratingWall(0, -self.height / 2, self.width + 2 * thickness, thickness, (70, 70, 70), self)
+            AcceleratingWall(0, -self.height / 2, self.width + 2 * thickness, thickness, WALL_COLOR, self)
         )
 
         count_x = 10
