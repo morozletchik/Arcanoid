@@ -10,9 +10,6 @@ from Simulation.Simulation import Simulation
 from Controller.Controller import Controller
 from Visualisator.Visualisator import Visualisator
 from pygame.rect import Rect
-from UI.ToolBar.Tool import ClickTool
-from UI.ToolBar.ToolBar import ToolBar
-from UI.ToolBar.StrikeTool import StrikeTool
 from UI.UIElements.Button import Button
 from UI.UIElements.TextBox import TextBox
 from UI.UIElements.DialogBox import DialogBox
@@ -122,21 +119,6 @@ class MainGameModule(Module):
 
         canvas = Canvas(0, 0, WIDTH, HEIGHT, "Canvas", self.visualisator)
         self.controller = Controller(canvas.rect, self.simulation, self.visualisator)
-
-        tools = [
-            ClickTool(
-                canvas.rect, "change_color",
-                lambda mouse_pos: self.controller.add_body(
-                    (mouse_pos[0], mouse_pos[1]),
-                    (mouse_pos[0], mouse_pos[1])
-                )
-            ),
-            StrikeTool(
-                self.controller,
-                self.ui_system,
-                canvas.rect
-            )
-        ]
 
         base_font = pygame.font.Font(os.path.join("Assets", "retro_font1.ttf"), 14)
         header_font = pygame.font.Font(os.path.join("Assets", "retro_font1.ttf"), 64)
