@@ -288,8 +288,8 @@ class Simulation:
         '''
         self.paddle.x = 0
         self.paddle.y = self.height / 2 - self.height / 80
-        self.ball.vx = 20 * random.choice((-1, 1))
-        self.ball.vy = 20 * random.choice((-1, 1))
+        self.ball.vx = 30 * random.choice((-1, 1))
+        self.ball.vy = 30 * random.choice((-1, 1))
         self.state = SimulationState.PLAYING
 
     @property

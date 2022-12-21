@@ -172,7 +172,7 @@ class MainGameModule(Module):
                 Button(
                     0, 0, 200, 100,
                     base_font, "Продолжить",
-                    create_empty_icon(), lambda: self.ui_system.remove_element(self.dialog_box)
+                    create_empty_icon(), self.on_continue
                 ),
                 Button(
                     0, 0, 200, 100,
@@ -183,6 +183,11 @@ class MainGameModule(Module):
         )
 
         self.ui_system.add_element(canvas)
+
+    def on_continue(self):
+        self.ui_system.remove_element(self.dialog_box)
+        pygame.mouse.set_visible(False)
+        self.simulation.continue_simulation()
 
     def on_setup(self):
         pygame.mouse.set_visible(False)
