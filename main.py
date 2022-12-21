@@ -10,9 +10,6 @@ from Simulation.Simulation import Simulation
 from Controller.Controller import Controller
 from Visualisator.Visualisator import Visualisator
 from pygame.rect import Rect
-from UI.ToolBar.Tool import ClickTool
-from UI.ToolBar.ToolBar import ToolBar
-from UI.ToolBar.StrikeTool import StrikeTool
 from UI.UIElements.Button import Button
 from UI.UIElements.TextBox import TextBox
 from UI.UIElements.DialogBox import DialogBox
@@ -26,6 +23,16 @@ GRAY = (128, 128, 128)
 
 pygame.init()
 pygame.font.init()
+
+# шрифты для главного меню
+base_font1 = pygame.font.Font(os.path.join("Assets", "retro_font1.ttf"), 32)
+header_font1 = pygame.font.Font(os.path.join("Assets", "retro_font.ttf"), 200)
+
+# шрифты для основной игры
+base_font2 = pygame.font.Font(os.path.join("Assets", "retro_font1.ttf"), 14)
+header_font2 = pygame.font.Font(os.path.join("Assets", "retro_font1.ttf"), 64)
+final_font = pygame.font.Font(os.path.join("Assets", "retro_font1.ttf"), 100)
+hint_font = pygame.font.Font(os.path.join("Assets", "retro_font1.ttf"), 32)
 
 
 class Module(ABC):
@@ -50,16 +57,10 @@ class MainMenuModule(Module):
         super().__init__(width, height)
         self.ui_system = UISystem(WIDTH, HEIGHT)
 
-        base_font = pygame.font.Font(os.path.join("Assets", "retro_font1.ttf"), 32)
-
-        header_font = pygame.font.Font(os.path.join("Assets", "retro_font.ttf"), 200)
-        if not header_font:
-            header_font = pygame.font.get_default_font()
-
         self.ui_system.add_element(
             TextBox(
                 WIDTH // 2 - 600, HEIGHT // 5,
-                header_font, "Arcanoid", (230, 0, 0)
+                header_font1, "Arcanoid", (230, 0, 0)
             )
         )
 
@@ -71,7 +72,7 @@ class MainMenuModule(Module):
             Button(
                 WIDTH // 2 - button_width // 2, HEIGHT // 3 + button_block_position,
                 button_width, button_height,
-                base_font, "Начать игру",
+                base_font1, "Начать игру",
                 create_empty_icon(),
                 change_module
             )
@@ -80,7 +81,7 @@ class MainMenuModule(Module):
             Button(
                 WIDTH // 2 - button_width // 2, HEIGHT // 3 + button_block_position + button_height + 50,
                 button_width, button_height,
-                base_font, "Выход",
+                base_font1, "Выход",
                 create_empty_icon(),
                 close
             )
@@ -123,26 +124,6 @@ class MainGameModule(Module):
         canvas = Canvas(0, 0, WIDTH, HEIGHT, "Canvas", self.visualisator)
         self.controller = Controller(canvas.rect, self.simulation, self.visualisator)
 
-        tools = [
-            ClickTool(
-                canvas.rect, "change_color",
-                lambda mouse_pos: self.controller.add_body(
-                    (mouse_pos[0], mouse_pos[1]),
-                    (mouse_pos[0], mouse_pos[1])
-                )
-            ),
-            StrikeTool(
-                self.controller,
-                self.ui_system,
-                canvas.rect
-            )
-        ]
-
-        base_font = pygame.font.Font(os.path.join("Assets", "retro_font1.ttf"), 14)
-        header_font = pygame.font.Font(os.path.join("Assets", "retro_font1.ttf"), 64)
-        final_font = pygame.font.Font(os.path.join("Assets", "retro_font1.ttf"), 100)
-        hint_font = pygame.font.Font(os.path.join("Assets", "retro_font1.ttf"), 32)
-
         self.hint_text1 = TextBox(
             WIDTH // 2 - 350, 7/12 * HEIGHT,
             hint_font, "Нажмите Esc, чтобы, \nперейти в главное меню", (255, 255, 255)
@@ -166,17 +147,17 @@ class MainGameModule(Module):
         self.dialog_box = DialogBox(
             width // 2 - 300, height // 2 - 300,
             600, 600,
-            header_font, "Пауза",
+            header_font2, "Пауза",
             GRAY,
             [
                 Button(
                     0, 0, 200, 100,
-                    base_font, "Продолжить",
+                    base_font2, "Продолжить",
                     create_empty_icon(), self.on_continue
                 ),
                 Button(
                     0, 0, 200, 100,
-                    base_font, "В главное меню",
+                    base_font2, "В главное меню",
                     create_empty_icon(), change_module
                 )
             ], 20
@@ -221,8 +202,7 @@ class MainGameModule(Module):
             )
 
     def update(self, delta_time: float):
-        for i in range(10):
-            self.simulation.update(delta_time)
+        self.simulation.update(delta_time)
 
     def draw(self, screen: Surface):
         self.ui_system.draw(screen)
@@ -267,7 +247,7 @@ running = True
 WIDTH = get_monitors()[0].width
 HEIGHT = get_monitors()[0].height
 
-FPS = 30
+FPS = 60
 
 screen = pygame.display.set_mode(
     (WIDTH, HEIGHT), pygame.FULLSCREEN

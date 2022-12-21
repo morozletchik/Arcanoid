@@ -1,10 +1,15 @@
 from pygame.rect import Rect
 import random
-import numpy as np
 from typing import Callable
 
 BRICK_COLORS = [(95, 9, 243), (111, 140, 253), (0, 239, 144)]
 VALUES = [100, 50, 10]
+WALL_COLOR = (70, 70, 70)
+BALL_COLOR = (255, 0, 0)
+PADDLE_COLOR = (255, 158, 161)
+
+START_BALL_SPEED = 300
+
 
 
 class GameObject(object):
@@ -63,13 +68,13 @@ class Ball(GameObject):
 
         if "top" in collisions:
             if "right" in collisions:
-                if np.abs((self.y - obj.top) / (self.x - obj.right)) < 1:
+                if abs((self.y - obj.top) / (self.x - obj.right)) < 1:
                     return "right"
                 else:
                     return "top"
 
             if "left" in collisions:
-                if np.abs((self.y - obj.top) / (self.x - obj.left)) < 1:
+                if abs((self.y - obj.top) / (self.x - obj.left)) < 1:
                     return "left"
                 else:
                     return "top"
@@ -82,7 +87,7 @@ class Ball(GameObject):
                     return "bottom"
 
             if "left" in collisions:
-                if np.abs((self.y - obj.bottom) / (self.x - obj.left)) < 1:
+                if abs((self.y - obj.bottom) / (self.x - obj.left)) < 1:
                     return "left"
                 else:
                     return "bottom"
@@ -247,12 +252,22 @@ class Simulation:
         self.all_brick_score = 0
         self.ball = Ball(
             0, height / 3,
+<<<<<<< HEAD
             -20, 20,
                self.width / 200, (255, 255, 255), self
         )
         self.paddle = Paddle(
             0, self.height / 2 - self.height / 80,
                self.width / 12, 1.1 * height / 50, (255, 158, 161), self
+=======
+            START_BALL_SPEED * random.choice([-1, 1]),
+            START_BALL_SPEED * random.choice([-1, 1]),
+            self.width / 200, BALL_COLOR, self
+        )
+        self.paddle = Paddle(
+            0, self.height / 2 - self.height / 80,
+            self.width / 12, 1.1 * height / 50, PADDLE_COLOR, self
+>>>>>>> 7c54e233924610608df3954ce21e2cef9da867fa
         )
         self.on_change_state = []
 
@@ -265,22 +280,22 @@ class Simulation:
         self.add_wall(
             -self.width / 2 - thickness, thickness / 2 + self.height / 2,
             thickness, 2 * self.height + 2 * thickness,
-            (70, 70, 70)
+            WALL_COLOR
         )
         self.add_wall(
             self.width / 2 + thickness, thickness / 2 + self.height / 2,
             thickness, 2 * self.height + 2 * thickness,
-            (70, 70, 70)
+            WALL_COLOR
         )
 
         self.objects.append(
-            AcceleratingWall(0, -self.height / 2, self.width + 2 * thickness, thickness, (70, 70, 70), self)
+            AcceleratingWall(0, -self.height / 2, self.width + 2 * thickness, thickness, WALL_COLOR, self)
         )
 
         count_x = 10
         count_y = 6
 
-        self.all_brick_score = count_x * count_y
+        self.all_brick_score = 0
 
         brick_width = 0.9 * (self.width - thickness) / count_x
         brick_height = 2 * thickness
@@ -319,8 +334,6 @@ class Simulation:
         and gives to it randomly directed velocity after pushing SPACE
         '''
         self.state = SimulationState.READY_TO_START
-        self.ball.vx = 0
-        self.ball.vy = 0
         self.ball.x = 0
         self.ball.y = self.height / 10
 
@@ -332,8 +345,6 @@ class Simulation:
         '''
         self.paddle.x = 0
         self.paddle.y = self.height / 2 - self.height / 80
-        self.ball.vx = 30 * random.choice((-1, 1))
-        self.ball.vy = 30 * random.choice((-1, 1))
         self.state = SimulationState.PLAYING
 
     @property
@@ -348,19 +359,28 @@ class Simulation:
         '''
         self.__points += value
 
+<<<<<<< HEAD
     # stick together
+=======
+>>>>>>> 7c54e233924610608df3954ce21e2cef9da867fa
     def update(self, dt):
         '''
         updates positions of objects
         :param dt: period of updating positions of the objects
         '''
         self.out_of_screen()
-        if self.all_brick_score == self.score:
+        if self.all_brick_score <= self.score:
             self.win()
         if self.state == SimulationState.PLAYING:
-            for obj in self.objects:
-                self.collision_handle(obj)
-            self.move_bodies(dt)
+            if self.ball.vx**2 + self.ball.vy**2 < 100**2:
+                for obj in self.objects:
+                    self.collision_handle(obj)
+                self.move_bodies(dt)
+            else:
+                for _ in range(10):
+                    for obj in self.objects:
+                        self.collision_handle(obj)
+                    self.move_bodies(dt/10)
 
         for event in self.on_change_state:
             event()
@@ -393,7 +413,7 @@ class Simulation:
                 self.lives -= 1
                 self.spawn_ball()
         else:
-            self.state = SimulationState.GAMEOVER
+            self.game_over()
 
     def collision_handle(self, obj1):
         for obj2 in self.objects:
