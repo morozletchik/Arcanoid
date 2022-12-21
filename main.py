@@ -86,6 +86,10 @@ class MainMenuModule(Module):
         )
 
     def draw(self, surface: Surface):
+        '''
+        draws menu background
+        :param surface:
+        '''
         menu_back = pygame.image.load(os.path.join("Assets", "menyu.png"))
         stretch(menu_back, WIDTH, HEIGHT)
         surface.blit(menu_back, (0, 0), Rect(0, 0, WIDTH, HEIGHT))
