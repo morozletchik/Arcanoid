@@ -50,23 +50,7 @@ class Visualisator(object):
                 (x, y) = self.from_world_to_screen_coordinates((obj.x, obj.y), Rect(0, 0, width, height))
                 radius = obj.r * self._scale
                 circle(surface, obj.color, (x, y), radius)
-            if type(obj) == Rectangle:
-                (x, y) = self.from_world_to_screen_coordinates((obj.x, obj.y), Rect(0, 0, width, height))
-                scaled_width = int(obj.width * self._scale)
-                scaled_height = int(obj.height * self._scale)
-                rect(surface, obj.color, Rect(
-                    x - scaled_width // 2, y - scaled_height // 2,
-                    scaled_width, scaled_height)
-                )
-            if type(obj) == Paddle:
-                (x, y) = self.from_world_to_screen_coordinates((obj.x, obj.y), Rect(0, 0, width, height))
-                scaled_width = int(obj.width * self._scale)
-                scaled_height = int(obj.height * self._scale)
-                rect(surface, obj.color, Rect(
-                    x - scaled_width // 2, y - scaled_height // 2,
-                    scaled_width, scaled_height)
-                )
-            if type(obj) == Brick:
+            if type(obj) in [Rectangle, Brick, AcceleratingWall, Paddle]:
                 (x, y) = self.from_world_to_screen_coordinates((obj.x, obj.y), Rect(0, 0, width, height))
                 scaled_width = int(obj.width * self._scale)
                 scaled_height = int(obj.height * self._scale)
