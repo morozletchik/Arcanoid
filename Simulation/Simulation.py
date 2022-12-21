@@ -1,7 +1,6 @@
 
 from pygame.rect import Rect
 import random
-import numpy as np
 from typing import Callable
 
 BRICK_COLORS = [(95, 9, 243), (111, 140, 253), (0, 239, 144)]
@@ -10,6 +9,7 @@ WALL_COLOR = (70, 70, 70)
 BALL_COLOR = (255, 0, 0)
 PADDLE_COLOR = (255, 158, 161)
 
+START_BALL_SPEED = 300
 
 
 class GameObject(object):
@@ -64,13 +64,13 @@ class Ball(GameObject):
 
         if "top" in collisions:
             if "right" in collisions:
-                if np.abs((self.y - obj.top) / (self.x - obj.right)) < 1:
+                if abs((self.y - obj.top) / (self.x - obj.right)) < 1:
                     return "right"
                 else:
                     return "top"
 
             if "left" in collisions:
-                if np.abs((self.y - obj.top) / (self.x - obj.left)) < 1:
+                if abs((self.y - obj.top) / (self.x - obj.left)) < 1:
                     return "left"
                 else:
                     return "top"
@@ -83,7 +83,7 @@ class Ball(GameObject):
                     return "bottom"
 
             if "left" in collisions:
-                if np.abs((self.y - obj.bottom) / (self.x - obj.left)) < 1:
+                if abs((self.y - obj.bottom) / (self.x - obj.left)) < 1:
                     return "left"
                 else:
                     return "bottom"
@@ -201,7 +201,8 @@ class Simulation:
         self.all_brick_score = 0
         self.ball = Ball(
             0, height / 3,
-            0, 0,
+            START_BALL_SPEED * random.choice([-1, 1]),
+            START_BALL_SPEED * random.choice([-1, 1]),
             self.width / 200, BALL_COLOR, self
         )
         self.paddle = Paddle(
@@ -282,9 +283,6 @@ class Simulation:
         '''
         self.paddle.x = 0
         self.paddle.y = self.height / 2 - self.height / 80
-        if self.ball.vx == 0 and self.ball.vy == 0:
-            self.ball.vx = 300 * random.choice((-1, 1))
-            self.ball.vy = 300 * random.choice((-1, 1))
         self.state = SimulationState.PLAYING
 
     @property
@@ -294,7 +292,6 @@ class Simulation:
     def increase_score(self, value):
         self.__points += value
 
-    #stick together
     def update(self, dt):
         '''
         updates positions of objects
