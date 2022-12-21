@@ -197,7 +197,7 @@ class Simulation:
         self.ball = Ball(
             0, height / 3,
             0, 0,
-            self.width / 200, (255, 255, 255), self
+            self.width / 200, (255, 0, 0), self
         )
         self.paddle = Paddle(
             0, self.height / 2 - self.height / 80,
@@ -228,7 +228,7 @@ class Simulation:
         count_x = 10
         count_y = 6
 
-        self.all_brick_score = count_x * count_y
+        self.all_brick_score = 0
 
         brick_width = 0.9 * (self.width - thickness) / count_x
         brick_height = 2 * thickness
@@ -296,12 +296,18 @@ class Simulation:
         :param dt: period of updating positions of the objects
         '''
         self.out_of_screen()
-        if self.all_brick_score == self.score:
+        if self.all_brick_score <= self.score:
             self.win()
         if self.state == SimulationState.PLAYING:
-            for obj in self.objects:
-                self.collision_handle(obj)
-            self.move_bodies(dt)
+            if self.ball.vx**2 + self.ball.vy**2 < 100**2:
+                for obj in self.objects:
+                    self.collision_handle(obj)
+                self.move_bodies(dt)
+            else:
+                for _ in range(10):
+                    for obj in self.objects:
+                        self.collision_handle(obj)
+                    self.move_bodies(dt/10)
 
         for event in self.on_change_state:
             event()
