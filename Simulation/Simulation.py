@@ -4,6 +4,7 @@ import random
 import numpy as np
 from typing import Callable
 
+BRICK_COLORS = [(95, 9, 243), (111, 140, 253), (0, 239, 144)]
 
 class GameObject(object):
     def __init__(self, x, y, vx, vy, color, simulation):
@@ -199,7 +200,7 @@ class Simulation:
         )
         self.paddle = Paddle(
             0, self.height / 2 - self.height / 80,
-            self.width / 12, height / 50, (100, 100, 100), self
+            self.width / 12, 1.1 * height / 50, (255, 158, 161), self
         )
         self.on_change_state = []
 
@@ -230,7 +231,7 @@ class Simulation:
             thickness
         )
 
-        brick_start = (-self.width / 2 + self.width / 19, -self.height / 2 + self.height / 30)
+        brick_start = (-self.width / 2 + self.width / 19, -self.height / 3 + self.height / 30)
 
         for i in range(count_x):
             for j in range(count_y):
@@ -239,7 +240,7 @@ class Simulation:
                         brick_start[0] + i * (brick_width + brick_indent[0]),
                         brick_start[1] + j * (brick_height + brick_indent[1]),
                         brick_width, brick_height,
-                        (200, 50, 0), self
+                        BRICK_COLORS[int(j / 2)], self
                     )
                 )
 
