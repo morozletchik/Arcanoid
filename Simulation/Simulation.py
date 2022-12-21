@@ -2,6 +2,7 @@
 from pygame.rect import Rect
 import random
 import numpy as np
+from typing import Callable
 
 
 class GameObject(object):
@@ -200,6 +201,7 @@ class Simulation:
             0, self.height / 2 - self.height / 80,
             120, 20, (255, 255, 255), self
         )
+        self.on_change_state = []
 
     def setup(self):
         thickness = self.width / 100
@@ -282,6 +284,9 @@ class Simulation:
                 self.collision_handle(obj)
             self.move_bodies(dt)
 
+        for event in self.on_change_state:
+            event()
+
     def move_bodies(self, dt):
         """Пересчитывает координаты объектов."""
         for obj in self.objects:
@@ -322,6 +327,12 @@ class Simulation:
                     self.paddle.x = self.width / 2 - self.width / 25
                 if self.paddle.x < -self.width / 2 + self.width / 25:
                     self.paddle.x = -self.width / 2 + self.width / 25
+
+    def add_on_change_state_event(self, action: Callable):
+        self.on_change_state.append(action)
+
+    def remove_on_change_state_event(self, action: Callable):
+        self.on_change_state.remove(action)
 
     def continue_simulation(self):
         self.state = SimulationState.PLAYING

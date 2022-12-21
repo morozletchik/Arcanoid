@@ -103,6 +103,7 @@ class MainGameModule(Module):
 
         self.simulation = Simulation(WIDTH, HEIGHT)
         self.simulation.setup()
+        self.simulation.add_on_change_state_event(self.on_change_simulation_state)
 
         self.ui_system = UISystem(WIDTH, HEIGHT)
 
@@ -110,7 +111,7 @@ class MainGameModule(Module):
         self.visualisator.change_view_point((0, 0))
         self.visualisator.change_scale(0.75)
 
-        canvas = Canvas(0, HEIGHT // 10, WIDTH, HEIGHT - HEIGHT // 10, "Canvas", self.visualisator)
+        canvas = Canvas(0, 0, WIDTH, HEIGHT, "Canvas", self.visualisator)
         self.controller = Controller(canvas.rect, self.simulation, self.visualisator)
 
         tools = [
@@ -131,6 +132,17 @@ class MainGameModule(Module):
         base_font = pygame.font.SysFont('arial', 28)
         header_font = pygame.font.SysFont('arial', 128)
         final_font = pygame.font.SysFont('arial', 256)
+        hint_font = pygame.font.SysFont('arial', 128)
+
+        self.hint_text1 = TextBox(
+            WIDTH // 2 - 800, HEIGHT // 2,
+            hint_font, "Нажмите Esc, чтобы\nперейти в главное меню", (255, 255, 255)
+        )
+
+        self.hint_text2 = TextBox(
+            WIDTH // 2 - 800, HEIGHT // 2,
+            hint_font, "Нажмите Space,\nчтобы начать", (255, 255, 255)
+        )
 
         self.game_over_text = TextBox(
             WIDTH // 2 - 500, HEIGHT // 2 - 200,
@@ -166,9 +178,16 @@ class MainGameModule(Module):
     def on_setup(self):
         pygame.mouse.set_visible(False)
 
-    def update(self, delta_time: float):
-        for i in range(10):
-            self.simulation.update(delta_time)
+    def on_change_simulation_state(self):
+        if self.ui_system.have_element(self.game_over_text):
+            self.ui_system.remove_element(self.game_over_text)
+        if self.ui_system.have_element(self.win_text):
+            self.ui_system.remove_element(self.win_text)
+        if self.ui_system.have_element(self.hint_text2):
+            self.ui_system.remove_element(self.hint_text2)
+        if self.ui_system.have_element(self.hint_text1):
+            self.ui_system.remove_element(self.hint_text1)
+
         if self.simulation.is_game_over():
             self.ui_system.add_element(
                 self.game_over_text
@@ -177,6 +196,19 @@ class MainGameModule(Module):
             self.ui_system.add_element(
                 self.win_text
             )
+        if self.simulation.is_ready():
+            self.ui_system.add_element(
+                self.hint_text2
+            )
+
+        if self.simulation.is_win() or self.simulation.is_game_over():
+            self.ui_system.add_element(
+                self.hint_text1
+            )
+
+    def update(self, delta_time: float):
+        for i in range(10):
+            self.simulation.update(delta_time)
 
     def draw(self, screen: Surface):
         self.ui_system.draw(screen)
@@ -184,14 +216,17 @@ class MainGameModule(Module):
     def event_handler(self, event: Event):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
-                if self.ui_system.have_element(self.dialog_box):
-                    self.ui_system.remove_element(self.dialog_box)
-                    pygame.mouse.set_visible(False)
-                    self.controller.continue_simulation()
+                if not (self.simulation.is_win() or self.simulation.is_game_over()):
+                    if self.ui_system.have_element(self.dialog_box):
+                        self.ui_system.remove_element(self.dialog_box)
+                        pygame.mouse.set_visible(False)
+                        self.controller.continue_simulation()
+                    else:
+                        self.ui_system.add_element(self.dialog_box)
+                        pygame.mouse.set_visible(True)
+                        self.controller.pause_simulation()
                 else:
-                    self.ui_system.add_element(self.dialog_box)
-                    pygame.mouse.set_visible(True)
-                    self.controller.pause_simulation()
+                    change_module()
 
         self.ui_system.event_handler(event)
         self.controller.event_handler(event)
@@ -215,8 +250,8 @@ def change_module():
 
 running = True
 
-WIDTH = get_monitors()[0].width - 50
-HEIGHT = get_monitors()[0].height - 50
+WIDTH = get_monitors()[0].width
+HEIGHT = get_monitors()[0].height
 
 FPS = 30
 
