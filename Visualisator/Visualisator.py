@@ -17,6 +17,7 @@ class Visualisator(object):
         self._scale = 1
         self._font = Font(os.path.join("Assets", "Multiround Pro", "MultiroundPro.otf"), 50)
         self.background_image = pygame.image.load(os.path.join("Assets", "background.jpg"))
+        self.heart_image = pygame.image.load(os.path.join("Assets", "heart.png"))
 
     def from_screen_to_world_coordinates(self, position, rect: Rect):
         return (
@@ -29,6 +30,7 @@ class Visualisator(object):
         y = (position[1] - self._view_point[1]) * self._scale + rect.height // 2
 
         return x, y
+
     def stretch(self, width, height):
         self.background_image = pygame.transform.scale(
             self.background_image, (width, height))
