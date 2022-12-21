@@ -221,8 +221,7 @@ class MainGameModule(Module):
             )
 
     def update(self, delta_time: float):
-        for i in range(10):
-            self.simulation.update(delta_time)
+        self.simulation.update(delta_time)
 
     def draw(self, screen: Surface):
         self.ui_system.draw(screen)
@@ -267,7 +266,7 @@ running = True
 WIDTH = get_monitors()[0].width
 HEIGHT = get_monitors()[0].height
 
-FPS = 30
+FPS = 60
 
 
 screen = pygame.display.set_mode(

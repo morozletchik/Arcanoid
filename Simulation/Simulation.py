@@ -210,7 +210,7 @@ class Simulation:
         self.all_brick_score = 0
         self.ball = Ball(
             0, height / 3,
-            -20, 20,
+            0, 0,
             self.width / 200, (255, 255, 255), self
         )
         self.paddle = Paddle(
@@ -281,8 +281,6 @@ class Simulation:
         and gives to it randomly directed velocity after pushing SPACE
         '''
         self.state = SimulationState.READY_TO_START
-        self.ball.vx = 0
-        self.ball.vy = 0
         self.ball.x = 0
         self.ball.y = self.height / 10
 
@@ -293,8 +291,9 @@ class Simulation:
         '''
         self.paddle.x = 0
         self.paddle.y = self.height / 2 - self.height / 80
-        self.ball.vx = 30 * random.choice((-1, 1))
-        self.ball.vy = 30 * random.choice((-1, 1))
+        if self.ball.vx == 0 and self.ball.vy == 0:
+            self.ball.vx = 300 * random.choice((-1, 1))
+            self.ball.vy = 300 * random.choice((-1, 1))
         self.state = SimulationState.PLAYING
 
     @property
@@ -345,7 +344,7 @@ class Simulation:
                 self.lives -= 1
                 self.spawn_ball()
         else:
-            self.state = SimulationState.GAMEOVER
+            self.game_over()
 
     def collision_handle(self, obj1):
         for obj2 in self.objects:
