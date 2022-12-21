@@ -50,15 +50,15 @@ class MainMenuModule(Module):
         super().__init__(width, height)
         self.ui_system = UISystem(WIDTH, HEIGHT)
 
-        base_font = pygame.font.SysFont('arial', 48)
+        base_font = pygame.font.Font(os.path.join("Assets", "retro_font1.ttf"), 32)
 
-        header_font = pygame.font.Font(os.path.join("UI", "Assets", "Multiround Pro", "MultiroundPro.otf"), 160)
+        header_font = pygame.font.Font(os.path.join("Assets", "retro_font.ttf"), 200)
         if not header_font:
             header_font = pygame.font.get_default_font()
 
         self.ui_system.add_element(
             TextBox(
-                WIDTH // 2 - 450, HEIGHT // 5,
+                WIDTH // 2 - 600, HEIGHT // 5,
                 header_font, "Arcanoid", (230, 0, 0)
             )
         )
@@ -138,28 +138,28 @@ class MainGameModule(Module):
             )
         ]
 
-        base_font = pygame.font.SysFont('arial', 28)
-        header_font = pygame.font.SysFont('arial', 128)
-        final_font = pygame.font.SysFont('arial', 256)
-        hint_font = pygame.font.SysFont('arial', 128)
+        base_font = pygame.font.Font(os.path.join("Assets", "retro_font1.ttf"), 14)
+        header_font = pygame.font.Font(os.path.join("Assets", "retro_font1.ttf"), 64)
+        final_font = pygame.font.Font(os.path.join("Assets", "retro_font1.ttf"), 100)
+        hint_font = pygame.font.Font(os.path.join("Assets", "retro_font1.ttf"), 32)
 
         self.hint_text1 = TextBox(
-            WIDTH // 2 - 400, 2 * HEIGHT // 3,
-            hint_font, "Нажмите Esc, чтобы\nперейти в главное меню", (255, 255, 255)
+            WIDTH // 2 - 350, 7/12 * HEIGHT,
+            hint_font, "Нажмите Esc, чтобы, \nперейти в главное меню", (255, 255, 255)
         )
 
         self.hint_text2 = TextBox(
-            WIDTH // 2 - 400, HEIGHT // 2,
-            hint_font, "Нажмите Space,\nчтобы начать", (255, 255, 255)
+            WIDTH // 2 - 350, HEIGHT // 2,
+            hint_font, "Нажмите Space,чтобы начать", (255, 255, 255)
         )
 
         self.game_over_text = TextBox(
-            WIDTH // 2 - 500, HEIGHT // 3,
+            WIDTH // 2 - 450, HEIGHT // 3,
             final_font, "Game Over", (255, 0, 0)
         )
 
         self.win_text = TextBox(
-            WIDTH // 2 - 700, HEIGHT // 2 - 200,
+            WIDTH // 2 - 500, HEIGHT // 2 - 200,
             final_font, "Вы победили!", (0, 255, 0)
         )
 

@@ -261,7 +261,7 @@ class Simulation:
         self.ball.vx = 0
         self.ball.vy = 0
         self.ball.x = 0
-        self.ball.y = self.height / 3
+        self.ball.y = self.height / 10
 
     def start(self):
         '''
@@ -270,8 +270,8 @@ class Simulation:
         '''
         self.paddle.x = 0
         self.paddle.y = self.height / 2 - self.height / 80
-        self.ball.vx = 20
-        self.ball.vy = -20
+        self.ball.vx = 20 * random.choice((-1, 1))
+        self.ball.vy = 20 * random.choice((-1, 1))
         self.state = SimulationState.PLAYING
 
     @property
